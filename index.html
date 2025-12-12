@@ -26,6 +26,7 @@
       top: 0;
       z-index: 100;
       border-bottom: 1px solid #333;
+      flex-wrap: wrap; /* Zabrání přetékání menu mimo monitor */
     }
 
     .logo {
@@ -42,6 +43,8 @@
     .menu {
       display: flex;
       gap: 25px;
+      flex-wrap: wrap; /* Umožní zalomení menu na malých displejích */
+      max-width: 100%; /* Zajistí, že menu nebude širší než obrazovka */
     }
 
     .menu a {
