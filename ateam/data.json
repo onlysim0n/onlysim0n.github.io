@@ -1,20 +1,38 @@
 [
   {
-    "nick": "Streamer123",
+    "nick": "Streamer1",
     "role": "Streamer",
-    "discord": "streamer#0001",
-    "logo": "assets/loga/streamer.png"
+    "discord": "streamer1#0001",
+    "color": "#ffd500"
   },
   {
-    "nick": "BossCZ",
+    "nick": "Streamer2",
+    "role": "Streamer",
+    "discord": "streamer2#0002",
+    "color": "#ffd500"
+  },
+  {
+    "nick": "BossA",
     "role": "Vedení A-Týmu",
-    "discord": "boss#1111",
-    "logo": "assets/loga/vedeni.png"
+    "discord": "bossa#1111",
+    "color": "#ff3b3b"
   },
   {
-    "nick": "ModKarel",
+    "nick": "VedeniB",
+    "role": "Vedení A-Týmu",
+    "discord": "vedenib#1112",
+    "color": "#ff3b3b"
+  },
+  {
+    "nick": "Mod1",
     "role": "Mod Tým",
-    "discord": "karelmod#2222",
-    "logo": "assets/loga/mod.png"
+    "discord": "mod1#2221",
+    "color": "#3bff6f"
+  },
+  {
+    "nick": "Mod2",
+    "role": "Mod Tým",
+    "discord": "mod2#2222",
+    "color": "#3bff6f"
   }
 ]
