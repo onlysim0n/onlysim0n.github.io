@@ -63,7 +63,7 @@
 
   <script>
     const teamData = [
-      { nick: "Only_Sim0n", role: "Streamer", discord: "Only_Sim0n", logo: "assets/loga/streamer1.png" },
+      { nick: "Only_Sim0n", role: "Streamer", discord: "Only_Sim0n", logo: "assets/loga/Only_Simon_Main.png" },
       { nick: "Malej_Erik", role: "Vedení A-Týmu", discord: "Malej_Erik", logo: "assets/loga/bossa.png" },
       { nick: "Dominikhavelsky", role: "Vedení A-Týmu", discord: "dominikhavelsky", logo: "assets/loga/vedenib.png" },
       { nick: "Matyscs", role: "Mod Tým", discord: "matyscs", logo: "assets/loga/mod1.png" },
