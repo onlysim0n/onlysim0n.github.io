@@ -5,28 +5,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>OnlySim0n | Úvodní stránka</title>
   <style>
+    * {
+      box-sizing: border-box; /* KLÍČOVÉ – zabrání přetékání */
+    }
+
     body {
       margin: 0;
       padding: 0;
       background: #0e0e0e;
       color: #fff;
       font-family: Arial, sans-serif;
-      overflow-x: hidden; /* zabrání posuvu do strany */
+      overflow-x: hidden;
     }
 
     /* Navigace */
     nav {
       width: 100%;
       background: #151515;
-      padding: 15px 25px;
+      border-bottom: 1px solid #333;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid #333;
-      flex-wrap: wrap; /* Zabrání přetékání menu mimo monitor */
+      flex-wrap: wrap;
     }
 
     .logo {
@@ -42,16 +48,15 @@
 
     .menu {
       display: flex;
-      gap: 25px;
-      flex-wrap: wrap; /* Umožní zalomení menu na malých displejích */
-      max-width: 100%; /* Zajistí, že menu nebude širší než obrazovka */
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .menu a {
       color: #ddd;
       font-size: 18px;
       text-decoration: none;
-      transition: 0.3s;
+      white-space: nowrap; /* zabrání roztažení */
     }
 
     .menu a:hover {
@@ -62,6 +67,8 @@
     .hero {
       text-align: center;
       padding: 120px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
     }
 
     .hero h1 {
@@ -81,37 +88,54 @@
       margin-top: 60px;
       display: flex;
       justify-content: center;
-      gap: 30px;
+      gap: 20px;
+      flex-wrap: wrap;
     }
 
     .socials a {
       color: #fff;
-      font-size: 22px;
+      font-size: 20px;
       text-decoration: none;
-      padding: 12px 20px;
+      padding: 12px 18px;
       background: #222;
       border-radius: 10px;
-      transition: .3s;
     }
 
     .socials a:hover {
       background: #444;
     }
 
+    /* Mobil */
+    @media (max-width: 768px) {
+      .nav-inner {
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .menu {
+        justify-content: center;
+      }
+
+      .hero h1 {
+        font-size: 34px;
+      }
+    }
   </style>
 </head>
 <body>
   <nav>
-    <div class="logo">
-      <img src="assets/logo.png" alt="Logo" />
-      <strong>OnlySim0n</strong>
-    </div>
+    <div class="nav-inner">
+      <div class="logo">
+        <img src="assets/logo.png" alt="Logo" />
+        <strong>OnlySim0n</strong>
+      </div>
 
-    <div class="menu">
-      <a href="index.html">Domů</a>
-      <a href="o-mne.html">O mně</a>
-      <a href="projekty.html">Projekty</a>
-      <a href="kontakt.html">Kontakt</a>
+      <div class="menu">
+        <a href="index.html">Domů</a>
+        <a href="o-mne.html">O mně</a>
+        <a href="projekty.html">Projekty</a>
+        <a href="kontakt.html">Kontakt</a>
+      </div>
     </div>
   </nav>
 
