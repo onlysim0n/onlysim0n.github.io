@@ -1,132 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
-  <!-- HTML validaci vpořádku-->
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OnlySim0n | Úvodní stránka</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0e0e0e;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
 
-  <!-- CSS Validace vpořádku-->
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="shortcut icon"
-      type="image/x-icon"
-      href="./images/logo_new.png"
-    />
-    <link rel="stylesheet" href="css/style.css" />
-    <title>Kapitán Vojta</title>
-  </head>
+    /* Navigace */
+    nav {
+      width: 100%;
+      background: #151515;
+      padding: 15px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid #333;
+    }
 
-  <body class="dark-mode">
-    <header class="container">
-      <div class="page-header">
-        <div class="logo">
-          <a href="">Kapitán Vojta</a>
-        </div>
-        <input type="checkbox" id="click" />
-        <label for="click" class="mainicon menu">
-          <em class="bx bx-menu"></em>
-          <span class="visually-hidden">Menu</span>
-        </label>
-        <ul>
-          <li><a href="" class="active" style="--navAni: 1">About</a></li>
-          <li><a href="./ateam/" style="--navAni: 2">A-TEAM</a></li>
-          <li><a href="./stream/" style="--navAni: 3">Stream</a></li>
-          <li><a href="./kapitanthon/" style="--navAni: 4">Kapitánthon</a></li>
-          <li><a href="./contact/" style="--navAni: 5">Contact</a></li>
-          <li>
-            <a href="https://linktr.ee/Kapitan_Vojta" style="--navAni: 6"
-              >LinkTree</a
-            >
-          </li>
-        </ul>
-        
-      </div>
-    </header>
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-    <section class="container">
-      <div class="main">
-        <div class="social">
-          <a
-            href="https://www.twitch.tv/kapitan_vojta"
-            target="_blank"
-            style="--socialAni: 1"
-            ><em class="bx bxl-twitch"></em
-            ><span class="visually-hidden">Twitch</span></a
-          >
-          <a
-            href="https://www.instagram.com/kapitanvojta_/"
-            target="_blank"
-            style="--socialAni: 2"
-            ><em class="bx bxl-instagram"></em
-            ><span class="visually-hidden">Instagram</span></a
-          >
-          <a
-            href="https://www.youtube.com/@KapitanVojta"
-            target="_blank"
-            style="--socialAni: 3"
-            ><em class="bx bxl-youtube"></em
-            ><span class="visually-hidden">YouTube</span></a
-          >
-          <a
-            href="https://discord.com/invite/f2WRpAxaDz"
-            target="_blank"
-            style="--socialAni: 4"
-            ><em class="bx bxl-discord"></em
-            ><span class="visually-hidden">Discord</span></a
-          >
-        </div>
-        <div class="detail">
-          <h1>Zdravím, jsem <span>Kapitán Vojta</span></h1>
-          <h2>Streamer</h2>
-          <p>
-            Jsem Kapitan_Vojta, je mi 23 let a pocházím ze Šumperka a bydlím v
-            Praze. Jsem extrémně friendly, ale taky miluju silnej sarkasmus.
-            Spojuji lidi do komunity, kterým říkáme Kapitáni, kteří jsou velkou
-            součástí streamu.
-          </p>
-        </div>
-        <div class="img-sec">
-          <div class="images">
-            <img src="./images/logo_new.png" alt="" class="img-w" />
-          </div>
-        </div>
-      </div>
-    </section>
+    .logo img {
+      width: 50px;
+      border-radius: 10px;
+    }
 
-    <script src="script.js"></script>
-    <footer>
-      <div class="centered-title">
-        <p>© 2025 Kapitán Vojta</p>
-        <p>
-          Made by
-          <a href="https://github.com/Granc3k" target="_blank"
-            ><span class="text-color">Granc3k</span></a
-          >
-        </p>
-        <!-- Validace -->
-        <br />
-        <a
-          target="_blank"
-          href="https://jigsaw.w3.org/css-validator/check/referer"
-          ><img
-            style="border: 0; width: 102px; height: 32px"
-            src="https://jigsaw.w3.org/css-validator/images/vcss-blue"
-            alt="Valid CSS!"
-        /></a>
-        <a
-          target="_blank"
-          href="https://achecks.org/achecker#wcag2aa,https://kapitanvojta.github.io/index.html"
-          ><img
-            src="https://achecks.org/images/icon_W2_aa.jpg"
-            alt="AChecker accessibility checker compliance: WCAG 2.0 (Level AA)"
-            height="32"
-            width="102"
-        /></a>
-      </div>
-    </footer>
-  </body>
+    .menu {
+      display: flex;
+      gap: 25px;
+    }
+
+    .menu a {
+      color: #ddd;
+      font-size: 18px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .menu a:hover {
+      color: #fff;
+    }
+
+    /* Obsah */
+    .hero {
+      text-align: center;
+      padding: 120px 20px;
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 22px;
+      color: #bbbbbb;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    /* Sociální sítě */
+    .socials {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .socials a {
+      color: #fff;
+      font-size: 22px;
+      text-decoration: none;
+      padding: 12px 20px;
+      background: #222;
+      border-radius: 10px;
+      transition: .3s;
+    }
+
+    .socials a:hover {
+      background: #444;
+    }
+
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo">
+      <img src="assets/logo.png" alt="Logo" />
+      <strong>OnlySim0n</strong>
+    </div>
+
+    <div class="menu">
+      <a href="index.html">Domů</a>
+      <a href="o-mne.html">O mně</a>
+      <a href="projekty.html">Projekty</a>
+      <a href="kontakt.html">Kontakt</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>Vítej na mém webu!</h1>
+    <p>Toto je moje oficiální stránka, kde najdeš moje projekty, informace o mně a odkazy na moje sociální sítě.</p>
+
+    <div class="socials">
+      <a href="#">Twitch</a>
+      <a href="#">YouTube</a>
+      <a href="#">Instagram</a>
+      <a href="#">Discord</a>
+    </div>
+  </section>
+</body>
 </html>
