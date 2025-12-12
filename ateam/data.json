@@ -3,36 +3,18 @@
     "nick": "Streamer1",
     "role": "Streamer",
     "discord": "streamer1#0001",
-    "color": "#ffd500"
-  },
-  {
-    "nick": "Streamer2",
-    "role": "Streamer",
-    "discord": "streamer2#0002",
-    "color": "#ffd500"
+    "logo": "assets/loga/streamer1.png"
   },
   {
     "nick": "BossA",
     "role": "Vedení A-Týmu",
     "discord": "bossa#1111",
-    "color": "#ff3b3b"
-  },
-  {
-    "nick": "VedeniB",
-    "role": "Vedení A-Týmu",
-    "discord": "vedenib#1112",
-    "color": "#ff3b3b"
+    "logo": "assets/loga/bossa.png"
   },
   {
     "nick": "Mod1",
     "role": "Mod Tým",
     "discord": "mod1#2221",
-    "color": "#3bff6f"
-  },
-  {
-    "nick": "Mod2",
-    "role": "Mod Tým",
-    "discord": "mod2#2222",
-    "color": "#3bff6f"
+    "logo": "assets/loga/mod1.png"
   }
 ]
