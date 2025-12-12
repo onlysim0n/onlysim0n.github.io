@@ -63,12 +63,11 @@
 
   <script>
     const teamData = [
-      { nick: "Streamer1", role: "Streamer", discord: "streamer1#0001", logo: "assets/loga/streamer1.png" },
-      { nick: "Streamer2", role: "Streamer", discord: "streamer2#0002", logo: "assets/loga/streamer2.png" },
-      { nick: "BossA", role: "Vedení A-Týmu", discord: "bossa#1111", logo: "assets/loga/bossa.png" },
-      { nick: "VedeniB", role: "Vedení A-Týmu", discord: "vedenib#1112", logo: "assets/loga/vedenib.png" },
-      { nick: "Mod1", role: "Mod Tým", discord: "mod1#2221", logo: "assets/loga/mod1.png" },
-      { nick: "Mod2", role: "Mod Tým", discord: "mod2#2222", logo: "assets/loga/mod2.png" }
+      { nick: "Only_Sim0n", role: "Streamer", discord: "Only_Sim0n", logo: "assets/loga/streamer1.png" },
+      { nick: "Malej_Erik", role: "Vedení A-Týmu", discord: "Malej_Erik", logo: "assets/loga/bossa.png" },
+      { nick: "Dominikhavelsky", role: "Vedení A-Týmu", discord: "dominikhavelsky", logo: "assets/loga/vedenib.png" },
+      { nick: "Matyscs", role: "Mod Tým", discord: "matyscs", logo: "assets/loga/mod1.png" },
+      { nick: "Fialkos", role: "Mod Tým", discord: "Fialovejj", logo: "assets/loga/mod2.png" }
     ];
 
     function renderTeamTable() {
