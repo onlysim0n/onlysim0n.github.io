@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>OnlySim0n – Sociální sítě</title>
+
+  <!-- Font Awesome (loga sociálních sítí) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     * { box-sizing: border-box; }
 
@@ -14,7 +18,7 @@
       color: #ffffff;
     }
 
-    /* ===== MENU ===== */
+    /* ===== NAVBAR ===== */
     nav {
       width: 100%;
       background-color: #151515;
@@ -34,7 +38,8 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-size: 20px;
     }
 
     .logo img {
@@ -45,7 +50,7 @@
 
     .menu {
       display: flex;
-      gap: 20px;
+      gap: 22px;
       flex-wrap: wrap;
     }
 
@@ -56,199 +61,111 @@
       white-space: nowrap;
     }
 
-    .menu a:hover {
-      color: #ffffff;
-    }
+    .menu a:hover { color: #fff; }
 
     /* ===== CONTENT ===== */
     .container {
-      max-width: 800px;
+      max-width: 900px;
       margin: 60px auto;
       padding: 0 20px;
       text-align: center;
     }
 
-    .container h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
+    h1 { margin-bottom: 10px; }
+    p { color: #aaa; margin-bottom: 40px; }
 
-    .container p {
-      color: #aaa;
-      margin-bottom: 40px;
-    }
-
-    /* ===== SOCIAL LINKS ===== */
+    /* ===== SOCIAL CARDS ===== */
     .social-links {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 22px;
     }
 
     .social-links a {
-      display: block;
-      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 18px;
       background-color: #161616;
-      border-radius: 12px;
-      color: #ffffff;
+      border-radius: 14px;
+      color: #fff;
       text-decoration: none;
       font-size: 18px;
-      transition: 0.3s;
       border: 1px solid #262626;
+      transition: 0.3s;
+    }
+
+    .social-links a i {
+      font-size: 28px;
+      width: 32px;
     }
 
     .social-links a:hover {
       background-color: #1f1f1f;
-      transform: translateY(-3px);
+      transform: translateY(-4px);
     }
 
+    /* Brand colors */
+    .facebook i { color: #1877f2; }
+    .instagram i { color: #e1306c; }
+    .discord i { color: #5865f2; }
+    .twitch i { color: #9146ff; }
+    .youtube i { color: #ff0000; }
+    .tiktok i { color: #69c9d0; }
+    .twitter i { color: #1da1f2; }
+
     @media (max-width: 768px) {
-      .container h1 { font-size: 28px; }
+      h1 { font-size: 26px; }
     }
   </style>
 </head>
 <body>
 
+  <!-- NAVBAR -->
   <nav>
     <div class="nav-inner">
       <div class="logo">
-        <img src="<!DOCTYPE html>
-<html lang="cs">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnlySim0n – Sociální sítě</title>
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0e0e0e;
-      color: #ffffff;
-    }
-
-    /* ===== MENU ===== */
-    nav {
-      width: 100%;
-      background-color: #151515;
-      border-bottom: 1px solid #333;
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo img {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-    }
-
-    .menu {
-      display: flex;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .menu a {
-      color: #ddd;
-      text-decoration: none;
-      font-size: 18px;
-      white-space: nowrap;
-    }
-
-    .menu a:hover {
-      color: #ffffff;
-    }
-
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    .container h1 {
-      font-size: 36px;
-      margin-bottom: 10px;
-    }
-
-    .container p {
-      color: #aaa;
-      margin-bottom: 40px;
-    }
-
-    /* ===== SOCIAL LINKS ===== */
-    .social-links {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-    }
-
-    .social-links a {
-      display: block;
-      padding: 16px;
-      background-color: #161616;
-      border-radius: 12px;
-      color: #ffffff;
-      text-decoration: none;
-      font-size: 18px;
-      transition: 0.3s;
-      border: 1px solid #262626;
-    }
-
-    .social-links a:hover {
-      background-color: #1f1f1f;
-      transform: translateY(-3px);
-    }
-
-    @media (max-width: 768px) {
-      .container h1 { font-size: 28px; }
-    }
-  </style>
-</head>
-<body>
-
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">
-        <img src="assets/loga/Only_Simon_Main.png" alt="Logo">
-        <strong>Only Simon</strong>
+        <img src="assets/logo.png" alt="Logo">
+        <strong>OnlySim0n</strong>
       </div>
       <div class="menu">
-        <a href="https://onlysim0n.github.io/">About</a>
-        <a href="https://onlysim0n.github.io/ateam">A-Team</a>
-        <a href="https://onlysim0n.github.io/stream">Stream</a>
-        <a href="https://onlysim0n.github.io/contact">Contact</a>
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/ateam.html">A-Team</a>
+        <a href="/contact.html">Contact</a>
       </div>
     </div>
   </nav>
 
+  <!-- CONTENT -->
   <div class="container">
-    <h1>Najdeš mě i tady</h1>
-    <p>Sleduj mě na sociálních sítích</p>
+    <h1>Sleduj mě</h1>
+    <p>Najdeš mě na těchto platformách</p>
 
     <div class="social-links">
-      <a href="https://www.facebook.com" target="_blank">Facebook</a>
-      <a href="https://www.instagram.com" target="_blank">Instagram</a>
-      <a href="https://discord.gg" target="_blank">Discord</a>
-      <a href="https://www.twitch.tv/only_sim0n" target="_blank">Twitch</a>
-      <a href="https://www.youtube.com/@only_sim0n" target="_blank">YouTube</a>
-      <a href="https://www.tiktok.com/@only_sim0n" target="_blank">TikTok</a>
-      <a href="https://x.com/only_sim0n" target="_blank">Twitter (X)</a>
+      <a class="facebook" href="https://www.facebook.com" target="_blank">
+        <i class="fa-brands fa-facebook"></i> Facebook
+      </a>
+      <a class="instagram" href="https://www.instagram.com" target="_blank">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+      <a class="discord" href="https://discord.gg" target="_blank">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+      <a class="twitch" href="https://www.twitch.tv/only_sim0n" target="_blank">
+        <i class="fa-brands fa-twitch"></i> Twitch
+      </a>
+      <a class="youtube" href="https://www.youtube.com" target="_blank">
+        <i class="fa-brands fa-youtube"></i> YouTube
+      </a>
+      <a class="tiktok" href="https://www.tiktok.com" target="_blank">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </a>
+      <a class="twitter" href="https://twitter.com" target="_blank">
+        <i class="fa-brands fa-x-twitter"></i> Twitter (X)
+      </a>
     </div>
   </div>
+
+</body>
+</html>
