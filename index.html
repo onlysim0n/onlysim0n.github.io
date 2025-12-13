@@ -1,27 +1,29 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Only Sim0n | Úvodní stránka</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnlySim0n – Sociální sítě</title>
+
+  <!-- Font Awesome – loga sociálních sítí -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <style>
     * {
-      box-sizing: border-box; /* KLÍČOVÉ – zabrání přetékání */
+      box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      padding: 0;
-      background: #0e0e0e;
-      color: #fff;
       font-family: Arial, sans-serif;
-      overflow-x: hidden;
+      background-color: #0e0e0e;
+      color: #ffffff;
     }
 
-    /* Navigace */
+    /* ===== NAVBAR ===== */
     nav {
       width: 100%;
-      background: #151515;
+      background-color: #151515;
       border-bottom: 1px solid #333;
     }
 
@@ -38,117 +40,175 @@
     .logo {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
+      font-size: 20px;
     }
 
     .logo img {
-      width: 50px;
+      width: 48px;
+      height: 48px;
       border-radius: 10px;
     }
 
     .menu {
       display: flex;
-      gap: 20px;
+      gap: 22px;
       flex-wrap: wrap;
     }
 
     .menu a {
       color: #ddd;
-      font-size: 18px;
       text-decoration: none;
-      white-space: nowrap; /* zabrání roztažení */
+      font-size: 18px;
+      white-space: nowrap;
     }
 
     .menu a:hover {
       color: #fff;
     }
 
-    /* Obsah */
-    .hero {
+    /* ===== CONTENT ===== */
+    .container {
+      max-width: 600px;
+      margin: 60px auto;
+      padding: 0 20px;
       text-align: center;
-      padding: 120px 20px;
-      max-width: 1200px;
-      margin: 0 auto;
     }
 
-    .hero h1 {
-      font-size: 48px;
+    h1 {
       margin-bottom: 10px;
     }
 
-    .hero p {
-      font-size: 22px;
-      color: #bbbbbb;
-      max-width: 700px;
+    p {
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    /* ===== SOCIAL LINKS (POD SEBOU) ===== */
+    .social-links {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      max-width: 420px;
       margin: 0 auto;
     }
 
-    /* Sociální sítě */
-    .socials {
-      margin-top: 60px;
+    .social-links a {
       display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .socials a {
+      align-items: center;
+      gap: 15px;
+      padding: 18px;
+      background-color: #161616;
+      border-radius: 14px;
       color: #fff;
-      font-size: 20px;
       text-decoration: none;
-      padding: 12px 18px;
-      background: #222;
-      border-radius: 10px;
+      font-size: 18px;
+      border: 1px solid #262626;
+      min-height: 64px;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    .socials a:hover {
-      background: #444;
+    .social-links a i {
+      font-size: 28px;
+      width: 32px;
     }
 
-    /* Mobil */
-    @media (max-width: 768px) {
-      .nav-inner {
-        justify-content: center;
-        gap: 15px;
-      }
+    .social-links a:hover {
+      transform: translateY(-4px);
+    }
 
-      .menu {
-        justify-content: center;
-      }
+    /* ===== BARVY LOG ===== */
+    .facebook i { color: #1877f2; }
+    .instagram i { color: #e1306c; }
+    .discord i { color: #5865f2; }
+    .twitch i { color: #9146ff; }
+    .youtube i { color: #ff0000; }
+    .tiktok i { color: #69c9d0; }
+    .twitter i { color: #1da1f2; }
 
-      .hero h1 {
-        font-size: 34px;
-      }
+    /* ===== HOVER GLOW ===== */
+    .facebook:hover {
+      box-shadow: 0 0 18px rgba(24, 119, 242, 0.7);
+    }
+
+    .instagram:hover {
+      box-shadow: 0 0 18px rgba(225, 48, 108, 0.7);
+    }
+
+    .discord:hover {
+      box-shadow: 0 0 18px rgba(88, 101, 242, 0.7);
+    }
+
+    .twitch:hover {
+      box-shadow: 0 0 18px rgba(145, 70, 255, 0.7);
+    }
+
+    .youtube:hover {
+      box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
+    }
+
+    .tiktok:hover {
+      box-shadow: 0 0 18px rgba(105, 201, 208, 0.7);
+    }
+
+    .twitter:hover {
+      box-shadow: 0 0 18px rgba(29, 161, 242, 0.7);
     }
   </style>
 </head>
 <body>
+
+  <!-- ===== NAVBAR ===== -->
   <nav>
     <div class="nav-inner">
       <div class="logo">
-        <img src="assets/loga/Only_Simon_Main.png" alt="Logo" />
+        <img src="assets/loga/logo.png" alt="Logo">
         <strong>OnlySim0n</strong>
       </div>
-
       <div class="menu">
-        <a href="https://onlysim0n.github.io">About</a>
-        <a href="https://onlysim0n.github.io/ateam">A-Team</a>
-        <a href="https://onlysim0n.github.io/stream">Stream</a>
-        <a href="https://onlysim0n.github.io/contact">Contact</a>
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/ateam.html">A-Team</a>
+        <a href="/contact.html">Contact</a>
       </div>
     </div>
   </nav>
 
-  <section class="hero">
-    <h1>Čus! Tady Only_Sim0n!</h1>
-    <p>Ahoj! Já jsem Only_Simon. Jsem obyčejný kluk, kterému je 22 let. Pokud by si chtěl vědět více, dojdi na můj Twitch stream, kde si můžem více pokecat.</p>
+  <!-- ===== CONTENT ===== -->
+  <div class="container">
+    <h1>Sleduj mě</h1>
+    <p>Najdeš mě na těchto platformách</p>
 
-    <div class="socials">
-      <a href="https://twitch.tv/only_sim0n">Twitch</a>
-      <a href="https://youtube.com/@only_sim0n">YouTube</a>
-      <a href="https://instagram.com/only_sim0n">Instagram</a>
-      <a href="https://discord.gg/gCShpDGDFe">Discord</a>
+    <div class="social-links">
+      <a class="facebook" href="https://www.facebook.com" target="_blank">
+        <i class="fa-brands fa-facebook"></i> Facebook
+      </a>
+
+      <a class="instagram" href="https://www.instagram.com" target="_blank">
+        <i class="fa-brands fa-instagram"></i> Instagram
+      </a>
+
+      <a class="discord" href="https://discord.gg" target="_blank">
+        <i class="fa-brands fa-discord"></i> Discord
+      </a>
+
+      <a class="twitch" href="https://www.twitch.tv/only_sim0n" target="_blank">
+        <i class="fa-brands fa-twitch"></i> Twitch
+      </a>
+
+      <a class="youtube" href="https://www.youtube.com" target="_blank">
+        <i class="fa-brands fa-youtube"></i> YouTube
+      </a>
+
+      <a class="tiktok" href="https://www.tiktok.com" target="_blank">
+        <i class="fa-brands fa-tiktok"></i> TikTok
+      </a>
+
+      <a class="twitter" href="https://twitter.com" target="_blank">
+        <i class="fa-brands fa-x-twitter"></i> Twitter (X)
+      </a>
     </div>
-  </section>
+  </div>
+
 </body>
 </html>
