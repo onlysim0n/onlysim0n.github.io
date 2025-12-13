@@ -2,29 +2,30 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
-  <title>A-Team</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OnlySim0n – A-Team</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
       font-family: Arial, sans-serif;
-      background: #0e0e0e;
-      color: white;
+      background: #0f0f0f;
+      color: #fff;
     }
 
-    nav {
-      background: #151515;
-      border-bottom: 1px solid #333;
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: auto;
-      padding: 15px 20px;
+    /* ===== TOP BAR ===== */
+    header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      padding: 12px 24px;
+      background: #111;
+      border-bottom: 1px solid #222;
     }
 
     .logo {
@@ -34,75 +35,97 @@
     }
 
     .logo img {
-      width: 40px;
-      height: 40px;
+      height: 42px;
     }
 
-    .menu a {
-      color: #ddd;
-      text-decoration: none;
+    nav a {
       margin-left: 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .container {
-      max-width: 900px;
-      margin: 60px auto;
-      padding: 0 20px;
+    nav a:hover {
+      color: #00ffaa;
+    }
+
+    /* ===== CONTENT ===== */
+    main {
+      padding: 40px;
+      display: flex;
+      justify-content: center;
     }
 
     table {
-      width: 100%;
+      width: 80%;
+      max-width: 900px;
       border-collapse: collapse;
-      margin-top: 30px;
+      background: #151515;
     }
 
     th, td {
       padding: 14px;
-      border-bottom: 1px solid #333;
-      text-align: left;
+      border-bottom: 1px solid #222;
+      text-align: center;
     }
 
     th {
-      color: #aaa;
+      background: #1e1e1e;
     }
 
-    .streamer { color: yellow; }
-    .vedeni { color: red; }
-    .mod { color: lime; }
+    /* ROLE COLORS */
+    .streamer {
+      color: #ffd700;
+      font-weight: bold;
+    }
+
+    .vedeni {
+      color: #ff4d4d;
+      font-weight: bold;
+    }
+
+    .mod {
+      color: #4dff4d;
+      font-weight: bold;
+    }
   </style>
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-inner">
+  <!-- ===== HEADER ===== -->
+  <header>
     <div class="logo">
-      <img src="/assets/loga/Only_Simon_main.png" alt="Logo">
+      <img src="/assets/loga/Only_Simon_main.png" alt="OnlySim0n logo">
       <strong>OnlySim0n</strong>
     </div>
-    <div class="menu">
-      <a href="/">Home</a>
+
+    <nav>
+      <a href="/">About</a>
       <a href="/ateam.html">A-Team</a>
-    </div>
-  </div>
-</nav>
+      <a href="/stream.html">Stream</a>
+      <a href="/contact.html">Contact</a>
+    </nav>
+  </header>
 
-<div class="container">
-  <h1>A-Team</h1>
+  <!-- ===== CONTENT ===== -->
+  <main>
+    <table>
+      <thead>
+        <tr>
+          <th>Nick</th>
+          <th>Role</th>
+          <th>Discord</th>
+        </tr>
+      </thead>
+      <tbody id="teamTable">
+        <!-- JS sem doplní řádky -->
+      </tbody>
+    </table>
+  </main>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nick</th>
-        <th>Role</th>
-        <th>Discord</th>
-      </tr>
-    </thead>
-    <tbody id="teamTable">
-      <!-- JS sem vloží řádky -->
-    </tbody>
-  </table>
-</div>
+  <!-- ===== SCRIPT ===== -->
+  <script src="/load.js"></script>
 
-<script src="/load.js"></script>
 </body>
 </html>
