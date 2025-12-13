@@ -2,37 +2,107 @@
 <html lang="cs">
 <head>
   <meta charset="UTF-8">
+  <title>A-Team</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Only Simon | A-Tým</title>
+
   <style>
-    * { box-sizing: border-box; }
-    body { margin:0; padding:0; font-family:Arial,sans-serif; background-color:#0e0e0e; color:#fff; overflow-x:hidden; }
-    nav { width:100%; background-color:#151515; border-bottom:1px solid #333; }
-    .nav-inner { max-width:1200px; margin:0 auto; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
-    .logo { display:flex; align-items:center; gap:10px; }
-    .logo img { width:50px; border-radius:10px; }
-    .menu { display:flex; gap:20px; flex-wrap:wrap; }
-    .menu a { color:#ddd; text-decoration:none; font-size:18px; white-space:nowrap; transition:0.3s; }
-    .menu a:hover { color:#fff; }
-    @media (max-width:768px){ .nav-inner { justify-content:center; } .menu { justify-content:center; } }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0e0e0e;
+      color: white;
+    }
+
+    nav {
+      background: #151515;
+      border-bottom: 1px solid #333;
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: auto;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo img {
+      width: 40px;
+      height: 40px;
+    }
+
+    .menu a {
+      color: #ddd;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 30px;
+    }
+
+    th, td {
+      padding: 14px;
+      border-bottom: 1px solid #333;
+      text-align: left;
+    }
+
+    th {
+      color: #aaa;
+    }
+
+    .streamer { color: yellow; }
+    .vedeni { color: red; }
+    .mod { color: lime; }
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">
-        <img src="assets/loga/Only_Simon_Main.png" alt="Logo">
-        <strong>Only_Simon</strong>
-      </div>
-      <div class="menu">
-        <a href="https://onlysim0n.github.io/">About</a>
-        <a href="">A-Team</a>
-        <a href="https://onlysim0n.github.io/stream">Stream</a>
-        <a href="https://onlysim0n.github.io/contact">Contact</a>
-      </div>
+<nav>
+  <div class="nav-inner">
+    <div class="logo">
+      <img src="/assets/loga/logo.png" alt="Logo">
+      <strong>OnlySim0n</strong>
     </div>
-  </nav>
+    <div class="menu">
+      <a href="/">Home</a>
+      <a href="/ateam.html">A-Team</a>
+    </div>
+  </div>
+</nav>
 
+<div class="container">
+  <h1>A-Team</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Nick</th>
+        <th>Role</th>
+        <th>Discord</th>
+      </tr>
+    </thead>
+    <tbody id="teamTable">
+      <!-- JS sem vloží řádky -->
+    </tbody>
+  </table>
+</div>
+
+<script src="/team.js"></script>
 </body>
 </html>
