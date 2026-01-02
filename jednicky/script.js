@@ -1,44 +1,22 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxcQbYrWbBgq5PlTCvou7SlJmErxkEyk8V8_exw0zMAfFPgCM8dwVL1b0ihdeWhpTEnUw/exec";
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sběr "1" – Overlay</title>
+<style>
+  body { background: transparent; color: white; font-family: sans-serif; text-align:center; }
+  #overlay { padding: 10px; }
+  #count { font-size: 3em; margin: 10px 0; }
+  #list { font-size: 1.2em; white-space: pre-wrap; }
+</style>
+</head>
+<body>
+  <div id="overlay">
+    <h1>Počet zapojených: <span id="count">0</span></h1>
+    <pre id="list">Nikdo se nepřihlásil.</pre>
+  </div>
 
-async function loadUsers() {
-  const statusEl = document.getElementById("status");
-  const startEl  = document.getElementById("startTime");
-  const countEl  = document.getElementById("count");
-  const listEl   = document.getElementById("list");
-
-  try {
-    statusEl.textContent = "Stav: načítám…";
-    const res = await fetch(API_URL, { cache: "no-store" });
-    const data = await res.json();
-    const users = Array.isArray(data.users) ? data.users : [];
-    const start = data.start || "";
-
-    startEl.textContent = "Začátek sběru: " + (start ? new Date(start).toLocaleString("cs-CZ") : "—");
-    countEl.textContent = "Počet: " + users.length;
-    listEl.textContent  = users.length ? users.join(", ") : "Nikdo se nepřihlásil.";
-    listEl.dataset.users = users.join(",");
-
-    statusEl.textContent = "Stav: OK";
-  } catch(err) {
-    console.error(err);
-    statusEl.textContent = "Stav: chyba načítání";
-  }
-}
-
-function copyUsers() {
-  const listEl = document.getElementById("list");
-  const txt = listEl.dataset.users || "";
-  if(!txt) return alert("Žádná data k zkopírování.");
-  navigator.clipboard.writeText(txt).then(
-    () => alert("Seznam zkopírován do schránky."),
-    () => alert("Nepodařilo se zkopírovat.")
-  );
-}
-
-window.addEventListener("DOMContentLoaded", () => {
-  document.getElementById("copyBtn").addEventListener("click", copyUsers);
-  document.getElementById("reloadBtn").addEventListener("click", loadUsers);
-  loadUsers();
-  setInterval(loadUsers, 5000); // aktualizace každých 5 sekund
-});
-
+  <script src="overlay.js"></script>
+</body>
+</html>
