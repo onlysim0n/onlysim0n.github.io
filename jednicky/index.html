@@ -17,7 +17,21 @@
         }
 
         h1 {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #reset {
+            background: #dc2626;
+            color: white;
         }
 
         ul {
@@ -37,13 +51,17 @@
 </head>
 <body>
 
-    <h1>✅ Only_sim0n – napsali <code>1</code> do chatu</h1>
+    <h1>✅ Only_sim0n – napsali <code>1</code></h1>
+    <button id="reset">❌ Reset seznamu</button>
+
     <ul id="list"></ul>
 
     <script>
         const CHANNEL = "only_sim0n";
         const list = document.getElementById("list");
-        const users = new Set();
+        const resetBtn = document.getElementById("reset");
+
+        let users = new Set();
 
         const client = new tmi.Client({
             connection: {
@@ -69,6 +87,14 @@
                     list.appendChild(li);
                 }
             }
+        });
+
+        // ✅ RESET FUNKCE
+        resetBtn.addEventListener("click", () => {
+            if (!confirm("Opravdu chceš resetovat seznam?")) return;
+
+            users.clear();
+            list.innerHTML = "";
         });
     </script>
 
