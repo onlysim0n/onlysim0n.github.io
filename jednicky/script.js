@@ -1,5 +1,5 @@
 // → sem vlož URL svého Web App z Google Apps Script
-const API_URL = "https://script.google.com/macros/s/AKfycbxcQbYrWbBgq5PlTCvou7SlJmErxkEyk8V8_exw0zMAfFPgCM8dwVL1b0ihdeWhpTEnUw/exec"; 
+const API_URL = "https://script.google.com/macros/s/AKfycbyeBHrh9GesI4HMM5u86yObLgPXd0uad2t_q4GvOSmPO-ewhAMyRCTqtoUeoWl5NdF4hA/exec"; 
 
 // Načtení dat z Sheet
 async function loadUsers(){
