@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Only_sim0n – Chat 1</title>
 
-    <script src="https://unpkg.com/tmi.js@1.8.5/dist/tmi.min.js"></script>
+    <!-- ✅ OPRAVENÁ CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tmi.js/1.8.5/tmi.min.js"></script>
 
     <style>
         body {
@@ -14,9 +15,7 @@
             text-align: center;
             padding: 30px;
         }
-        h1 {
-            margin-bottom: 10px;
-        }
+        h1 { margin-bottom: 10px; }
         button {
             margin-bottom: 15px;
             padding: 8px 16px;
@@ -27,10 +26,7 @@
             color: white;
             cursor: pointer;
         }
-        ul {
-            list-style: none;
-            padding: 0;
-        }
+        ul { list-style: none; padding: 0; }
         li {
             background: #1e293b;
             margin: 5px auto;
@@ -43,46 +39,47 @@
 </head>
 <body>
 
-    <h1>Napsali <code>1</code> do chatu</h1>
-    <button id="reset">Reset</button>
+<h1>Napsali <code>1</code> do chatu</h1>
+<button id="reset">Reset</button>
+<ul id="list"></ul>
 
-    <ul id="list"></ul>
+<script>
+    if (typeof tmi === "undefined") {
+        alert("❌ tmi.js se nenačetlo – otevři stránku přes GitHub Pages nebo localhost");
+    }
 
-    <script>
-        const CHANNEL = "only_sim0n";
-        const list = document.getElementById("list");
-        const resetBtn = document.getElementById("reset");
+    const CHANNEL = "only_sim0n";
+    const list = document.getElementById("list");
+    const resetBtn = document.getElementById("reset");
+    let users = new Set();
 
-        let users = new Set();
+    const client = new tmi.Client({
+        connection: { secure: true, reconnect: true },
+        channels: [CHANNEL]
+    });
 
-        const client = new tmi.Client({
-            connection: { secure: true, reconnect: true },
-            channels: [CHANNEL]
-        });
+    client.connect();
 
-        client.connect();
+    client.on("message", (channel, tags, message, self) => {
+        if (self) return;
 
-        client.on("message", (channel, tags, message, self) => {
-            if (self) return;
+        if (message.trim() === "1") {
+            const nick = tags["display-name"] || tags.username;
 
-            if (message.trim() === "1") {
-                const nick = tags["display-name"] || tags.username;
-
-                if (!users.has(nick)) {
-                    users.add(nick);
-
-                    const li = document.createElement("li");
-                    li.textContent = nick;
-                    list.appendChild(li);
-                }
+            if (!users.has(nick)) {
+                users.add(nick);
+                const li = document.createElement("li");
+                li.textContent = nick;
+                list.appendChild(li);
             }
-        });
+        }
+    });
 
-        resetBtn.onclick = () => {
-            users.clear();
-            list.innerHTML = "";
-        };
-    </script>
+    resetBtn.onclick = () => {
+        users.clear();
+        list.innerHTML = "";
+    };
+</script>
 
 </body>
 </html>
