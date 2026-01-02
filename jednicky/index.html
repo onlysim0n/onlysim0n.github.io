@@ -2,57 +2,49 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Only_sim0n – Chat účastníci</title>
+    <title>Only_sim0n – Chat 1</title>
 
-    <!-- Twitch chat knihovna -->
     <script src="https://unpkg.com/tmi.js@1.8.5/dist/tmi.min.js"></script>
 
     <style>
         body {
-            font-family: Arial, sans-serif;
             background: #0f172a;
             color: white;
+            font-family: Arial, sans-serif;
             text-align: center;
-            padding: 40px;
+            padding: 30px;
         }
-
         h1 {
             margin-bottom: 10px;
         }
-
         button {
-            margin: 10px;
-            padding: 10px 20px;
-            font-size: 16px;
+            margin-bottom: 15px;
+            padding: 8px 16px;
+            font-size: 15px;
             border-radius: 8px;
             border: none;
-            cursor: pointer;
-        }
-
-        #reset {
             background: #dc2626;
             color: white;
+            cursor: pointer;
         }
-
         ul {
             list-style: none;
             padding: 0;
         }
-
         li {
             background: #1e293b;
-            margin: 6px auto;
-            padding: 10px;
-            width: 300px;
+            margin: 5px auto;
+            padding: 8px;
+            width: 260px;
             border-radius: 8px;
-            font-size: 18px;
+            font-size: 17px;
         }
     </style>
 </head>
 <body>
 
-    <h1>✅ Only_sim0n – napsali <code>1</code></h1>
-    <button id="reset">❌ Reset seznamu</button>
+    <h1>Napsali <code>1</code> do chatu</h1>
+    <button id="reset">Reset</button>
 
     <ul id="list"></ul>
 
@@ -64,10 +56,7 @@
         let users = new Set();
 
         const client = new tmi.Client({
-            connection: {
-                secure: true,
-                reconnect: true
-            },
+            connection: { secure: true, reconnect: true },
             channels: [CHANNEL]
         });
 
@@ -77,25 +66,22 @@
             if (self) return;
 
             if (message.trim() === "1") {
-                const user = tags["display-name"] || tags.username;
+                const nick = tags["display-name"] || tags.username;
 
-                if (!users.has(user)) {
-                    users.add(user);
+                if (!users.has(nick)) {
+                    users.add(nick);
 
                     const li = document.createElement("li");
-                    li.textContent = user;
+                    li.textContent = nick;
                     list.appendChild(li);
                 }
             }
         });
 
-        // ✅ RESET FUNKCE
-        resetBtn.addEventListener("click", () => {
-            if (!confirm("Opravdu chceš resetovat seznam?")) return;
-
+        resetBtn.onclick = () => {
             users.clear();
             list.innerHTML = "";
-        });
+        };
     </script>
 
 </body>
