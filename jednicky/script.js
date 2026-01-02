@@ -1,10 +1,4 @@
-const API_URL = "https://script.google.com/macros/s/AKfycbxcQbYrWbBgq5PlTCvou7SlJmErxkEyk8V8_exw0zMAfFPgCM8dwVL1b0ihdeWhpTEnUw/exec";
-
-function fmtDate(iso) {
-  if(!iso) return "—";
-  const d = new Date(iso);
-  return isNaN(+d) ? "—" : d.toLocaleString("cs-CZ");
-}
+const API_URL = "https://script.google.com/macros/library/d/1jYrK2pHsFiIoemnfWvIeeaxIxbUpYBP9kJyo3BknqL1rHxp7CyOFian3/1";
 
 async function loadUsers() {
   const statusEl = document.getElementById("status");
@@ -15,13 +9,11 @@ async function loadUsers() {
   try {
     statusEl.textContent = "Stav: načítám…";
     const res = await fetch(API_URL, { cache: "no-store" });
-    if(!res.ok) throw new Error("HTTP " + res.status);
-
     const data = await res.json();
     const users = Array.isArray(data.users) ? data.users : [];
     const start = data.start || "";
 
-    startEl.textContent = "Začátek sběru: " + fmtDate(start);
+    startEl.textContent = "Začátek sběru: " + (start ? new Date(start).toLocaleString("cs-CZ") : "—");
     countEl.textContent = "Počet: " + users.length;
     listEl.textContent  = users.length ? users.join(", ") : "Nikdo se nepřihlásil.";
     listEl.dataset.users = users.join(",");
@@ -47,6 +39,6 @@ window.addEventListener("DOMContentLoaded", () => {
   document.getElementById("copyBtn").addEventListener("click", copyUsers);
   document.getElementById("reloadBtn").addEventListener("click", loadUsers);
   loadUsers();
-  // automatické aktualizování každých 5 sekund
-  setInterval(loadUsers, 5000);
+  setInterval(loadUsers, 5000); // aktualizace každých 5 sekund
 });
+
