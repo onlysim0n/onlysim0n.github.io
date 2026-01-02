@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+<meta charset="UTF-8">
+<title>Jedničky</title>
+</head>
+<body>
+
+<input id="name" placeholder="Tvoje jméno">
+<button onclick="add()">Napsat 1</button>
+
+<h3>Seznam lidí:</h3>
+<ul id="list"></ul>
+
+<script>
+const STORAGE_KEY = 'jednicky';
+let seznam = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY)) || []);
+
+render();
+
+function add() {
+    const name = document.getElementById('name').value.trim();
+    if (!name) return;
+
+    if (!seznam.has(name)) {
+        seznam.add(name);
+        save();
+        render();
+    } else {
+        alert('Už tam jsi ');
+    }
+}
+
+function save() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...seznam]));
+}
+
+function render() {
+    const ul = document.getElementById('list');
+    ul.innerHTML = '';
+    seznam.forEach(n => {
+        const li = document.createElement('li');
+        li.textContent = n;
+        ul.appendChild(li);
+    });
+}
+</script>
+
+</body>
+</html>
