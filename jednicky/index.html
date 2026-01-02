@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Only_sim0n – Jedničky</title>
 
-    <!-- tmi.js -->
-    <script src="https://unpkg.com/tmi.js@1.8.5/dist/tmi.min.js"></script>
-
     <style>
         body {
             background: #0f172a;
@@ -24,7 +21,7 @@
             border-radius: 8px;
             cursor: pointer;
         }
-        ul { list-style: none; padding: 0; }
+        ul { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
         li {
             background: #1e293b;
             margin: 5px auto;
@@ -38,50 +35,39 @@
 <body>
 
 <h1>Napsali <code>1</code> do chatu</h1>
-<button id="reset">Reset</button>
+<button id="reset">Reset seznamu</button>
 <ul id="list"></ul>
 
 <script>
-window.addEventListener("load", () => {
-
-    if (typeof window.tmi === "undefined") {
-        document.body.innerHTML = "<h2>❌ tmi.js se nenačetlo (zkontroluj Ctrl+F5)</h2>";
-        return;
-    }
-
-    const CHANNEL = "only_sim0n";
     const list = document.getElementById("list");
     const resetBtn = document.getElementById("reset");
-    const users = new Set();
+    let users = [];
 
-    const client = new tmi.Client({
-        connection: { secure: true, reconnect: true },
-        channels: [CHANNEL]
-    });
+    // načtení JSON s nickama
+    fetch('users.json')
+        .then(response => response.json())
+        .then(data => {
+            users = data;
+            renderList();
+        })
+        .catch(err => {
+            console.error("Nepodařilo se načíst users.json", err);
+        });
 
-    client.connect();
+    function renderList() {
+        list.innerHTML = '';
+        users.forEach(user => {
+            const li = document.createElement('li');
+            li.textContent = user;
+            list.appendChild(li);
+        });
+    }
 
-    client.on("message", (channel, tags, message, self) => {
-        if (self) return;
-
-        if (message.trim() === "1") {
-            const nick = tags["display-name"] || tags.username;
-
-            if (!users.has(nick)) {
-                users.add(nick);
-                const li = document.createElement("li");
-                li.textContent = nick;
-                list.appendChild(li);
-            }
-        }
-    });
-
+    // reset seznamu (jen na stránce)
     resetBtn.onclick = () => {
-        users.clear();
-        list.innerHTML = "";
-    };
-
-});
+        users = [];
+        renderList();
+    }
 </script>
 
 </body>
