@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <title>Only_sim0n – Chat 1</title>
 
-    <!-- ✅ OPRAVENÁ CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tmi.js/1.8.5/tmi.min.js"></script>
+    <!-- ✅ CDN, která funguje na GitHub Pages -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tmi.js/1.8.5/tmi.min.js"
+            integrity="sha512-n2G+U6mKX8Kf3+1w3zP4A9cY+P4z2xD1N6Z1VbQ2YJ1G3h7jQ7xj4c6k7mP0z8L+z8p6b8l9o7bA=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <style>
         body {
@@ -44,8 +46,16 @@
 <ul id="list"></ul>
 
 <script>
+    // ⛔ Bez GitHub Pages to nepustíme
+    if (!location.hostname.endsWith("github.io")) {
+        document.body.innerHTML = "<h2>❌ Tato stránka je určena pouze pro GitHub Pages</h2>";
+        throw new Error("Not running on GitHub Pages");
+    }
+
+    // ⛔ Kontrola tmi.js
     if (typeof tmi === "undefined") {
-        alert("❌ tmi.js se nenačetlo – otevři stránku přes GitHub Pages nebo localhost");
+        document.body.innerHTML = "<h2>❌ tmi.js se nenačetlo</h2>";
+        throw new Error("tmi.js not loaded");
     }
 
     const CHANNEL = "only_sim0n";
