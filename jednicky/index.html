@@ -2,9 +2,9 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Chat účastníci</title>
+    <title>Only_sim0n – Chat účastníci</title>
 
-    <!-- tmi.js -->
+    <!-- Twitch chat knihovna -->
     <script src="https://unpkg.com/tmi.js@1.8.5/dist/tmi.min.js"></script>
 
     <style>
@@ -15,10 +15,16 @@
             text-align: center;
             padding: 40px;
         }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
         ul {
             list-style: none;
             padding: 0;
         }
+
         li {
             background: #1e293b;
             margin: 6px auto;
@@ -31,11 +37,11 @@
 </head>
 <body>
 
-    <h1>✅ Lidi, co napsali <code>1</code> do chatu</h1>
+    <h1>✅ Only_sim0n – napsali <code>1</code> do chatu</h1>
     <ul id="list"></ul>
 
     <script>
-        const CHANNEL = "Only_Sim0n"; // ⬅️ změň na svůj kanál
+        const CHANNEL = "only_sim0n";
         const list = document.getElementById("list");
         const users = new Set();
 
