@@ -1,36 +1,35 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-    <meta charset="UTF-8">
-    <title>Only_sim0n – Jedničky</title>
-
-    <style>
-        body {
-            background: #0f172a;
-            color: white;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 30px;
-        }
-        button {
-            margin: 10px;
-            padding: 8px 16px;
-            background: #dc2626;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        ul { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
-        li {
-            background: #1e293b;
-            margin: 5px auto;
-            padding: 8px;
-            width: 260px;
-            border-radius: 8px;
-            font-size: 17px;
-        }
-    </style>
+<meta charset="UTF-8">
+<title>Only_sim0n – Jedničky</title>
+<style>
+body {
+    background: #0f172a;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 30px;
+}
+button {
+    margin: 10px;
+    padding: 8px 16px;
+    background: #dc2626;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+ul { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
+li {
+    background: #1e293b;
+    margin: 5px auto;
+    padding: 8px;
+    width: 260px;
+    border-radius: 8px;
+    font-size: 17px;
+}
+</style>
 </head>
 <body>
 
@@ -39,35 +38,32 @@
 <ul id="list"></ul>
 
 <script>
-    const list = document.getElementById("list");
-    const resetBtn = document.getElementById("reset");
-    let users = [];
+const list = document.getElementById("list");
+const resetBtn = document.getElementById("reset");
+let users = new Set();
 
-    // načtení JSON s nickama
-    fetch('users.json')
-        .then(response => response.json())
-        .then(data => {
-            users = data;
-            renderList();
-        })
-        .catch(err => {
-            console.error("Nepodařilo se načíst users.json", err);
-        });
-
-    function renderList() {
-        list.innerHTML = '';
-        users.forEach(user => {
-            const li = document.createElement('li');
-            li.textContent = user;
-            list.appendChild(li);
-        });
-    }
-
-    // reset seznamu (jen na stránce)
-    resetBtn.onclick = () => {
-        users = [];
+// přijímáme data z SE widgetu
+window.addEventListener("message", (event) => {
+    if(event.data.users) {
+        users = new Set(event.data.users);
         renderList();
     }
+});
+
+function renderList() {
+    list.innerHTML = '';
+    users.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = user;
+        list.appendChild(li);
+    });
+}
+
+// reset seznamu (jen frontend)
+resetBtn.onclick = () => {
+    users.clear();
+    renderList();
+};
 </script>
 
 </body>
