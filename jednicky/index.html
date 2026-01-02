@@ -2,9 +2,9 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Only_sim0n – Jedničky z chatu</title>
+    <title>Only_sim0n – Jedničky</title>
 
-    <!-- ✅ JEDINÁ FUNKČNÍ CDN PRO TMI.JS -->
+    <!-- tmi.js -->
     <script src="https://unpkg.com/tmi.js@1.8.5/dist/tmi.min.js"></script>
 
     <style>
@@ -15,15 +15,13 @@
             text-align: center;
             padding: 30px;
         }
-        h1 { margin-bottom: 10px; }
         button {
-            margin-bottom: 15px;
+            margin: 10px;
             padding: 8px 16px;
-            font-size: 15px;
-            border-radius: 8px;
-            border: none;
             background: #dc2626;
             color: white;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
         }
         ul { list-style: none; padding: 0; }
@@ -44,16 +42,17 @@
 <ul id="list"></ul>
 
 <script>
-    // 🔍 kontrola, že tmi opravdu existuje
-    if (typeof tmi === "undefined") {
-        document.body.innerHTML = "<h2>❌ tmi.js se nenačetlo</h2>";
-        throw new Error("tmi.js not loaded");
+window.addEventListener("load", () => {
+
+    if (typeof window.tmi === "undefined") {
+        document.body.innerHTML = "<h2>❌ tmi.js se nenačetlo (zkontroluj Ctrl+F5)</h2>";
+        return;
     }
 
     const CHANNEL = "only_sim0n";
     const list = document.getElementById("list");
     const resetBtn = document.getElementById("reset");
-    let users = new Set();
+    const users = new Set();
 
     const client = new tmi.Client({
         connection: { secure: true, reconnect: true },
@@ -81,6 +80,8 @@
         users.clear();
         list.innerHTML = "";
     };
+
+});
 </script>
 
 </body>
