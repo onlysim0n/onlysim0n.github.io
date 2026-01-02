@@ -1,4 +1,4 @@
-const API_URL = "https://script.google.com/macros/library/d/1jYrK2pHsFiIoemnfWvIeeaxIxbUpYBP9kJyo3BknqL1rHxp7CyOFian3/1";
+const API_URL = "https://script.google.com/macros/s/AKfycbxcQbYrWbBgq5PlTCvou7SlJmErxkEyk8V8_exw0zMAfFPgCM8dwVL1b0ihdeWhpTEnUw/exec";
 
 async function loadUsers() {
   const statusEl = document.getElementById("status");
