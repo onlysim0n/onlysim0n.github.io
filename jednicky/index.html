@@ -20,7 +20,12 @@ button {
     border-radius: 8px;
     cursor: pointer;
 }
-ul { list-style: none; padding: 0; max-height: 400px; overflow-y: auto; }
+ul { 
+    list-style: none; 
+    padding: 0; 
+    max-height: 400px; 
+    overflow-y: auto; 
+}
 li {
     background: #1e293b;
     margin: 5px auto;
@@ -52,19 +57,4 @@ window.addEventListener("message", (event) => {
 
 function renderList() {
     list.innerHTML = '';
-    users.forEach(user => {
-        const li = document.createElement('li');
-        li.textContent = user;
-        list.appendChild(li);
-    });
-}
-
-// reset seznamu (jen frontend)
-resetBtn.onclick = () => {
-    users.clear();
-    renderList();
-};
-</script>
-
-</body>
-</html>
+    users.forEach(user =>
