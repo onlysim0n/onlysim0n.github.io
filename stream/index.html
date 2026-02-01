@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="./../style.css" />
     <title>Only_Sim0n | Stream</title>
 </head>
+<body class="stream-page">
 
-<body class="stream-body-fixed">
     <header>
         <div class="logo-container">
             <img src="./../assets/loga/logo.png" alt="Logo" class="logo-img">
@@ -24,27 +23,22 @@
         </nav>
     </header>
 
-    <main class="stream-page-main">
-        <div class="stream-flex-container">
-            <div class="stream-video-box">
-                <iframe
-                    src="https://player.twitch.tv/?channel=only_sim0n&parent=onlysim0n.github.io&autoplay=true"
-                    allowfullscreen="true"
-                    frameborder="0"
-                    scrolling="no">
-                </iframe>
-            </div>
+    <main class="stream-main-content">
+        <div class="stream-video-box">
+            <iframe
+                src="https://player.twitch.tv/?channel=only_sim0n&parent=onlysim0n.github.io&autoplay=true"
+                allowfullscreen="true"
+                frameborder="0">
+            </iframe>
+        </div>
 
-            <div class="stream-chat-box">
-                <iframe
-                    src="https://www.twitch.tv/embed/only_sim0n/chat?parent=onlysim0n.github.io&darkpopout"
-                    frameborder="0"
-                    scrolling="no">
-                </iframe>
-            </div>
+        <div class="stream-chat-box">
+            <iframe
+                src="https://www.twitch.tv/embed/only_sim0n/chat?parent=onlysim0n.github.io&darkpopout"
+                frameborder="0">
+            </iframe>
         </div>
     </main>
 
-    <script src="./../script.js"></script>
 </body>
 </html>
