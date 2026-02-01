@@ -1,5 +1,5 @@
-/* IMPORT FONTU BARLOW Z GOOGLE FONTS */
-@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap');
+/* IMPORT FONTU POPPINS */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 /* ZÁKLADNÍ NASTAVENÍ */
 * {
@@ -9,17 +9,16 @@
 }
 
 body {
-    background-color: #0f0f0f; /* Moderní tmavě černá */
+    background-color: #0f0f0f;
     color: #ffffff;
-    font-family: 'Barlow', sans-serif;
+    font-family: 'Poppins', sans-serif; /* Návrat k Poppins */
     line-height: 1.6;
-    overflow-x: hidden;
 }
 
-/* HLAVIČKA (HEADER) */
+/* HLAVIČKA */
 header {
     display: flex;
-    justify-content: space-between; /* Logo vlevo, menu vpravo */
+    justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
     background-color: #161616;
@@ -37,30 +36,69 @@ header {
 }
 
 .logo-img {
-    height: 45px; /* Uprav si podle potřeby */
+    height: 45px;
     width: auto;
-    object-fit: contain;
 }
 
 .site-name {
     font-size: 1.6rem;
     font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    text-transform: none; /* Změněno na normální písma */
     color: #ffffff;
 }
 
 /* NAVIGACE */
-nav {
-    display: flex;
-}
-
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 35px; /* Mezera mezi položkami menu */
+    gap: 35px;
 }
 
 .nav-links li a {
     text-decoration: none;
-    color: #999999; /* Barva neaktivních
+    color: #999999;
+    font-weight: 600;
+    font-size: 1.05rem;
+    transition: 0.3s;
+    text-transform: none; /* Změněno na normální písma */
+}
+
+.nav-links li a:hover {
+    color: #ffffff;
+}
+
+/* --- AKTIVNÍ STRÁNKA S VÝRAZNÝM GRADIENTEM --- */
+.nav-links li a.active {
+    /* Používáme tlustší řez písma (800), aby gradient lépe vynikl */
+    font-weight: 800; 
+    background: linear-gradient(to right, #ff0000, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: inline-block; /* Zajišťuje správné vykreslení na některých prohlížečích */
+}
+
+/* HLAVNÍ OBSAH */
+main {
+    max-width: 1200px;
+    margin: 60px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* MOBILNÍ VERZE */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    .nav-links {
+        gap: 15px;
+    }
+}
