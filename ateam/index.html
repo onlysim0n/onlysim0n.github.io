@@ -25,7 +25,6 @@
 
     <main class="ateam-section">
         <h1>A-TEAM</h1>
-
         <div class="table-container">
             <table>
                 <thead>
@@ -42,42 +41,43 @@
     </main>
 
     <script>
-    fetch('data.json')
-        .then(response => response.json())
-        .then(data => {
-            const tableBody = document.getElementById('ateam-table-body');
-            tableBody.innerHTML = ''; 
-
-            data.forEach(member => {
-                const row = document.createElement('tr');
+        async function loadTeam() {
+            try {
+                // Přidáváme náhodné číslo, aby prohlížeč nenačítal starou verzi z mezipaměti
+                const response = await fetch('data.json?v=' + Math.random());
+                const data = await response.json();
+                const tableBody = document.getElementById('ateam-table-body');
                 
-                // Tato funkce najde hodnotu bez ohledu na to, jestli je v JSONu "twitch" nebo "Twitch"
-                const getVal = (obj, key) => {
-                    const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
-                    return foundKey ? obj[foundKey] : '—';
-                };
+                tableBody.innerHTML = '';
 
-                const twitchNick = getVal(member, 'twitch');
-                const roleName = getVal(member, 'role');
-                const discordNick = getVal(member, 'discord');
+                data.forEach(member => {
+                    // Najdeme hodnoty bez ohledu na velká/malá písmena v JSONu
+                    const tNick = member.twitch || member.Twitch || "—";
+                    const rName = member.role || member.Role || "Člen";
+                    const dNick = member.discord || member.Discord || "—";
 
-                // Převod role na třídu pro barvy (odstranění diakritiky a mezer)
-                const roleClass = roleName.toLowerCase()
-                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                    .replace(/\s+/g, '-');
-                
-                row.innerHTML = `
-                    <td class="twitch-name">${twitchNick}</td>
-                    <td><span class="badge ${roleClass}">${roleName}</span></td>
-                    <td class="discord-name">${discordNick}</td>
-                `;
-                tableBody.appendChild(row);
-            });
-        })
-        .catch(err => {
-            console.error('Chyba při načítání:', err);
-            document.getElementById('ateam-table-body').innerHTML = '<tr><td colspan="3">Chyba při načítání data.json</td></tr>';
-        });
-</script>
+                    // Vytvoření třídy pro CSS (odstranění háčků a čárek)
+                    const safeRoleClass = rName.toLowerCase()
+                        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                        .replace(/\s+/g, '-');
+
+                    const row = `
+                        <tr>
+                            <td class="twitch-name">${tNick}</td>
+                            <td><span class="badge ${safeRoleClass}">${rName}</span></td>
+                            <td class="discord-name">${dNick}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Chyba při načítání JSONu:", error);
+                document.getElementById('ateam-table-body').innerHTML = 
+                    '<tr><td colspan="3" style="color:red;">Chyba: data.json nenalezen nebo je poškozený!</td></tr>';
+            }
+        }
+
+        loadTeam();
+    </script>
 </body>
 </html>
