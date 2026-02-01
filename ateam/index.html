@@ -42,26 +42,32 @@
     </main>
 
     <script>
-        // Skript pro načtení dat z data.json
         fetch('data.json')
             .then(response => response.json())
             .then(data => {
                 const tableBody = document.getElementById('ateam-table-body');
+                tableBody.innerHTML = ''; 
+
                 data.forEach(member => {
                     const row = document.createElement('tr');
                     
-                    // Převod role na název třídy pro barvu odznaku
-                    const roleClass = member.role.toLowerCase().replace(' ', '-');
+                    // Odstranění diakritiky a mezer pro CSS třídy (např. "Hlavní Moderátor" -> "hlavni-moderator")
+                    const roleClass = member.role.toLowerCase()
+                        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                        .replace(/\s+/g, '-');
                     
                     row.innerHTML = `
-                        <td>${member.twitch}</td>
+                        <td class="twitch-name">${member.twitch || '—'}</td>
                         <td><span class="badge ${roleClass}">${member.role}</span></td>
-                        <td>${member.discord}</td>
+                        <td class="discord-name">${member.discord || '—'}</td>
                     `;
                     tableBody.appendChild(row);
                 });
             })
-            .catch(error => console.error('Chyba při načítání dat:', error));
+            .catch(err => {
+                console.error('Chyba:', err);
+                document.getElementById('ateam-table-body').innerHTML = '<tr><td colspan="3">Data se nepodařilo načíst.</td></tr>';
+            });
     </script>
 </body>
 </html>
