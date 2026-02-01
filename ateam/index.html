@@ -43,40 +43,44 @@
     <script>
         async function loadTeam() {
             try {
-                // Přidáváme náhodné číslo, aby prohlížeč nenačítal starou verzi z mezipaměti
+                // Přidání náhodného čísla proti mezipaměti
                 const response = await fetch('data.json?v=' + Math.random());
                 const data = await response.json();
                 const tableBody = document.getElementById('ateam-table-body');
-                
                 tableBody.innerHTML = '';
 
                 data.forEach(member => {
-                    // Najdeme hodnoty bez ohledu na velká/malá písmena v JSONu
+                    // Ošetření klíčů (hledá malá i velká písmena)
                     const tNick = member.twitch || member.Twitch || "—";
                     const rName = member.role || member.Role || "Člen";
                     const dNick = member.discord || member.Discord || "—";
+                    const iconPath = member.icon || member.Icon || "";
 
-                    // Vytvoření třídy pro CSS (odstranění háčků a čárek)
+                    // Vytvoření CSS třídy (bez diakritiky)
                     const safeRoleClass = rName.toLowerCase()
                         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                         .replace(/\s+/g, '-');
 
+                    const iconHtml = iconPath ? `<img src="${iconPath}" class="role-icon" alt="icon">` : "";
+
                     const row = `
                         <tr>
                             <td class="twitch-name">${tNick}</td>
-                            <td><span class="badge ${safeRoleClass}">${rName}</span></td>
+                            <td>
+                                <div class="role-container">
+                                    ${iconHtml}
+                                    <span class="badge ${safeRoleClass}">${rName}</span>
+                                </div>
+                            </td>
                             <td class="discord-name">${dNick}</td>
                         </tr>
                     `;
                     tableBody.innerHTML += row;
                 });
             } catch (error) {
-                console.error("Chyba při načítání JSONu:", error);
-                document.getElementById('ateam-table-body').innerHTML = 
-                    '<tr><td colspan="3" style="color:red;">Chyba: data.json nenalezen nebo je poškozený!</td></tr>';
+                console.error("Chyba při načítání JSON:", error);
             }
         }
-
         loadTeam();
     </script>
 </body>
