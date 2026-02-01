@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
+/* ZÁKLAD */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER */
+/* HEADER - LOGO A MENU */
 header {
     display: flex;
     justify-content: space-between;
@@ -22,14 +23,43 @@ header {
     background-color: #161616;
     border-bottom: 2px solid #222;
     height: 80px;
+    width: 100%;
 }
 
-.logo-container { display: flex; align-items: center; gap: 12px; }
-.logo-img { height: 45px; width: auto; }
-.site-name { font-size: 1.6rem; font-weight: 700; }
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
+.site-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #ffffff; /* Bílá barva textu */
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.nav-links li a:hover {
+    color: #ffffff;
+}
+
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -37,29 +67,31 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- STREAM SEKCE --- */
+/* --- STREAM CENTROVÁNÍ VEDLE SEBE --- */
 
-.stream-main {
+.stream-section {
+    width: 100%;
+    min-height: calc(100vh - 80px);
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100%;
-    height: calc(100vh - 80px); /* Centrování pod menu */
+    padding: 20px;
 }
 
 .stream-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: stretch; /* DŮLEŽITÉ: Chat se natáhne podle výšky videa */
+    align-items: stretch; /* Aby video i chat měly stejnou výšku */
     gap: 15px;
-    width: 85%; /* Zmenšení celkového obrazu */
-    max-width: 1400px;
+    width: 90%; 
+    max-width: 1500px;
+    margin: 0 auto; /* Pojistka pro vycentrování */
 }
 
 .video-box {
-    flex: 3; /* Video je širší (poměr 3:1) */
-    aspect-ratio: 16 / 9; /* Vynutí 16:9 rozměr */
+    flex: 3; /* Video bude širší */
+    aspect-ratio: 16 / 9;
     background: #000;
     border-radius: 12px;
     overflow: hidden;
@@ -67,7 +99,7 @@ header {
 }
 
 .chat-box {
-    flex: 1; /* Chat je užší */
+    flex: 1; /* Chat bude užší */
     background: #0e0e10;
     border-radius: 12px;
     overflow: hidden;
@@ -83,7 +115,7 @@ header {
 
 /* MOBILNÍ VERZE */
 @media (max-width: 1100px) {
-    .stream-main { height: auto; padding: 30px 0; }
+    .stream-section { height: auto; padding-top: 40px; }
     .stream-container { flex-direction: column; width: 95%; }
     .chat-box { height: 450px; }
 }
