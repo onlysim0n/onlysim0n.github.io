@@ -1,224 +1,176 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnlySim0n – Sociální sítě</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only_Sim0n | Contact</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-  <!-- Font Awesome – loga sociálních sítí -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+        body {
+            background-color: #0f0f0f;
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0e0e0e;
-      color: #ffffff;
-    }
+        /* --- HEADER / MENU --- */
+        header {
+            height: 80px;
+            background: #161616;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 2px solid #222;
+        }
 
-    /* ===== NAVBAR ===== */
-    nav {
-      width: 100%;
-      background-color: #151515;
-      border-bottom: 1px solid #333;
-    }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
+        .logo-img { height: 45px; width: auto; }
+        .logo-text { font-size: 1.7rem; font-weight: 800; }
 
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 20px;
-    }
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: #aaaaaa;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
 
-    .logo img {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-    }
+        .nav-links a:hover { color: white; }
 
-    .menu {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
+        .nav-links a.active {
+            font-weight: 800;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid #ff0000;
+        }
 
-    .menu a {
-      color: #ddd;
-      text-decoration: none;
-      font-size: 18px;
-      white-space: nowrap;
-    }
+        /* --- KONTAKTNÍ SEKCE --- */
+        .contact-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
 
-    .menu a:hover {
-      color: #fff;
-    }
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
 
-    /* ===== CONTENT ===== */
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
+        p {
+            color: #ccc;
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
 
-    h1 {
-      margin-bottom: 10px;
-    }
+        /* --- SOCIÁLNÍ SÍTĚ GRID --- */
+        .social-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 4 ikony v řadě na PC */
+            gap: 25px;
+            max-width: 400px;
+        }
 
-    p {
-      color: #aaa;
-      margin-bottom: 40px;
-    }
+        .social-grid a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 65px;
+            height: 65px;
+            background: #161616;
+            color: white;
+            text-decoration: none;
+            font-size: 2.2rem;
+            border-radius: 50%;
+            border: 1px solid #333;
+            transition: 0.4s ease;
+        }
 
-    /* ===== SOCIAL LINKS (POD SEBOU) ===== */
-    .social-links {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-      max-width: 420px;
-      margin: 0 auto;
-    }
+        .social-grid a:hover {
+            transform: translateY(-8px);
+            border-color: #ff0000;
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
 
-    .social-links a {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 18px;
-      background-color: #161616;
-      border-radius: 14px;
-      color: #fff;
-      text-decoration: none;
-      font-size: 18px;
-      border: 1px solid #262626;
-      min-height: 64px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
+        /* Barevné ladění jednotlivých sítí */
+        .twitch:hover { color: #9146ff; }
+        .youtube:hover { color: #ff0000; }
+        .discord:hover { color: #5865f2; }
+        .kick:hover { color: #53fc18; }
+        .facebook:hover { color: #1877f2; }
+        .instagram:hover { color: #e1306c; }
+        .tiktok:hover { color: #00f2ea; text-shadow: 2px 0 #ff0050; }
+        .twitter:hover { color: #1da1f2; }
 
-    .social-links a i {
-      font-size: 28px;
-      width: 32px;
-    }
-
-    .social-links a:hover {
-      transform: translateY(-4px);
-    }
-
-    /* ===== BARVY LOG ===== */
-    .twitch i { color: #9146ff; }
-    .youtube i { color: #ff0000; }
-    .discord i { color: #5865f2; }
-    .kick i { color: #00e701; }
-    .facebook i { color: #1877f2; }
-    .instagram i { color: #e1306c; }
-    .tiktok i { color: #69c9d0; }
-    .twitter i { color: #1da1f2; }
-
-    /* ===== HOVER GLOW ===== */
-     .twitch:hover {
-      box-shadow: 0 0 18px rgba(145, 70, 255, 0.7);
-    }
-
-    .youtube:hover {
-      box-shadow: 0 0 18px rgba(255, 0, 0, 0.7);
-    }
-
-    .discord:hover {
-      box-shadow: 0 0 18px rgba(88, 101, 242, 0.7);
-    }
-
-    .kick:hover {
-      box-shadow: 0 0 18px rgba(0, 231, 1, 0.7);
-    }
-    
-    .facebook:hover {
-      box-shadow: 0 0 18px rgba(24, 119, 242, 0.7);
-    }
-
-    .instagram:hover {
-      box-shadow: 0 0 18px rgba(225, 48, 108, 0.7);
-    }
-
-    .tiktok:hover {
-      box-shadow: 0 0 18px rgba(105, 201, 208, 0.7);
-    }
-
-    .twitter:hover {
-      box-shadow: 0 0 18px rgba(29, 161, 242, 0.7);
-    }
-  </style>
+        /* Mobilní optimalizace */
+        @media (max-width: 480px) {
+            .social-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 ikony v řadě na mobilu */
+            }
+            h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">
-        <img src="assets/loga/logo.png" alt="Logo">
-        <strong>OnlySim0n</strong>
-      </div>
-      <div class="menu">
-        <a href="https://onlysim0n.github.io">About</a>
-        <a href="https://onlysim0n.github.io/ateam">A-Team</a>
-        <a href="https://onlysim0n.github.io/stream">Stream</a>
-        <a href="https://onlysim0n.github.io/contact">Contact</a>
-      </div>
-    </div>
-  </nav>
+    <header>
+        <div class="logo-box">
+            <img src="../assets/loga/logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">Only_Sim0n</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                <li><a href="../ateam/index.html">A-TEAM</a></li>
+                <li><a href="../stream/index.html">Stream</a></li>
+                <li><a href="index.html" class="active">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <!-- ===== CONTENT ===== -->
-  <div class="container">
-    <h1>Sleduj mě</h1>
-    <p>Najdeš mě na těchto platformách</p>
-
-    <div class="social-links">
-      <a class="twitch" href="https://www.twitch.tv/only_sim0n" target="_blank">
-        <i class="fa-brands fa-twitch"></i> Twitch
-      </a>
-
-      <a class="youtube" href="https://www.youtube.com/@only_sim0n" target="_blank">
-        <i class="fa-brands fa-youtube"></i> YouTube
-      </a>
-
-      <a class="discord" href="https://discord.gg/gCShpDGDFe" target="_blank">
-        <i class="fa-brands fa-discord"></i> Discord
-      </a>
-
-     <a class="Kick" href="https://kick.com/only_simon" target="_blank">
-        <img src="assets/loga/kick.svg" class="kick-icon" alt="Kick">
-        Kick
-     </a>
-
-      <a class="facebook" href="https://www.twitch.tv/only_sim0n" target="_blank">
-        <i class="fa-brands fa-facebook"></i> Facebook
-      </a>
-
-      <a class="instagram" href="https://instagram.com/only_sim0n" target="_blank">
-        <i class="fa-brands fa-instagram"></i> Instagram
-      </a>
-
-      <a class="tiktok" href="https://www.tiktok.com/@only_sim0n" target="_blank">
-        <i class="fa-brands fa-tiktok"></i> TikTok
-      </a>
-
-      <a class="twitter" href="https://x.com/only_sim0n" target="_blank">
-        <i class="fa-brands fa-x-twitter"></i> Twitter
-      </a>
-    </div>
-  </div>
+    <main class="contact-content">
+        <h1>Contact</h1>
+        <p>Sleduj mě na sociálních sítích nebo se připoj k naší komunitě!</p>
+        
+        <div class="social-grid">
+            <a href="https://twitch.tv/your_link" target="_blank" class="twitch" title="Twitch"><i class='bx bxl-twitch'></i></a>
+            <a href="https://youtube.com/your_link" target="_blank" class="youtube" title="YouTube"><i class='bx bxl-youtube'></i></a>
+            <a href="https://discord.gg/your_link" target="_blank" class="discord" title="Discord"><i class='bx bxl-discord-alt'></i></a>
+            <a href="https://kick.com/your_link" target="_blank" class="kick" title="Kick"><i class='bx bxl-kick'></i></a>
+            <a href="https://facebook.com/your_link" target="_blank" class="facebook" title="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="https://instagram.com/your_link" target="_blank" class="instagram" title="Instagram"><i class='bx bxl-instagram'></i></a>
+            <a href="https://tiktok.com/@your_link" target="_blank" class="tiktok" title="TikTok"><i class='bx bxl-tiktok'></i></a>
+            <a href="https://twitter.com/your_link" target="_blank" class="twitter" title="Twitter/X"><i class='bx bxl-twitter'></i></a>
+        </div>
+    </main>
 
 </body>
 </html>
