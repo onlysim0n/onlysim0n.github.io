@@ -1,3 +1,4 @@
+/* --- ZÁKLADNÍ RESET A FONTY --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 * {
@@ -11,9 +12,10 @@ body {
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
-/* HEADER */
+/* --- HEADER / MENU --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -24,12 +26,35 @@ header {
     height: 80px;
 }
 
-.logo-container { display: flex; align-items: center; gap: 12px; }
-.logo-img { height: 45px; width: auto; }
-.site-name { font-size: 1.6rem; font-weight: 700; }
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
+.site-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -37,56 +62,71 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- OPRAVENÝ STREAM LAYOUT --- */
+/* --- SEKCE STREAM (PŘESNĚ PODLE TVÉHO VZORU + CENTROVÁNÍ) --- */
 
-.stream-main-content {
+.container {
+    width: 100%;
     display: flex;
-    flex-direction: row; /* Dá je vedle sebe */
-    justify-content: center; /* Vycentruje vodorovně */
-    align-items: center; /* Vycentruje svisle */
-    gap: 20px;
-    padding: 20px;
+    justify-content: center; /* Tady se děje to centrování vodorovně */
+}
+
+.detail {
     width: 100%;
-    height: calc(100vh - 80px); /* Výška od menu dolů */
+    display: flex;
+    justify-content: center;
 }
 
-.stream-video-box {
-    width: 65%; /* Trochu jsem ubral, aby se to vešlo vedle sebe i na menších monitorech */
-    height: 70vh;
-    background: #000;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid #333;
-}
-
-.stream-chat-box {
-    width: 20%;
-    height: 70vh;
-    background: #0e0e10;
-    border-radius: 20px;
-    overflow: hidden;
-    border: 2px solid #333;
-}
-
-.stream-video-box iframe, 
-.stream-chat-box iframe {
+.detail_twitch {
+    display: flex;
+    flex-direction: row;
+    justify-content: center; /* Toto hodí stream i chat na střed */
+    align-items: center;     /* Toto je vycentruje svisle */
+    gap: 15px;               /* Mezera mezi videem a chatem */
+    padding: 40px 0;
     width: 100%;
-    height: 100%;
 }
 
-/* MOBILNÍ VERZE - TEĎ UŽ CÍLENĚ POD SEBE */
-@media (max-width: 1200px) {
-    .stream-main-content {
+/* Nastavení samotných boxů pro Twitch */
+.twitch-stream iframe {
+    width: 70vw;  /* Přesně podle tvého vzoru */
+    height: 70vh; /* Přesně podle tvého vzoru */
+    border-radius: 15px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.twitch-chat iframe {
+    width: 20vw;  /* Přesně podle tvého vzoru */
+    height: 70vh; /* Přesně podle tvého vzoru */
+    border-radius: 15px;
+    border: 1px solid #333;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* --- RESPONZIVITA (MOBILY) --- */
+@media (max-width: 1100px) {
+    header {
         flex-direction: column;
         height: auto;
-        padding: 40px 10px;
+        padding: 20px;
     }
-    .stream-video-box {
-        width: 95%;
-        height: 50vh;
+
+    .nav-links {
+        margin-top: 15px;
+        gap: 15px;
     }
-    .stream-chat-box {
-        width: 95%;
-        height: 400px;
+
+    .detail_twitch {
+        flex-direction: column;
+    }
+
+    .twitch-stream iframe {
+        width: 95vw;
+        height: 53vw; /* Poměr 16:9 na mobilu */
+    }
+
+    .twitch-chat iframe {
+        width: 95vw;
+        height: 450px;
     }
 }
