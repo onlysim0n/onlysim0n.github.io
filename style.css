@@ -1,7 +1,7 @@
-/* IMPORT FONTU POPPINS */
+/* IMPORT FONTU POPPINS (Váhy 400, 600, 700 a 800 pro gradient) */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-/* ZÁKLADNÍ NASTAVENÍ */
+/* ZÁKLADNÍ RESET */
 * {
     margin: 0;
     padding: 0;
@@ -9,96 +9,103 @@
 }
 
 body {
-    background-color: #0f0f0f;
+    background-color: #0f0f0f; /* Temné pozadí */
     color: #ffffff;
-    font-family: 'Poppins', sans-serif; /* Návrat k Poppins */
+    font-family: 'Poppins', sans-serif;
     line-height: 1.6;
 }
 
-/* HLAVIČKA */
+/* HLAVIČKA WEBU */
 header {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* Logo vlevo, menu vpravo */
     align-items: center;
-    padding: 15px 5%;
+    padding: 20px 5%;
     background-color: #161616;
-    border-bottom: 1px solid #2a2a2a;
+    border-bottom: 2px solid #222;
     position: sticky;
     top: 0;
     z-index: 1000;
 }
 
-/* LOGO SEKCE */
+/* LEVÁ STRANA: LOGO A NÁZEV */
 .logo-container {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 12px;
 }
 
 .logo-img {
-    height: 45px;
+    height: 40px; /* Uprav podle velikosti svého loga */
     width: auto;
 }
 
 .site-name {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 700;
-    text-transform: none; /* Změněno na normální písma */
     color: #ffffff;
+    text-transform: none; /* Písmo zůstane tak, jak ho napíšeš v HTML */
 }
 
-/* NAVIGACE */
+/* PRAVÁ STRANA: MENU */
 .nav-links {
     list-style: none;
     display: flex;
-    gap: 35px;
+    gap: 30px; /* Mezera mezi odkazy */
 }
 
 .nav-links li a {
     text-decoration: none;
-    color: #999999;
+    color: #aaaaaa; /* Barva neaktivních odkazů */
     font-weight: 600;
-    font-size: 1.05rem;
-    transition: 0.3s;
-    text-transform: none; /* Změněno na normální písma */
+    font-size: 1.1rem;
+    transition: 0.3s ease;
+    text-transform: none; /* Písmo zůstane tak, jak ho napíšeš v HTML */
 }
 
+/* Hover efekt pro neaktivní odkazy */
 .nav-links li a:hover {
     color: #ffffff;
 }
 
-/* --- AKTIVNÍ STRÁNKA S VÝRAZNÝM GRADIENTEM --- */
+/* --- AKTIVNÍ STRÁNKA: ČERVENO-BÍLÝ GRADIENT --- */
 .nav-links li a.active {
-    /* Používáme tlustší řez písma (800), aby gradient lépe vynikl */
-    font-weight: 800; 
-    background: linear-gradient(to right, #ff0000, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    font-weight: 800; /* Extra tučné, aby gradient vynikl */
+    background: linear-gradient(to right, #ff0000 0%, #ffffff 100%);
+    
+    /* Standardní ořez pozadí na text */
     background-clip: text;
-    display: inline-block; /* Zajišťuje správné vykreslení na některých prohlížečích */
+    -webkit-background-clip: text;
+    
+    /* Zprůhlednění textu pro zobrazení gradientu */
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    
+    display: inline-block;
 }
 
-/* HLAVNÍ OBSAH */
+/* OBSAH STRÁNKY */
 main {
-    max-width: 1200px;
-    margin: 60px auto;
+    max-width: 1000px;
+    margin: 80px auto;
     padding: 0 20px;
     text-align: center;
 }
 
 h1 {
     font-size: 3rem;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
     font-weight: 700;
 }
 
-/* MOBILNÍ VERZE */
+p {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+/* RESPONSIVITA PRO MOBILY */
 @media (max-width: 768px) {
     header {
         flex-direction: column;
-        gap: 15px;
-    }
-    .nav-links {
-        gap: 15px;
-    }
-}
+        text-align: center;
+        gap
