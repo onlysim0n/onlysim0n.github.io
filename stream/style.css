@@ -1,4 +1,3 @@
-/* IMPORT FONTU */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 * {
@@ -11,7 +10,6 @@ body {
     background-color: #0f0f0f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -25,28 +23,12 @@ header {
     height: 80px;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
+.logo-container { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 45px; width: auto; }
 .site-name { font-size: 1.6rem; font-weight: 700; }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #aaaaaa;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -55,7 +37,7 @@ header {
     background-clip: text;
 }
 
-/* --- HLAVNÍ STRÁNKA (ABOUT) --- */
+/* MAIN STRÁNKA - IKONY */
 .hero-section {
     display: flex;
     justify-content: space-between;
@@ -67,23 +49,13 @@ header {
 .hero-text h1 { font-size: 4rem; margin-bottom: 10px; }
 .hero-text p { font-size: 1.2rem; color: #888; max-width: 500px; }
 
-.hero-socials {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+.hero-socials { display: flex; flex-direction: column; gap: 20px; }
 
 .social-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    border: 3px solid #ffffff;
+    width: 100px; height: 100px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    text-decoration: none; border: 3px solid #ffffff;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    background-color: transparent;
 }
 
 .social-box i {
@@ -92,7 +64,7 @@ header {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    transition: 0.4s ease;
+    transition: 0.4s;
 }
 
 .social-box:hover {
@@ -101,19 +73,13 @@ header {
     transform: scale(1.1) translateX(-10px);
 }
 
-.social-box:hover i {
-    background: none;
-    -webkit-text-fill-color: #0f0f0f;
-    color: #0f0f0f;
-}
+.social-box:hover i { background: none; -webkit-text-fill-color: #0f0f0f; color: #0f0f0f; }
 
-/* --- STRÁNKA STREAM (LAYOUT S MEZERAMI) --- */
-
+/* STREAM STRÁNKA - MEZERY A BOXY */
 .stream-wrapper {
     display: flex;
-    padding: 30px; /* Mezera od krajů stránky */
+    padding: 40px; /* Mezera od krajů stránky */
     height: calc(100vh - 80px);
-    width: 100%;
     justify-content: center;
     align-items: center;
 }
@@ -128,27 +94,22 @@ header {
 .stream-video-box {
     flex: 7.5;
     background-color: #000;
-    border-radius: 20px; /* Zakulacené rohy boxu */
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .stream-chat-box {
     flex: 2.5;
     background-color: #0e0e10;
-    border-radius: 20px; /* Zakulacené rohy boxu */
+    border-radius: 20px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* MOBILNÍ VERZE */
 @media (max-width: 1100px) {
     .stream-wrapper { height: auto; padding: 20px; }
     .stream-container { flex-direction: column; }
     .stream-video-box { width: 100%; aspect-ratio: 16/9; }
     .stream-chat-box { width: 100%; height: 500px; }
-    .hero-section { flex-direction: column; text-align: center; padding: 50px 0; }
-    .hero-socials { flex-direction: row; margin-top: 30px; }
 }
