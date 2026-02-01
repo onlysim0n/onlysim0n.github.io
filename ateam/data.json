@@ -29,6 +29,24 @@
     "discord": "fialovejj",
     "icon": "../assets/loga/main_mod_icon.png"
   },
+  {
+    "twitch": "CzechPatres",
+    "role": "Moderátor",
+    "discord": "CzechPatres",
+    "icon": "../assets/loga/mod_icon.png"
+  },
+   {
+    "twitch": "MetasCZ",
+    "role": "Moderátor",
+    "discord": "metascz",
+    "icon": "../assets/loga/mod_icon.png"
+  },
+  {
+    "twitch": "Dangregy",
+    "role": "Moderátor",
+    "discord": "dangregy",
+    "icon": "../assets/loga/mod_icon.png"
+  },
    {
     "twitch": "Vasha99",
     "role": "Moderátor",
@@ -40,11 +58,4 @@
     "role": "Moderátor",
     "discord": "marekmarosz2008",
     "icon": "../assets/loga/mod_icon.png"
-  },
-  {
-    "twitch": "D0LandX",
-    "role": "VIP Divák",
-    "discord": "akoni0001",
-    "icon": "../assets/loga/vip_icon.png"
-  }
 ]
