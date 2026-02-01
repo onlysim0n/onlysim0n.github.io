@@ -1,0 +1,38 @@
+/* DESIGN PRO STRÁNKU STREAM */
+.stream-container {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 85px); /* Výška okna minus výška hlavičky */
+    background-color: #000;
+    gap: 0; /* Žádná mezera, aby to vypadalo jako jeden celek */
+    padding: 0; /* Stream chceme přes celou plochu */
+    max-width: 100%; /* Přepsání původního limitu v main */
+    margin: 0;
+}
+
+.stream-video {
+    flex: 7; /* 70% šířky */
+    height: 100%;
+}
+
+.stream-chat {
+    flex: 3; /* 30% šířky */
+    height: 100%;
+    border-left: 1px solid #222;
+}
+
+/* Úprava pro mobily - chat se dá pod video */
+@media (max-width: 1000px) {
+    .stream-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .stream-video {
+        aspect-ratio: 16 / 9;
+        flex: none;
+    }
+    .stream-chat {
+        height: 500px;
+        flex: none;
+    }
+}
