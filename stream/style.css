@@ -6,90 +6,107 @@
     box-sizing: border-box;
 }
 
-/* Základní nastavení stránky, aby se nic nelepilo do rohu */
-html, body {
-    height: 100%;
-    width: 100%;
+body, html {
     background-color: #0f0f0f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
+    width: 100%;
+    height: 100%;
 }
 
-.stream-page-body {
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- HEADER (MENU) --- */
-.site-header {
+/* --- HEADER / MENU --- */
+.navbar {
     width: 100%;
     height: 80px;
     background-color: #161616;
     border-bottom: 2px solid #222;
     display: flex;
-    justify-content: center; /* Centruje vnitřní kontejner */
+    justify-content: center;
 }
 
-.header-container {
+.navbar-container {
     width: 90%;
+    max-width: 1400px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.brand { display: flex; align-items: center; gap: 10px; }
-.logo-img { height: 40px; width: auto; }
-.logo-text { font-size: 1.5rem; font-weight: 700; color: #fff; }
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
 
-.navigation ul { display: flex; list-style: none; gap: 25px; }
-.navigation a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; }
-.navigation a:hover { color: #fff; }
-.navigation a.active {
-    background: linear-gradient(to right, #ff0000, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+.main-logo {
+    height: 45px;
+    width: auto;
+}
+
+.brand-name {
+    font-size: 1.7rem;
+    font-weight: 800;
+    color: #ffffff;
+}
+
+.menu ul {
+    display: flex;
+    list-style: none; /* Odstraní ty tečky ze screenshotu */
+    gap: 30px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: 0.3s;
+}
+
+.menu a.active {
+    color: #ff0000; /* Aktivní červená barva */
     font-weight: 800;
 }
 
-/* --- HLAVNÍ ČÁST (STREAM) - TADY JE TEN STŘED --- */
-.centered-content {
-    flex: 1; /* Zabere veškeré volné místo pod menu */
+/* --- STREAM CENTROVÁNÍ --- */
+.stream-viewer {
+    width: 100%;
+    height: calc(100vh - 80px);
     display: flex;
-    justify-content: center; /* Vodorovný střed */
-    align-items: center;     /* Svislý střed */
-    padding: 20px;
+    justify-content: center;
+    align-items: center;
 }
 
-.twitch-layout {
+.twitch-wrapper {
     display: flex;
     flex-direction: row;
-    width: 95%;             /* Celková šířka streamu a chatu */
+    width: 92%;
     max-width: 1600px;
     gap: 15px;
-    align-items: stretch;   /* Chat i video budou stejně vysoké */
+    /* Pevná výška pro oba boxy */
+    height: 70vh; 
 }
 
-.video-part {
-    flex: 3.5;              /* Video bude dominantní */
-    aspect-ratio: 16 / 9;   /* Drží filmový poměr */
+.video-box {
+    flex: 3.5;
 }
 
-.chat-part {
-    flex: 1.2;              /* Chat bude užší */
+.chat-box {
+    flex: 1.2;
 }
 
-.video-part iframe, 
-.chat-part iframe {
+.video-box iframe, 
+.chat-box iframe {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    border-radius: 15px;
     border: 1px solid #333;
     display: block;
 }
 
-/* Mobilní verze (pod sebou) */
+/* Mobilní verze */
 @media (max-width: 1100px) {
-    .centered-content { display: block; padding-top: 40px; }
-    .twitch-layout { flex-direction: column; width: 100%; }
-    .chat-part { height: 450px; }
+    .stream-viewer { height: auto; padding: 40px 0; }
+    .twitch-wrapper { flex-direction: column; height: auto; }
+    .chat-box { height: 500px; }
 }
