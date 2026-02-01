@@ -46,7 +46,12 @@
                 const response = await fetch('data.json?v=' + Math.random());
                 const data = await response.json();
                 const tableBody = document.getElementById('ateam-table-body');
-                tableBody.innerHTML = '';
+                
+                // 1. DŮLEŽITÉ: Vymažeme tabulku předem
+                tableBody.innerHTML = ''; 
+
+                // 2. Vytvoříme jeden dlouhý text se všemi řádky
+                let rowsHtml = '';
 
                 data.forEach(member => {
                     const tNick = member.twitch || member.Twitch || "—";
@@ -54,14 +59,13 @@
                     const dNick = member.discord || member.Discord || "—";
                     const iconPath = member.icon || member.Icon || "";
 
-                    // Převod na CSS třídu: "VIP Divák" -> "vip-divak"
                     const safeRoleClass = rName.toLowerCase()
                         .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
                         .replace(/\s+/g, '-');
 
                     const iconHtml = iconPath ? `<img src="${iconPath}" class="role-icon" alt="badge">` : "";
 
-                    const row = `
+                    rowsHtml += `
                         <tr>
                             <td class="twitch-name">${tNick}</td>
                             <td class="text-center">
@@ -73,14 +77,17 @@
                             <td class="discord-name">${dNick}</td>
                         </tr>
                     `;
-                    tableBody.appendChild(Object.assign(document.createElement('tr'), {innerHTML: row}).firstChild.parentElement);
-                    // Jednodušší zápis pro vložení řádku
-                    tableBody.innerHTML += row;
                 });
+
+                // 3. Vložíme vše najednou
+                tableBody.innerHTML = rowsHtml;
+
             } catch (error) {
                 console.error("Chyba při načítání JSON:", error);
             }
         }
+        
+        // Spustíme funkci
         loadTeam();
     </script>
 </body>
