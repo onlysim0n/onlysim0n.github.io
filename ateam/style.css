@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+/* --- HEADER / MENU --- */
+header {
+    height: 80px;
+    background: #161616;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    border-bottom: 2px solid #222;
+}
+
+.logo-box { display: flex; align-items: center; gap: 12px; }
+.logo-img { height: 45px; width: auto; }
+.logo-text { font-size: 1.7rem; font-weight: 800; }
+
+.nav-links { display: flex; list-style: none; gap: 30px; }
+.nav-links a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: 0.3s;
+    padding-bottom: 5px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-links a.active {
+    font-weight: 800;
+    background: linear-gradient(to right, #ff0000, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border-bottom: 2px solid #ff0000;
+}
+
+/* --- TABULKA --- */
+.ateam-section {
+    padding: 50px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 40px;
+    background: linear-gradient(to right, #ff0000, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.table-container {
+    width: 100%;
+    max-width: 1000px;
+    background: #161616;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #222;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background: #1f1f1f;
+    padding: 20px;
+    color: #ff0000;
+    text-align: left;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+td {
+    padding: 20px;
+    border-bottom: 1px solid #222;
+}
+
+/* ODZNAKY ROLE */
+.badge {
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.streamer { background: #ff0000; color: #fff; }
+.hlavní-moderátor { background: #00e5ff; color: #000; }
+.moderátor { background: #00ff44; color: #000; }
+.vip-divák { background: #ff00ff; color: #fff; }
+
+@media (max-width: 768px) {
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 0.9rem; }
+}
