@@ -11,4 +11,10 @@
     "discord": "Vojta#0001",
     "icon": "../assets/loga/main_mod_icon.png"
   }
+  {
+    "twitch": "Vojta_Admin",
+    "role": "Hlavní Moderátor",
+    "discord": "Vojta#0001",
+    "icon": "../assets/loga/vip_icon.png"
+  }
 ]
