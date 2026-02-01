@@ -26,10 +26,10 @@ header {
 
 .logo-container { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 45px; width: auto; }
-.site-name { font-size: 1.6rem; font-weight: 700; color: #fff; }
+.site-name { font-size: 1.6rem; font-weight: 700; }
 
 .nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; }
+.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -37,50 +37,53 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- STREAM CENTROVÁNÍ VEDLE SEBE --- */
+/* --- STREAM SEKCE --- */
 
-.stream-page-main {
+.stream-main {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: calc(100vh - 80px); /* Přesně vycentrováno pod menu */
-    padding: 20px;
+    height: calc(100vh - 80px); /* Centrování pod menu */
 }
 
-.twitch-bundle {
+.stream-container {
     display: flex;
-    flex-direction: row; /* Vždy vedle sebe na PC */
-    flex-wrap: nowrap;    /* Zakáže skok chatu pod video */
+    flex-direction: row;
     justify-content: center;
-    align-items: stretch;  /* Zaručí stejnou výšku chatu i videa */
+    align-items: stretch; /* DŮLEŽITÉ: Chat se natáhne podle výšky videa */
     gap: 15px;
-    width: 90vw;          /* Celková šířka bundle */
-    max-width: 1600px;
+    width: 85%; /* Zmenšení celkového obrazu */
+    max-width: 1400px;
 }
 
-.twitch-stream {
-    flex: 3;             /* Video zabere 3 díly místa */
-    aspect-ratio: 16 / 9; /* Vynutí poměr videa 16:9 */
+.video-box {
+    flex: 3; /* Video je širší (poměr 3:1) */
+    aspect-ratio: 16 / 9; /* Vynutí 16:9 rozměr */
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333;
 }
 
-.twitch-chat {
-    flex: 1;             /* Chat zabere 1 díl místa */
+.chat-box {
+    flex: 1; /* Chat je užší */
+    background: #0e0e10;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #333;
 }
 
-.twitch-stream iframe, 
-.twitch-chat iframe {
+.video-box iframe, 
+.chat-box iframe {
     width: 100%;
     height: 100%;
-    border-radius: 15px;
-    border: 1px solid #333;
     display: block;
 }
 
-/* MOBILNÍ VERZE - Tady už to pod sebe musí, jinak bys nic neviděl */
+/* MOBILNÍ VERZE */
 @media (max-width: 1100px) {
-    .stream-page-main { height: auto; padding-top: 40px; }
-    .twitch-bundle { flex-direction: column; width: 95vw; align-items: center; }
-    .twitch-stream { width: 100%; }
-    .twitch-chat { width: 100%; height: 450px; }
+    .stream-main { height: auto; padding: 30px 0; }
+    .stream-container { flex-direction: column; width: 95%; }
+    .chat-box { height: 450px; }
 }
