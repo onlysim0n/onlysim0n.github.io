@@ -1,7 +1,6 @@
 /* IMPORT FONTU */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-/* ZÁKLADNÍ NASTAVENÍ */
 * {
     margin: 0;
     padding: 0;
@@ -15,12 +14,12 @@ body {
     overflow-x: hidden;
 }
 
-/* HLAVIČKA */
+/* HEADER */
 header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 5%;
+    padding: 0 5%;
     background-color: #161616;
     border-bottom: 2px solid #222;
     height: 80px;
@@ -49,94 +48,4 @@ header {
 }
 
 .nav-links li a.active {
-    font-weight: 800;
-    background: linear-gradient(to right, #ff0000, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* HLAVNÍ STRÁNKA (ABOUT) */
-.hero-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    min-height: calc(100vh - 80px);
-    padding: 0 10%;
-}
-
-.hero-text h1 { font-size: 4rem; margin-bottom: 20px; }
-.hero-text p { font-size: 1.3rem; color: #888; max-width: 600px; }
-
-.hero-socials {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    align-items: flex-end;
-}
-
-.social-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    font-size: 3rem;
-    border: 3px solid #ffffff;
-    transition: all 0.4s ease;
-}
-
-.social-box i {
-    background: linear-gradient(135deg, #ff0000 0%, #ffffff 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.social-box:hover {
-    background: linear-gradient(135deg, #ff0000 0%, #ffffff 100%);
-    border-color: transparent;
-    transform: scale(1.1) translateX(-10px);
-}
-
-.social-box:hover i {
-    -webkit-text-fill-color: #0f0f0f;
-    background: none;
-}
-
-/* --- STRÁNKA STREAM --- */
-.stream-container {
-    display: flex;
-    width: 100%;
-    height: calc(100vh - 80px); /* Přesně pod hlavičku */
-    background-color: #000;
-    margin: 0 !important;
-    padding: 0 !important;
-    max-width: 100% !important;
-}
-
-.stream-video {
-    flex: 7.5;
-    height: 100%;
-}
-
-.stream-chat {
-    flex: 2.5;
-    height: 100%;
-    background-color: #0e0e10;
-    border-left: 2px solid #1a1a1a;
-}
-
-/* RESPONSIVITA */
-@media (max-width: 1000px) {
-    .stream-container {
-        flex-direction: column;
-        height: auto;
-    }
-    .stream-video { aspect-ratio: 16/9; width: 100%; }
-    .stream-chat { height: 500px; width: 100%; }
-    .hero-section { flex-direction: column; text-align: center; padding: 40px 0; }
-    .hero-socials { flex-direction: row; margin-top: 30px; }
-}
+    font-
