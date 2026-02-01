@@ -1,5 +1,7 @@
+/* IMPORT FONTU */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
+/* ZÁKLADNÍ RESET */
 * {
     margin: 0;
     padding: 0;
@@ -13,7 +15,7 @@ body {
     overflow-x: hidden;
 }
 
-/* HEADER */
+/* HEADER (NAVIGACE) */
 header {
     display: flex;
     justify-content: space-between;
@@ -24,12 +26,28 @@ header {
     height: 80px;
 }
 
-.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
 .logo-img { height: 45px; width: auto; }
 .site-name { font-size: 1.6rem; font-weight: 700; }
 
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #aaaaaa;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -38,7 +56,7 @@ header {
     background-clip: text;
 }
 
-/* ABOUT PAGE (HLAVNÍ STRÁNKA) */
+/* --- HLAVNÍ STRÁNKA (ABOUT) --- */
 .hero-section {
     display: flex;
     justify-content: space-between;
@@ -50,14 +68,24 @@ header {
 .hero-text h1 { font-size: 4rem; margin-bottom: 10px; }
 .hero-text p { font-size: 1.2rem; color: #888; max-width: 500px; }
 
-/* GRADIENTOVÉ IKONY VPRAVO */
-.hero-socials { display: flex; flex-direction: column; gap: 20px; }
+/* SOCIÁLNÍ LOGA - GRADIENT A HOVER EFEKT */
+.hero-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
 .social-box {
-    width: 100px; height: 100px; border-radius: 50%;
-    display: flex; justify-content: center; align-items: center;
-    text-decoration: none; border: 3px solid #ffffff;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    border: 3px solid #ffffff;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background-color: transparent;
 }
 
 .social-box i {
@@ -75,30 +103,34 @@ header {
     transform: scale(1.1) translateX(-10px);
 }
 
-.social-box:hover i { 
-    background: none; 
-    -webkit-text-fill-color: #0f0f0f; 
-    color: #0f0f0f; 
+.social-box:hover i {
+    background: none;
+    -webkit-text-fill-color: #0f0f0f;
+    color: #0f0f0f;
 }
 
-/* STREAM LAYOUT (S MEZERAMI A KULATÝMI ROHY) */
+/* --- STRÁNKA STREAM --- */
+
 .stream-wrapper {
     display: flex;
-    padding: 30px; /* MEZERA OD OKRAJŮ STRÁNKY */
-    height: calc(100vh - 80px);
+    padding: 40px; /* Mezera od okrajů stránky */
+    min-height: calc(100vh - 80px);
     justify-content: center;
     align-items: center;
+    background-color: #0f0f0f;
 }
 
 .stream-container {
     display: flex;
-    width: 100%;
-    height: 100%;
-    gap: 30px; /* MEZERA MEZI VIDEEM A CHATEM */
+    width: 85%; /* Celkové zmenšení šířky obrazu */
+    max-width: 1500px;
+    gap: 20px; /* Mezera mezi videem a chatem */
+    align-items: stretch; /* Vynutí stejnou výšku chatu i videa */
 }
 
 .stream-video-box {
     flex: 7.5;
+    aspect-ratio: 16 / 9; /* Přesný rozměr 16:9 */
     background-color: #000;
     border-radius: 20px;
     overflow: hidden;
@@ -115,10 +147,25 @@ header {
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* MOBILNÍ ZOBRAZENÍ */
+/* Zajištění, aby iframe vyplnil celý svůj box */
+.stream-video-box iframe, 
+.stream-chat-box iframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* RESPONSIVITA PRO MOBILY */
 @media (max-width: 1100px) {
-    .stream-wrapper { height: auto; padding: 20px; }
-    .stream-container { flex-direction: column; }
-    .stream-video-box { width: 100%; aspect-ratio: 16/9; }
-    .stream-chat-box { width: 100%; height: 500px; }
+    .hero-section { flex-direction: column; text-align: center; padding: 50px 0; }
+    .hero-socials { flex-direction: row; margin-top: 30px; }
+    
+    .stream-wrapper { padding: 15px; }
+    .stream-container {
+        flex-direction: column;
+        width: 100%;
+    }
+    .stream-chat-box {
+        height: 450px;
+    }
 }
