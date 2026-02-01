@@ -1,22 +1,22 @@
 [
-    {
-        "twitch": "Only_Sim0n",
-        "role": "Streamer",
-        "discord": "only_sim0n"
-    },
-    {
-        "twitch": "Vojta_Admin",
-        "role": "Hlavní Moderátor",
-        "discord": "Vojta#0001"
-    },
-    {
-        "twitch": "Karel_Mod",
-        "role": "Moderátor",
-        "discord": "Karel#1234"
-    },
-    {
-        "twitch": "Standa_VIP",
-        "role": "VIP Divák",
-        "discord": "Standa_Discord"
-    }
+  {
+    "twitch": "Only_Sim0n",
+    "role": "Streamer",
+    "discord": "only_sim0n"
+  },
+  {
+    "twitch": "Vojta_Admin",
+    "role": "Hlavní Moderátor",
+    "discord": "Vojta#0001"
+  },
+  {
+    "twitch": "Karel_Mod",
+    "role": "Moderátor",
+    "discord": "Karel#1234"
+  },
+  {
+    "twitch": "SuperDivak",
+    "role": "VIP Divák",
+    "discord": "Super#9999"
+  }
 ]
