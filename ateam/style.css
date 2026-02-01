@@ -1,3 +1,4 @@
+/* --- ZÁKLADNÍ NASTAVENÍ --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 * {
@@ -13,7 +14,7 @@ body {
     min-height: 100vh;
 }
 
-/* HEADER */
+/* --- HEADER / MENU (Sjednoceno s index a stream) --- */
 header {
     height: 80px;
     background: #161616;
@@ -24,19 +25,40 @@ header {
     border-bottom: 2px solid #222;
 }
 
-.logo-box { display: flex; align-items: center; gap: 12px; }
-.logo-img { height: 45px; width: auto; }
-.logo-text { font-size: 1.7rem; font-weight: 800; }
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-.nav-links { display: flex; list-style: none; gap: 30px; }
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
 .nav-links a {
     text-decoration: none;
     color: #aaaaaa;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Velikost shodná se streamem */
     transition: 0.3s;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: white;
 }
 
 .nav-links a.active {
@@ -47,7 +69,7 @@ header {
     border-bottom: 2px solid #ff0000;
 }
 
-/* SEKCE A-TEAM */
+/* --- SEKCE A-TEAM (TABULKA) --- */
 .ateam-section {
     padding: 60px 5%;
     display: flex;
@@ -89,7 +111,7 @@ th {
     letter-spacing: 1px;
 }
 
-/* Pomocná třída pro centrování hlavičky i buněk */
+/* --- CENTROVÁNÍ PROSTŘEDNÍHO SLOUPCE --- */
 .text-center {
     text-align: center !important;
 }
@@ -100,24 +122,24 @@ td {
     vertical-align: middle;
 }
 
-/* KONTEJNER PRO IKONU A BADGE */
+/* Kontejner pro ikonu a badge (pod sebou) */
 .role-container {
     display: inline-flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     vertical-align: middle;
 }
 
 .role-icon {
-    height: 28px;
+    height: 30px; /* Velikost tvojí ikony */
     width: auto;
     object-fit: contain;
 }
 
 .badge {
-    padding: 5px 12px;
-    border-radius: 5px;
+    padding: 6px 14px;
+    border-radius: 6px;
     font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
@@ -125,15 +147,30 @@ td {
     white-space: nowrap;
 }
 
-/* BARVY ODZNAKŮ */
+/* --- BARVY ODZNAKŮ DLE ROLÍ --- */
 .streamer { background: #ff0000; color: #fff; }
 .hlavni-moderator { background: #00e5ff; color: #000; }
 .moderator { background: #00ff44; color: #000; }
 .vip-divak { background: #ff00ff; color: #fff; }
 
-.twitch-name { font-weight: 700; color: #fff; width: 35%; }
-.discord-name { color: #aaa; width: 35%; }
+/* Styly pro nicky */
+.twitch-name { 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    color: #fff;
+    width: 35%;
+}
 
+.discord-name { 
+    color: #aaa; 
+    width: 35%;
+}
+
+/* --- MOBILNÍ VERZE --- */
 @media (max-width: 768px) {
-    th, td { padding: 12px 10px; font-size: 0.9rem; }
+    header { padding: 0 3%; }
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 0.9rem; }
+    h1 { font-size: 2.5rem; }
+    th, td { padding: 12px 10px; font-size: 0.85rem; }
 }
