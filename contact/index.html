@@ -94,7 +94,7 @@
         /* --- SOCIÁLNÍ SÍTĚ GRID --- */
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 ikony v řadě na PC */
+            grid-template-columns: repeat(4, 1fr);
             gap: 25px;
             max-width: 400px;
         }
@@ -112,12 +112,20 @@
             border-radius: 50%;
             border: 1px solid #333;
             transition: 0.4s ease;
+            overflow: hidden;
         }
 
         .social-grid a:hover {
             transform: translateY(-8px);
             border-color: #ff0000;
             box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+        }
+
+        /* Speciální styl pro Kick (K) */
+        .kick-icon {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
         }
 
         /* Barevné ladění jednotlivých sítí */
@@ -132,9 +140,7 @@
 
         /* Mobilní optimalizace */
         @media (max-width: 480px) {
-            .social-grid {
-                grid-template-columns: repeat(2, 1fr); /* 2 ikony v řadě na mobilu */
-            }
+            .social-grid { grid-template-columns: repeat(2, 1fr); }
             h1 { font-size: 2.5rem; }
         }
     </style>
@@ -162,14 +168,17 @@
         
         <div class="social-grid">
             <a href="https://twitch.tv/only_sim0n" target="_blank" class="twitch" title="Twitch"><i class='bx bxl-twitch'></i></a>
-            <a href="https://youtube.com/@only_sim0n" target="_blank" class="youtube" title="YouTube"><i class='bx bxl-youtube'></i></a>
-             <a href="https://youtube.com/@only_sim0nSTREAM" target="_blank" class="youtube" title="YouTube"><i class='bx bxl-youtube'></i></a>
-            <a href="https://discord.gg/gCShpDGDFe" target="_blank" class="discord" title="Discord"><i class='bx bxl-discord-alt'></i></a>
-            <a href="https://kick.com/only_simon" target="_blank" class="kick" title="Kick"><i class='bx bxl-kick'></i></a>
-            <a href="https://facebook.com/only_sim0n" target="_blank" class="facebook" title="Facebook"><i class='bx bxl-facebook-circle'></i></a>
-            <a href="https://instagram.com/only_sim0n" target="_blank" class="instagram" title="Instagram"><i class='bx bxl-instagram'></i></a>
-            <a href="https://tiktok.com/@only_sim0n" target="_blank" class="tiktok" title="TikTok"><i class='bx bxl-tiktok'></i></a>
-            <a href="https://twitter.com/only_sim0n" target="_blank" class="twitter" title="Twitter/X"><i class='bx bxl-twitter'></i></a>
+            <a href="https://youtube.com/@onlysim0n" target="_blank" class="youtube" title="YouTube"><i class='bx bxl-youtube'></i></a>
+            <a href="https://discord.gg/invite" target="_blank" class="discord" title="Discord"><i class='bx bxl-discord-alt'></i></a>
+            
+            <a href="https://kick.com/only_sim0n" target="_blank" class="kick" title="Kick">
+                <span class="kick-icon">K</span>
+            </a>
+
+            <a href="https://facebook.com/profile" target="_blank" class="facebook" title="Facebook"><i class='bx bxl-facebook-circle'></i></a>
+            <a href="https://instagram.com/onlysim0n" target="_blank" class="instagram" title="Instagram"><i class='bx bxl-instagram'></i></a>
+            <a href="https://tiktok.com/@onlysim0n" target="_blank" class="tiktok" title="TikTok"><i class='bx bxl-tiktok'></i></a>
+            <a href="https://twitter.com/onlysim0n" target="_blank" class="twitter" title="Twitter/X"><i class='bx bxl-twitter'></i></a>
         </div>
     </main>
 
