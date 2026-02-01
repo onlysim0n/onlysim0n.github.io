@@ -1,163 +1,34 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OnlySim0n – Oficiální web</title>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #0e0e0e;
-      color: #ffffff;
-    }
-
-    /* ===== NAVBAR ===== */
-    nav {
-      width: 100%;
-      background-color: #151515;
-      border-bottom: 1px solid #333;
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 20px;
-    }
-
-    .logo img {
-      width: 48px;
-      height: 48px;
-      border-radius: 10px;
-    }
-
-    .menu {
-      display: flex;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .menu a {
-      color: #ddd;
-      text-decoration: none;
-      font-size: 18px;
-      white-space: nowrap;
-    }
-
-    .menu a:hover {
-      color: #fff;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      max-width: 1000px;
-      margin: 80px auto;
-      padding: 0 20px;
-      text-align: center;
-    }
-
-    .hero h1 {
-      font-size: 42px;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 18px;
-      color: #aaa;
-      max-width: 700px;
-      margin: 0 auto 40px;
-      line-height: 1.6;
-    }
-
-    /* ===== BUTTONS ===== */
-    .buttons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      padding: 16px 28px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-size: 18px;
-      color: #fff;
-      border: 1px solid #333;
-      background-color: #1a1a1a;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-4px);
-    }
-
-    .btn-twitch:hover {
-      box-shadow: 0 0 18px rgba(145, 70, 255, 0.8);
-    }
-
-    .btn-social:hover {
-      box-shadow: 0 0 18px rgba(255, 255, 255, 0.4);
-    }
-
-    @media (max-width: 768px) {
-      .hero h1 {
-        font-size: 32px;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only_Sim0n | About</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <nav>
-    <div class="nav-inner">
-      <div class="logo">
-        <img src="assets/loga/Only_Simon_Main.png" alt="Logo">
-        <strong>OnlySim0n</strong>
-      </div>
-      <div class="menu">
-        <a href="">About</a>
-        <a href="https://onlysim0n.github.io/ateam">A-Team</a>
-        <a href="https://onlysim0n.github.io/stream">Stream</a>
-        <a href="https://onlysim0n.github.io/contact">Contact</a>
-      </div>
-    </div>
-  </nav>
+    <header>
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo-img"> 
+            <span class="site-name">Only_Sim0n</span>
+        </div>
 
-  <!-- ===== HERO ===== -->
-  <section class="hero">
-    <h1>Vítej na oficiálním webu OnlySim0n</h1>
-    <p>
-      Streamer, komunita a projekty na jednom místě.  
-      Sleduj streamy, přidej se na Discord a buď součástí komunity.
-    </p>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">About</a></li>
+                <li><a href="ateam.html">A-TEAM</a></li>
+                <li><a href="stream.html">Stream</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div class="buttons">
-      <a class="btn btn-twitch" href="https://www.twitch.tv/only_sim0n" target="_blank">
-        Sleduj mě na Twitchi
-      </a>
-      <a class="btn btn-social" href="/social.html">
-        Sociální sítě
-      </a>
-    </div>
-  </section>
+    <main>
+        <h1>Vítejte na Only_Sim0n</h1>
+        <p>Zde bude tvůj text o tobě (About).</p>
+    </main>
 
 </body>
 </html>
