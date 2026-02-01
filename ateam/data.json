@@ -1,20 +1,22 @@
 [
-  {
-    "nick": "Streamer1",
-    "role": "Streamer",
-    "discord": "streamer1#0001",
-    "logo": "assets/loga/streamer1.png"
-  },
-  {
-    "nick": "BossA",
-    "role": "Vedení A-Týmu",
-    "discord": "bossa#1111",
-    "logo": "assets/loga/bossa.png"
-  },
-  {
-    "nick": "Mod1",
-    "role": "Mod Tým",
-    "discord": "mod1#2221",
-    "logo": "assets/loga/mod1.png"
-  }
+    {
+        "twitch": "Only_Sim0n",
+        "role": "Streamer",
+        "discord": "only_sim0n"
+    },
+    {
+        "twitch": "Vojta_Admin",
+        "role": "Hlavní Moderátor",
+        "discord": "Vojta#0001"
+    },
+    {
+        "twitch": "Karel_Mod",
+        "role": "Moderátor",
+        "discord": "Karel#1234"
+    },
+    {
+        "twitch": "Standa_VIP",
+        "role": "VIP Divák",
+        "discord": "Standa_Discord"
+    }
 ]
