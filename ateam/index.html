@@ -42,32 +42,42 @@
     </main>
 
     <script>
-        fetch('data.json')
-            .then(response => response.json())
-            .then(data => {
-                const tableBody = document.getElementById('ateam-table-body');
-                tableBody.innerHTML = ''; 
+    fetch('data.json')
+        .then(response => response.json())
+        .then(data => {
+            const tableBody = document.getElementById('ateam-table-body');
+            tableBody.innerHTML = ''; 
 
-                data.forEach(member => {
-                    const row = document.createElement('tr');
-                    
-                    // Odstranění diakritiky a mezer pro CSS třídy (např. "Hlavní Moderátor" -> "hlavni-moderator")
-                    const roleClass = member.role.toLowerCase()
-                        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                        .replace(/\s+/g, '-');
-                    
-                    row.innerHTML = `
-                        <td class="twitch-name">${member.twitch || '—'}</td>
-                        <td><span class="badge ${roleClass}">${member.role}</span></td>
-                        <td class="discord-name">${member.discord || '—'}</td>
-                    `;
-                    tableBody.appendChild(row);
-                });
-            })
-            .catch(err => {
-                console.error('Chyba:', err);
-                document.getElementById('ateam-table-body').innerHTML = '<tr><td colspan="3">Data se nepodařilo načíst.</td></tr>';
+            data.forEach(member => {
+                const row = document.createElement('tr');
+                
+                // Tato funkce najde hodnotu bez ohledu na to, jestli je v JSONu "twitch" nebo "Twitch"
+                const getVal = (obj, key) => {
+                    const foundKey = Object.keys(obj).find(k => k.toLowerCase() === key.toLowerCase());
+                    return foundKey ? obj[foundKey] : '—';
+                };
+
+                const twitchNick = getVal(member, 'twitch');
+                const roleName = getVal(member, 'role');
+                const discordNick = getVal(member, 'discord');
+
+                // Převod role na třídu pro barvy (odstranění diakritiky a mezer)
+                const roleClass = roleName.toLowerCase()
+                    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                    .replace(/\s+/g, '-');
+                
+                row.innerHTML = `
+                    <td class="twitch-name">${twitchNick}</td>
+                    <td><span class="badge ${roleClass}">${roleName}</span></td>
+                    <td class="discord-name">${discordNick}</td>
+                `;
+                tableBody.appendChild(row);
             });
-    </script>
+        })
+        .catch(err => {
+            console.error('Chyba při načítání:', err);
+            document.getElementById('ateam-table-body').innerHTML = '<tr><td colspan="3">Chyba při načítání data.json</td></tr>';
+        });
+</script>
 </body>
 </html>
