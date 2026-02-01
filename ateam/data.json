@@ -2,11 +2,13 @@
   {
     "twitch": "Only_Sim0n",
     "role": "Streamer",
-    "discord": "only_sim0n"
+    "discord": "only_sim0n",
+    "icon": "../assets/loga/streamer_icon.png"
   },
   {
-    "twitch": "Vojta",
+    "twitch": "Vojta_Admin",
     "role": "Hlavní Moderátor",
-    "discord": "Vojta#0001"
+    "discord": "Vojta#0001",
+    "icon": "../assets/loga/mod_icon.png"
   }
 ]
