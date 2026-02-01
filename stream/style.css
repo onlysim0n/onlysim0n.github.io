@@ -1,121 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-/* ZÁKLAD */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
+/* Základní nastavení stránky, aby se nic nelepilo do rohu */
+html, body {
+    height: 100%;
+    width: 100%;
     background-color: #0f0f0f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
 }
 
-/* HEADER - LOGO A MENU */
-header {
+.stream-page-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* --- HEADER (MENU) --- */
+.site-header {
+    width: 100%;
+    height: 80px;
+    background-color: #161616;
+    border-bottom: 2px solid #222;
+    display: flex;
+    justify-content: center; /* Centruje vnitřní kontejner */
+}
+
+.header-container {
+    width: 90%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 5%;
-    background-color: #161616;
-    border-bottom: 2px solid #222;
-    height: 80px;
-    width: 100%;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo-img { height: 40px; width: auto; }
+.logo-text { font-size: 1.5rem; font-weight: 700; color: #fff; }
 
-.logo-img {
-    height: 45px;
-    width: auto;
-}
-
-.site-name {
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: #ffffff; /* Bílá barva textu */
-}
-
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #aaaaaa;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
-.nav-links li a:hover {
-    color: #ffffff;
-}
-
-.nav-links li a.active {
-    font-weight: 800;
+.navigation ul { display: flex; list-style: none; gap: 25px; }
+.navigation a { text-decoration: none; color: #aaa; font-weight: 600; transition: 0.3s; }
+.navigation a:hover { color: #fff; }
+.navigation a.active {
     background: linear-gradient(to right, #ff0000, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 800;
 }
 
-/* --- STREAM CENTROVÁNÍ VEDLE SEBE --- */
-
-.stream-section {
-    width: 100%;
-    min-height: calc(100vh - 80px);
+/* --- HLAVNÍ ČÁST (STREAM) - TADY JE TEN STŘED --- */
+.centered-content {
+    flex: 1; /* Zabere veškeré volné místo pod menu */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Vodorovný střed */
+    align-items: center;     /* Svislý střed */
     padding: 20px;
 }
 
-.stream-container {
+.twitch-layout {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: stretch; /* Aby video i chat měly stejnou výšku */
-    gap: 50px;
-    width: 90%; 
-    max-width: 1500px;
-    margin: 0 auto; /* Pojistka pro vycentrování */
+    width: 95%;             /* Celková šířka streamu a chatu */
+    max-width: 1600px;
+    gap: 15px;
+    align-items: stretch;   /* Chat i video budou stejně vysoké */
 }
 
-.video-box {
-    flex: 3; /* Video bude širší */
-    aspect-ratio: 16 / 9;
-    background: #000;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #333;
+.video-part {
+    flex: 3.5;              /* Video bude dominantní */
+    aspect-ratio: 16 / 9;   /* Drží filmový poměr */
 }
 
-.chat-box {
-    flex: 1; /* Chat bude užší */
-    background: #0e0e10;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1px solid #333;
+.chat-part {
+    flex: 1.2;              /* Chat bude užší */
 }
 
-.video-box iframe, 
-.chat-box iframe {
+.video-part iframe, 
+.chat-part iframe {
     width: 100%;
     height: 100%;
+    border-radius: 12px;
+    border: 1px solid #333;
     display: block;
 }
 
-/* MOBILNÍ VERZE */
+/* Mobilní verze (pod sebou) */
 @media (max-width: 1100px) {
-    .stream-section { height: auto; padding-top: 40px; }
-    .stream-container { flex-direction: column; width: 95%; }
-    .chat-box { height: 450px; }
+    .centered-content { display: block; padding-top: 40px; }
+    .twitch-layout { flex-direction: column; width: 100%; }
+    .chat-part { height: 450px; }
 }
