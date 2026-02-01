@@ -1,4 +1,3 @@
-/* --- ZÁKLAD --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 * {
@@ -7,21 +6,14 @@
     box-sizing: border-box;
 }
 
-/* Toto vynutí, že se nic nebude cpát doleva */
-html, body {
-    width: 100%;
-    height: 100%;
+body {
     background-color: #0f0f0f;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
 }
 
-.stream-fixed-layout {
-    display: flex;
-    flex-direction: column;
-}
-
-/* --- HEADER --- */
+/* HEADER */
 header {
     display: flex;
     justify-content: space-between;
@@ -30,15 +22,14 @@ header {
     background-color: #161616;
     border-bottom: 2px solid #222;
     height: 80px;
-    flex-shrink: 0;
 }
 
 .logo-container { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 45px; width: auto; }
-.site-name { font-size: 1.6rem; font-weight: 700; color: #fff; text-decoration: none; }
+.site-name { font-size: 1.6rem; font-weight: 700; color: #fff; }
 
 .nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
+.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; }
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -46,43 +37,50 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-/* --- STREAM CENTROVÁNÍ (GRID METODA) --- */
+/* --- STREAM CENTROVÁNÍ VEDLE SEBE --- */
 
-.stream-grid-center {
-    flex-grow: 1; /* Zabere zbytek obrazovky pod menu */
-    display: grid;
-    place-items: center; /* MAGICKÝ PŘÍKAZ PRO STŘED VŠEHO */
+.stream-page-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
+    height: calc(100vh - 80px); /* Přesně vycentrováno pod menu */
     padding: 20px;
 }
 
 .twitch-bundle {
     display: flex;
-    flex-direction: row;
-    gap: 15px;
+    flex-direction: row; /* Vždy vedle sebe na PC */
+    flex-wrap: nowrap;    /* Zakáže skok chatu pod video */
     justify-content: center;
-    align-items: center;
+    align-items: stretch;  /* Zaručí stejnou výšku chatu i videa */
+    gap: 15px;
+    width: 90vw;          /* Celková šířka bundle */
+    max-width: 1600px;
+}
+
+.twitch-stream {
+    flex: 3;             /* Video zabere 3 díly místa */
+    aspect-ratio: 16 / 9; /* Vynutí poměr videa 16:9 */
+}
+
+.twitch-chat {
+    flex: 1;             /* Chat zabere 1 díl místa */
 }
 
 .twitch-stream iframe, 
 .twitch-chat iframe {
+    width: 100%;
+    height: 100%;
     border-radius: 15px;
     border: 1px solid #333;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
     display: block;
 }
 
-/* MOBILNÍ VERZE */
+/* MOBILNÍ VERZE - Tady už to pod sebe musí, jinak bys nic neviděl */
 @media (max-width: 1100px) {
-    .twitch-bundle {
-        flex-direction: column;
-    }
-    .twitch-stream iframe {
-        width: 95vw !important;
-        height: 53vw !important;
-    }
-    .twitch-chat iframe {
-        width: 95vw !important;
-        height: 450px !important;
-    }
+    .stream-page-main { height: auto; padding-top: 40px; }
+    .twitch-bundle { flex-direction: column; width: 95vw; align-items: center; }
+    .twitch-stream { width: 100%; }
+    .twitch-chat { width: 100%; height: 450px; }
 }
