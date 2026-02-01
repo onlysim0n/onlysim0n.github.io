@@ -1,0 +1,83 @@
+/* Reset a základní nastavení */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #121212; /* Tmavé pozadí */
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Styl hlavičky */
+header {
+    display: flex;
+    justify-content: space-between; /* Rozhodí logo vlevo a menu vpravo */
+    align-items: center;
+    padding: 20px 40px;
+    background-color: #1a1a1a;
+    border-bottom: 2px solid #333;
+}
+
+/* Logo sekce */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 40px; /* Výška loga */
+    width: auto;
+}
+
+.site-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Navigace */
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 30px; /* Mezera mezi odkazy */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #cccccc; /* Barva neaktivních odkazů */
+    font-weight: 600;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+    color: white;
+}
+
+/* --- TADY JE TVŮJ POŽADAVEK NA GRADIENT --- */
+.nav-links li a.active {
+    /* Nastavení gradientu z červené do bílé */
+    background: linear-gradient(to right, #ff0000, #ffffff);
+    
+    /* Magie, která ořízne pozadí podle textu */
+    -webkit-background-clip: text;
+    background-clip: text;
+    
+    /* Zprůhlední samotný text, aby byl vidět gradient pod ním */
+    -webkit-text-fill-color: transparent;
+    color: transparent; 
+    
+    font-weight: 700; /* Tučné písmo pro zvýraznění */
+}
+
+/* Styl obsahu pro ukázku */
+main {
+    padding: 50px;
+    text-align: center;
+}
