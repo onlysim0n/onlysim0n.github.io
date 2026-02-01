@@ -1,7 +1,5 @@
-/* IMPORT FONTU */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
-/* ZÁKLADNÍ RESET */
 * {
     margin: 0;
     padding: 0;
@@ -26,28 +24,12 @@ header {
     height: 80px;
 }
 
-.logo-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
+.logo-container { display: flex; align-items: center; gap: 12px; }
 .logo-img { height: 45px; width: auto; }
 .site-name { font-size: 1.6rem; font-weight: 700; }
 
-.nav-links {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #aaaaaa;
-    font-weight: 600;
-    transition: 0.3s;
-}
-
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
 .nav-links li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
@@ -56,7 +38,7 @@ header {
     background-clip: text;
 }
 
-/* --- HLAVNÍ STRÁNKA (ABOUT) --- */
+/* HLAVNÍ STRÁNKA - IKONY */
 .hero-section {
     display: flex;
     justify-content: space-between;
@@ -67,22 +49,12 @@ header {
 
 .hero-text h1 { font-size: 4rem; margin-bottom: 10px; }
 .hero-text p { font-size: 1.2rem; color: #888; max-width: 500px; }
-
-.hero-socials {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+.hero-socials { display: flex; flex-direction: column; gap: 20px; }
 
 .social-box {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    border: 3px solid #ffffff;
+    width: 100px; height: 100px; border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    text-decoration: none; border: 3px solid #ffffff;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -100,68 +72,55 @@ header {
     transform: scale(1.1) translateX(-10px);
 }
 
-.social-box:hover i {
-    background: none;
-    -webkit-text-fill-color: #0f0f0f;
-    color: #0f0f0f;
-}
+.social-box:hover i { background: none; -webkit-text-fill-color: #0f0f0f; color: #0f0f0f; }
 
-/* --- STRÁNKA STREAM --- */
+/* --- STRÁNKA STREAM (ROZMĚRY PODLE TVÉHO VZORU) --- */
+
 .stream-wrapper {
     display: flex;
     width: 100%;
     min-height: calc(100vh - 80px);
-    justify-content: center; /* Vycentrování vodorovně */
-    align-items: center;     /* Vycentrování svisle */
-    padding: 40px;
-    background-color: #0f0f0f;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
 }
 
 .stream-container {
     display: flex;
-    width: 85%;              /* Šířka celého bloku (uprav si % podle sebe) */
-    max-width: 1600px;
-    gap: 20px;
-    align-items: stretch;    /* Chat lícuje s výškou videa */
+    gap: 20px; /* Mezera mezi nima */
+    justify-content: center;
+    align-items: center;
 }
 
 .stream-video-box {
-    flex: 7.5;
-    aspect-ratio: 16 / 9;
+    width: 70vw;  /* Přesně podle tvého vzoru */
+    height: 70vh; /* Přesně podle tvého vzoru */
     background-color: #000;
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .stream-chat-box {
-    flex: 2.5;
+    width: 20vw;  /* Přesně podle tvého vzoru */
+    height: 70vh; /* Přesně podle tvého vzoru */
     background-color: #0e0e10;
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
 .stream-video-box iframe, 
 .stream-chat-box iframe {
     width: 100%;
     height: 100%;
-    display: block;
 }
 
 /* MOBILNÍ VERZE */
 @media (max-width: 1100px) {
-    .hero-section { flex-direction: column; text-align: center; padding: 50px 0; }
-    .hero-socials { flex-direction: row; margin-top: 30px; }
-    
-    .stream-wrapper { padding: 15px; }
-    .stream-container {
-        flex-direction: column;
-        width: 100%;
-    }
-    .stream-chat-box {
-        height: 450px;
-    }
+    .stream-container { flex-direction: column; }
+    .stream-video-box { width: 95vw; height: 53vw; } /* 16:9 na mobilu */
+    .stream-chat-box { width: 95vw; height: 400px; }
 }
