@@ -1,0 +1,66 @@
+/* IMPORT FONTU BARLOW Z GOOGLE FONTS */
+@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&display=swap');
+
+/* ZÁKLADNÍ NASTAVENÍ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f0f; /* Moderní tmavě černá */
+    color: #ffffff;
+    font-family: 'Barlow', sans-serif;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* HLAVIČKA (HEADER) */
+header {
+    display: flex;
+    justify-content: space-between; /* Logo vlevo, menu vpravo */
+    align-items: center;
+    padding: 15px 5%;
+    background-color: #161616;
+    border-bottom: 1px solid #2a2a2a;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+/* LOGO SEKCE */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 45px; /* Uprav si podle potřeby */
+    width: auto;
+    object-fit: contain;
+}
+
+.site-name {
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #ffffff;
+}
+
+/* NAVIGACE */
+nav {
+    display: flex;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 35px; /* Mezera mezi položkami menu */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #999999; /* Barva neaktivních
