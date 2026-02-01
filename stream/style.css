@@ -1,4 +1,4 @@
-/* --- ZÁKLADNÍ RESET A FONTY --- */
+/* --- ZÁKLADNÍ NASTAVENÍ --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
 
 * {
@@ -9,13 +9,13 @@
 
 body {
     background-color: #0f0f0f;
-    color: #ffffff;
+    color: #ffffff; /* Toto zajistí, že text bude bílý a viditelný */
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* --- HEADER / MENU --- */
+/* --- HEADER (LOGO A MENU) --- */
 header {
     display: flex;
     justify-content: space-between;
@@ -24,9 +24,11 @@ header {
     background-color: #161616;
     border-bottom: 2px solid #222;
     height: 80px;
+    width: 100%;
 }
 
-.logo-container {
+/* Logo a název */
+.logo-container, .logo {
     display: flex;
     align-items: center;
     gap: 12px;
@@ -35,83 +37,87 @@ header {
 .logo-img {
     height: 45px;
     width: auto;
+    display: block; /* Zajistí zobrazení obrázku */
 }
 
-.site-name {
+.site-name, .logo a {
     font-size: 1.6rem;
     font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
 }
 
-.nav-links {
+/* Navigace */
+nav ul, .page-header ul {
     list-style: none;
     display: flex;
     gap: 30px;
 }
 
-.nav-links li a {
+nav ul li a, .page-header ul li a {
     text-decoration: none;
     color: #aaaaaa;
     font-weight: 600;
     transition: 0.3s;
 }
 
-.nav-links li a.active {
+nav ul li a:hover, .page-header ul li a:hover {
+    color: #ffffff;
+}
+
+/* Aktivní stránka s gradientem */
+nav ul li a.active, .page-header ul li a.active {
     font-weight: 800;
     background: linear-gradient(to right, #ff0000, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-/* --- SEKCE STREAM (PŘESNĚ PODLE TVÉHO VZORU + CENTROVÁNÍ) --- */
+/* --- SEKCE STREAM (PŘESNĚ PODLE VZORU + STŘED) --- */
 
-.container {
-    width: 100%;
-    display: flex;
-    justify-content: center; /* Tady se děje to centrování vodorovně */
-}
-
-.detail {
+.stream-wrapper, .container {
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 80px); /* Vycentrování ve zbytku plochy */
 }
 
 .detail_twitch {
     display: flex;
     flex-direction: row;
-    justify-content: center; /* Toto hodí stream i chat na střed */
-    align-items: center;     /* Toto je vycentruje svisle */
-    gap: 15px;               /* Mezera mezi videem a chatem */
-    padding: 40px 0;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
     width: 100%;
 }
 
-/* Nastavení samotných boxů pro Twitch */
-.twitch-stream iframe {
-    width: 70vw;  /* Přesně podle tvého vzoru */
-    height: 70vh; /* Přesně podle tvého vzoru */
+/* PŘESNÉ ROZMĚRY PODLE VZORU */
+.twitch-stream iframe, .stream-video-box iframe {
+    width: 70vw !important;
+    height: 70vh !important;
     border-radius: 15px;
     border: 1px solid #333;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.twitch-chat iframe {
-    width: 20vw;  /* Přesně podle tvého vzoru */
-    height: 70vh; /* Přesně podle tvého vzoru */
+.twitch-chat iframe, .stream-chat-box iframe {
+    width: 20vw !important;
+    height: 70vh !important;
     border-radius: 15px;
     border: 1px solid #333;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-/* --- RESPONZIVITA (MOBILY) --- */
+/* --- RESPONZIVITA --- */
 @media (max-width: 1100px) {
     header {
-        flex-direction: column;
         height: auto;
         padding: 20px;
+        flex-direction: column;
     }
-
-    .nav-links {
+    
+    nav ul, .page-header ul {
         margin-top: 15px;
         gap: 15px;
     }
@@ -120,13 +126,13 @@ header {
         flex-direction: column;
     }
 
-    .twitch-stream iframe {
-        width: 95vw;
-        height: 53vw; /* Poměr 16:9 na mobilu */
+    .twitch-stream iframe, .stream-video-box iframe {
+        width: 95vw !important;
+        height: 53vw !important;
     }
 
-    .twitch-chat iframe {
-        width: 95vw;
-        height: 450px;
+    .twitch-chat iframe, .stream-chat-box iframe {
+        width: 95vw !important;
+        height: 400px !important;
     }
 }
