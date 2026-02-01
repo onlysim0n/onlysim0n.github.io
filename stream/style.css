@@ -1,77 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+/* ... tvůj předchozí kód pro header a menu ... */
 
-* {
+/* --- TOTÁLNÍ CENTROVÁNÍ --- */
+
+.stream-page-body {
+    background-color: #0f0f0f;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #0f0f0f;
-    color: #ffffff;
-    font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-}
-
-/* HEADER */
-header {
+    height: 100vh;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 5%;
-    background-color: #161616;
-    border-bottom: 2px solid #222;
-    height: 80px;
+    flex-direction: column; /* Menu nahoře, zbytek pod ním */
 }
 
-.logo-container { display: flex; align-items: center; gap: 12px; }
-.logo-img { height: 45px; width: auto; }
-.site-name { font-size: 1.6rem; font-weight: 700; }
-
-.nav-links { list-style: none; display: flex; gap: 30px; }
-.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
-.nav-links li a.active {
-    font-weight: 800;
-    background: linear-gradient(to right, #ff0000, #ffffff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-/* --- STRÁNKA STREAM (FIXNÍ CENTROVÁNÍ NA STŘED) --- */
-
-.stream-wrapper {
+.main-viewport {
+    flex-grow: 1; /* Zabere veškerý volný prostor pod menu */
     display: flex;
-    flex-direction: column; /* Řadí věci pod sebe, pokud by jich bylo víc */
-    justify-content: center; /* Centruje svisle */
-    align-items: center;     /* Centruje vodorovně */
-    width: 100vw;            /* Bere celou šířku okna */
-    height: calc(100vh - 80px); /* Celá výška kromě headeru */
-    background-color: #0f0f0f;
+    justify-content: center; /* Vodorovné centrování */
+    align-items: center;     /* Svislé centrování */
+    width: 100%;
 }
 
 .stream-container {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     gap: 20px;
-    width: 95%;              /* Roztažení kontejneru */
-    max-width: 1800px;
+    width: 95vw; /* Skoro celá šířka */
 }
 
 .stream-video-box {
-    width: 70vw;             /* Zvětšená šířka videa */
-    height: 75vh;            /* Zvětšená výška videa */
-    background-color: #000;
+    width: 70vw;  /* Velikost podle Vojty */
+    height: 75vh;
+    background: #000;
     border-radius: 15px;
     overflow: hidden;
     border: 1px solid #333;
 }
 
 .stream-chat-box {
-    width: 22vw;             /* Šířka chatu */
-    height: 75vh;            /* Stejná výška jako video */
-    background-color: #0e0e10;
+    width: 20vw; /* Velikost podle Vojty */
+    height: 75vh;
+    background: #0e0e10;
     border-radius: 15px;
     overflow: hidden;
     border: 1px solid #333;
@@ -83,10 +52,15 @@ header {
     height: 100%;
 }
 
-/* MOBILNÍ VERZE */
+/* Fix pro mobilní telefony */
 @media (max-width: 1100px) {
-    .stream-wrapper { height: auto; padding: 20px 0; }
-    .stream-container { flex-direction: column; width: 100%; }
-    .stream-video-box { width: 95vw; height: 53vw; } 
-    .stream-chat-box { width: 95vw; height: 500px; }
+    .main-viewport {
+        align-items: flex-start;
+        padding-top: 20px;
+    }
+    .stream-container {
+        flex-direction: column;
+    }
+    .stream-video-box { width: 95vw; height: 53vw; }
+    .stream-chat-box { width: 95vw; height: 400px; }
 }
