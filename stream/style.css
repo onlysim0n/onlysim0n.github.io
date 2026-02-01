@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0f0f0f;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    background-color: #161616;
+    border-bottom: 2px solid #222;
+    height: 80px;
+}
+
+.logo-container { display: flex; align-items: center; gap: 12px; }
+.logo-img { height: 45px; width: auto; }
+.site-name { font-size: 1.6rem; font-weight: 700; }
+
+.nav-links { list-style: none; display: flex; gap: 30px; }
+.nav-links li a { text-decoration: none; color: #aaaaaa; font-weight: 600; transition: 0.3s; }
+.nav-links li a.active {
+    font-weight: 800;
+    background: linear-gradient(to right, #ff0000, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- OPRAVENÝ STREAM LAYOUT --- */
+
+.stream-main-content {
+    display: flex;
+    flex-direction: row; /* Dá je vedle sebe */
+    justify-content: center; /* Vycentruje vodorovně */
+    align-items: center; /* Vycentruje svisle */
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+    height: calc(100vh - 80px); /* Výška od menu dolů */
+}
+
+.stream-video-box {
+    width: 65%; /* Trochu jsem ubral, aby se to vešlo vedle sebe i na menších monitorech */
+    height: 70vh;
+    background: #000;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.stream-chat-box {
+    width: 20%;
+    height: 70vh;
+    background: #0e0e10;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 2px solid #333;
+}
+
+.stream-video-box iframe, 
+.stream-chat-box iframe {
+    width: 100%;
+    height: 100%;
+}
+
+/* MOBILNÍ VERZE - TEĎ UŽ CÍLENĚ POD SEBE */
+@media (max-width: 1200px) {
+    .stream-main-content {
+        flex-direction: column;
+        height: auto;
+        padding: 40px 10px;
+    }
+    .stream-video-box {
+        width: 95%;
+        height: 50vh;
+    }
+    .stream-chat-box {
+        width: 95%;
+        height: 400px;
+    }
+}
