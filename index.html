@@ -69,9 +69,12 @@
             color: white;
         }
 
+        /* --- GRADIENT V MENU --- */
         .nav-links a.active {
-            color: white;
             font-weight: 800;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            -webkit-background-clip: text; /* Ořízne pozadí podle textu */
+            -webkit-text-fill-color: transparent; /* Zprůhlední text, aby vynikl gradient */
             border-bottom: 2px solid #ff0000;
         }
 
@@ -122,7 +125,6 @@
             transition: 0.4s;
         }
 
-        /* Barvy při najetí myší */
         .social-links a:hover {
             transform: translateY(-5px);
             border-color: #ff0000;
@@ -159,9 +161,9 @@
         
         <div class="social-links">
             <a href="https://twitch.tv/only_sim0n" target="_blank" class="twitch"><i class='bx bxl-twitch'></i></a>
-            <a href="https://instagram.com/tvoje_jmeno" target="_blank" class="instagram"><i class='bx bxl-instagram'></i></a>
-            <a href="https://youtube.com/@tvoje_jmeno" target="_blank" class="youtube"><i class='bx bxl-youtube'></i></a>
-            <a href="https://discord.gg/tvoje_pozvanka" target="_blank" class="discord"><i class='bx bxl-discord-alt'></i></a>
+            <a href="https://instagram.com/onlysim0n" target="_blank" class="instagram"><i class='bx bxl-instagram'></i></a>
+            <a href="https://youtube.com/@onlysim0n" target="_blank" class="youtube"><i class='bx bxl-youtube'></i></a>
+            <a href="https://discord.gg/yourlink" target="_blank" class="discord"><i class='bx bxl-discord-alt'></i></a>
         </div>
     </main>
 
