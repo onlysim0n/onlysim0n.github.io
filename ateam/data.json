@@ -5,6 +5,24 @@
     "discord": "only_sim0n",
     "icon": "../assets/loga/streamer_icon.png"
   },
+   {
+    "twitch": "Malej_Erik",
+    "role": "Hlavní Moderátor",
+    "discord": "malej_erik",
+    "icon": "../assets/loga/main_mod_icon.png"
+  },
+   {
+    "twitch": "Dominikhavelsky",
+    "role": "Hlavní Moderátor",
+    "discord": "dominikhavelsky",
+    "icon": "../assets/loga/main_mod_icon.png"
+  },
+  {
+    "twitch": "CallMeMatys",
+    "role": "Hlavní Moderátor",
+    "discord": "matyscs",
+    "icon": "../assets/loga/main_mod_icon.png"
+  },
   {
     "twitch": "fialkos",
     "role": "Hlavní Moderátor",
@@ -12,9 +30,9 @@
     "icon": "../assets/loga/main_mod_icon.png"
   },
   {
-    "twitch": "Jmeno_Moderatora",
+    "twitch": "MaroszM",
     "role": "Moderátor",
-    "discord": "Discord#1234",
+    "discord": "marekmarosz2008",
     "icon": "../assets/loga/mod_icon.png"
   },
   {
