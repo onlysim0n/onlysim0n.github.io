@@ -5,18 +5,8 @@
     "discord": "only_sim0n"
   },
   {
-    "twitch": "Vojta_Admin",
+    "twitch": "Vojta",
     "role": "Hlavní Moderátor",
     "discord": "Vojta#0001"
-  },
-  {
-    "twitch": "Karel_Mod",
-    "role": "Moderátor",
-    "discord": "Karel#1234"
-  },
-  {
-    "twitch": "SuperDivak",
-    "role": "VIP Divák",
-    "discord": "Super#9999"
   }
 ]
