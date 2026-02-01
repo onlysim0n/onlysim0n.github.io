@@ -38,38 +38,41 @@ header {
     background-clip: text;
 }
 
-/* --- STREAM STRÁNKA (MAXIMÁLNÍ VELIKOST) --- */
+/* --- STRÁNKA STREAM (FIXNÍ CENTROVÁNÍ NA STŘED) --- */
 
 .stream-wrapper {
     display: flex;
-    width: 100%;
-    min-height: calc(100vh - 80px);
-    justify-content: center;
-    align-items: center;
-    padding: 10px; /* Minimální mezera od krajů, aby to bylo co největší */
+    flex-direction: column; /* Řadí věci pod sebe, pokud by jich bylo víc */
+    justify-content: center; /* Centruje svisle */
+    align-items: center;     /* Centruje vodorovně */
+    width: 100vw;            /* Bere celou šířku okna */
+    height: calc(100vh - 80px); /* Celá výška kromě headeru */
+    background-color: #0f0f0f;
 }
 
 .stream-container {
     display: flex;
-    gap: 15px; /* Mezera mezi videem a chatem */
-    width: 98vw; /* Využije skoro celou šířku prohlížeče */
     justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 95%;              /* Roztažení kontejneru */
+    max-width: 1800px;
 }
 
 .stream-video-box {
-    width: 75vw;  /* Video na 75 % šířky */
-    height: 82vh; /* Video na 82 % výšky obrazovky */
+    width: 70vw;             /* Zvětšená šířka videa */
+    height: 75vh;            /* Zvětšená výška videa */
     background-color: #000;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
     border: 1px solid #333;
 }
 
 .stream-chat-box {
-    width: 20vw;  /* Chat na 20 % šířky */
-    height: 82vh; /* Stejná výška jako video */
+    width: 22vw;             /* Šířka chatu */
+    height: 75vh;            /* Stejná výška jako video */
     background-color: #0e0e10;
-    border-radius: 12px;
+    border-radius: 15px;
     overflow: hidden;
     border: 1px solid #333;
 }
@@ -82,7 +85,8 @@ header {
 
 /* MOBILNÍ VERZE */
 @media (max-width: 1100px) {
-    .stream-container { flex-direction: column; align-items: center; }
+    .stream-wrapper { height: auto; padding: 20px 0; }
+    .stream-container { flex-direction: column; width: 100%; }
     .stream-video-box { width: 95vw; height: 53vw; } 
-    .stream-chat-box { width: 95vw; height: 450px; }
+    .stream-chat-box { width: 95vw; height: 500px; }
 }
