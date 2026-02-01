@@ -8,7 +8,7 @@
     <title>Only_Sim0n | Stream</title>
 </head>
 
-<body>
+<body class="stream-fixed-layout">
     <header>
         <div class="logo-container">
             <img src="./../assets/loga/logo.png" alt="Logo" class="logo-img">
@@ -24,26 +24,25 @@
         </nav>
     </header>
 
-    <main class="stream-wrapper">
-        <div class="detail_twitch">
+    <section class="stream-grid-center">
+        <div class="twitch-bundle">
             <div class="twitch-stream">
                 <iframe
                     src="https://player.twitch.tv/?channel=only_sim0n&parent=onlysim0n.github.io&autoplay=true"
+                    style="width: 70vw; height: 70vh"
                     allowfullscreen="true"
-                    frameborder="0"
-                    scrolling="no">
+                    frameborder="0">
                 </iframe>
             </div>
-
             <div class="twitch-chat">
                 <iframe
                     src="https://www.twitch.tv/embed/only_sim0n/chat?parent=onlysim0n.github.io&darkpopout"
-                    frameborder="0"
-                    scrolling="no">
+                    style="width: 20vw; height: 70vh"
+                    frameborder="0">
                 </iframe>
             </div>
         </div>
-    </main>
+    </section>
 
     <script src="./../script.js"></script>
 </body>
