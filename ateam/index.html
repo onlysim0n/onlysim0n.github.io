@@ -1,131 +1,67 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-  <meta charset="UTF-8">
-  <title>OnlySim0n – A-Team</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: #fff;
-    }
-
-    /* ===== TOP BAR ===== */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 24px;
-      background: #111;
-      border-bottom: 1px solid #222;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .logo img {
-      height: 42px;
-    }
-
-    nav a {
-      margin-left: 20px;
-      color: #fff;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      color: #00ffaa;
-    }
-
-    /* ===== CONTENT ===== */
-    main {
-      padding: 40px;
-      display: flex;
-      justify-content: center;
-    }
-
-    table {
-      width: 80%;
-      max-width: 900px;
-      border-collapse: collapse;
-      background: #151515;
-    }
-
-    th, td {
-      padding: 14px;
-      border-bottom: 1px solid #222;
-      text-align: center;
-    }
-
-    th {
-      background: #1e1e1e;
-    }
-
-    /* ROLE COLORS */
-    .streamer {
-      color: #ffd700;
-      font-weight: bold;
-    }
-
-    .vedeni {
-      color: #ff4d4d;
-      font-weight: bold;
-    }
-
-    .mod {
-      color: #4dff4d;
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Only_Sim0n | A-TEAM</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <!-- ===== HEADER ===== -->
-  <header>
-    <div class="logo">
-      <img src="/assets/loga/Only_Simon_main.png" alt="OnlySim0n logo">
-      <strong>OnlySim0n</strong>
-    </div>
+    <header>
+        <div class="logo-box">
+            <img src="../assets/loga/logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">Only_Sim0n</span>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                <li><a href="index.html" class="active">A-TEAM</a></li>
+                <li><a href="../stream/index.html">Stream</a></li>
+                <li><a href="../contact/index.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <nav>
-      <a href="/">About</a>
-      <a href="/ateam.html">A-Team</a>
-      <a href="/stream.html">Stream</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-  </header>
+    <main class="ateam-section">
+        <h1>A-TEAM</h1>
 
-  <!-- ===== CONTENT ===== -->
-  <main>
-    <table>
-      <thead>
-        <tr>
-          <th>Nick</th>
-          <th>Role</th>
-          <th>Discord</th>
-        </tr>
-      </thead>
-      <tbody id="teamTable">
-        <!-- JS sem doplní řádky -->
-      </tbody>
-    </table>
-  </main>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Twitch Nick</th>
+                        <th>Role</th>
+                        <th>Discord Nick</th>
+                    </tr>
+                </thead>
+                <tbody id="ateam-table-body">
+                    </tbody>
+            </table>
+        </div>
+    </main>
 
-  <!-- ===== SCRIPT ===== -->
-  <script src="/load.js"></script>
-
+    <script>
+        // Skript pro načtení dat z data.json
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.getElementById('ateam-table-body');
+                data.forEach(member => {
+                    const row = document.createElement('tr');
+                    
+                    // Převod role na název třídy pro barvu odznaku
+                    const roleClass = member.role.toLowerCase().replace(' ', '-');
+                    
+                    row.innerHTML = `
+                        <td>${member.twitch}</td>
+                        <td><span class="badge ${roleClass}">${member.role}</span></td>
+                        <td>${member.discord}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error('Chyba při načítání dat:', error));
+    </script>
 </body>
 </html>
