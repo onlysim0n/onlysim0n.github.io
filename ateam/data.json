@@ -6,6 +6,12 @@
     "icon": "../assets/loga/streamer_icon.png"
   },
   {
+    "twitch": "fialkos",
+    "role": "Hlavní Moderátor",
+    "discord": "fialovejj",
+    "icon": "../assets/loga/main_mod_icon.png"
+  },
+  {
     "twitch": "Jmeno_Moderatora",
     "role": "Moderátor",
     "discord": "Discord#1234",
