@@ -10,10 +10,9 @@ body {
     background-color: #0f0f0f;
     color: white;
     font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
 }
 
-/* --- HEADER / MENU --- */
+/* HEADER / MENU */
 header {
     height: 80px;
     background: #161616;
@@ -47,29 +46,31 @@ header {
     border-bottom: 2px solid #ff0000;
 }
 
-/* --- TABULKA --- */
+/* SEKCE A-TEAM */
 .ateam-section {
-    padding: 50px 5%;
+    padding: 60px 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    min-height: calc(100vh - 80px);
 }
 
 h1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
     margin-bottom: 40px;
     background: linear-gradient(to right, #ff0000, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    font-weight: 800;
 }
 
 .table-container {
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     background: #161616;
     border-radius: 15px;
-    overflow: hidden;
     border: 1px solid #222;
+    overflow: hidden;
 }
 
 table {
@@ -80,32 +81,34 @@ table {
 th {
     background: #1f1f1f;
     padding: 20px;
-    color: #ff0000;
     text-align: left;
+    color: #ff0000;
     text-transform: uppercase;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
 td {
     padding: 20px;
     border-bottom: 1px solid #222;
+    font-size: 1.1rem;
 }
 
-/* ODZNAKY ROLE */
+.twitch-name { font-weight: 700; color: #fff; }
+.discord-name { color: #aaa; }
+
+/* ODZNAKY (Badges) */
 .badge {
-    padding: 5px 12px;
-    border-radius: 5px;
-    font-size: 0.8rem;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
+    display: inline-block;
 }
 
+/* Barvy pro příslušné role */
 .streamer { background: #ff0000; color: #fff; }
-.hlavní-moderátor { background: #00e5ff; color: #000; }
-.moderátor { background: #00ff44; color: #000; }
-.vip-divák { background: #ff00ff; color: #fff; }
-
-@media (max-width: 768px) {
-    .nav-links { gap: 15px; }
-    .nav-links a { font-size: 0.9rem; }
-}
+.hlavni-moderator { background: #00e5ff; color: #000; }
+.moderator { background: #00ff44; color: #000; }
+.vip-divak { background: #ff00ff; color: #fff; }
