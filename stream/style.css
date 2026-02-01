@@ -109,33 +109,35 @@ header {
     color: #0f0f0f;
 }
 
-/* --- STRÁNKA STREAM --- */
+/* --- STRÁNKA STREAM (OPRAVENÉ VYCENTROVÁNÍ) --- */
 
 .stream-wrapper {
     display: flex;
-    padding: 40px; /* Mezera od okrajů stránky */
+    width: 100%;
     min-height: calc(100vh - 80px);
-    justify-content: center;
-    align-items: center;
+    justify-content: center; /* Horizontální vycentrování obsahu */
+    align-items: center;     /* Vertikální vycentrování obsahu */
+    padding: 40px;
     background-color: #0f0f0f;
 }
 
 .stream-container {
     display: flex;
-    width: 85%; /* Celkové zmenšení šířky obrazu */
-    max-width: 1500px;
-    gap: 20px; /* Mezera mezi videem a chatem */
-    align-items: stretch; /* Vynutí stejnou výšku chatu i videa */
+    width: 85%;              /* Šířka celého bloku */
+    max-width: 1600px;       /* Maximální šířka pro velké monitory */
+    margin: 0 auto;          /* Pojistka pro vycentrování */
+    gap: 20px;               /* Mezera mezi videem a chatem */
+    align-items: stretch;    /* Chat i video budou stejně vysoké */
 }
 
 .stream-video-box {
     flex: 7.5;
-    aspect-ratio: 16 / 9; /* Přesný rozměr 16:9 */
+    aspect-ratio: 16 / 9;    /* Poměr stran 16:9 */
     background-color: #000;
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
 .stream-chat-box {
@@ -144,10 +146,9 @@ header {
     border-radius: 20px;
     overflow: hidden;
     border: 1px solid #222;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
 }
 
-/* Zajištění, aby iframe vyplnil celý svůj box */
 .stream-video-box iframe, 
 .stream-chat-box iframe {
     width: 100%;
