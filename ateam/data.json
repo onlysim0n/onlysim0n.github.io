@@ -3,18 +3,18 @@
     "twitch": "Only_Sim0n",
     "role": "Streamer",
     "discord": "only_sim0n",
-    "icon": "../assets/loga/streamer.png"
+    "icon": "../assets/loga/streamer_icon.png"
   },
   {
     "twitch": "Jmeno_Moderatora",
     "role": "Moderátor",
     "discord": "Discord#1234",
-    "icon": "../assets/loga/mod.png"
+    "icon": "../assets/loga/mod_icon.png"
   },
   {
     "twitch": "Jmeno_VIP",
     "role": "VIP Divák",
     "discord": "Discord#5678",
-    "icon": "../assets/loga/vip.png"
+    "icon": "../assets/loga/vip_icon.png"
   }
 ]
