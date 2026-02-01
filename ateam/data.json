@@ -3,18 +3,18 @@
     "twitch": "Only_Sim0n",
     "role": "Streamer",
     "discord": "only_sim0n",
-    "icon": "../assets/loga/streamer_icon.png"
+    "icon": "../assets/loga/streamer.png"
   },
   {
-    "twitch": "Vojta_Admin",
-    "role": "Hlavní Moderátor",
-    "discord": "Vojta#0001",
-    "icon": "../assets/loga/main_mod_icon.png"
-  }
+    "twitch": "Jmeno_Moderatora",
+    "role": "Moderátor",
+    "discord": "Discord#1234",
+    "icon": "../assets/loga/mod.png"
+  },
   {
-    "twitch": "Vojta_Admin",
+    "twitch": "Jmeno_VIP",
     "role": "VIP Divák",
-    "discord": "Vojta#0001",
-    "icon": "../assets/loga/vip_icon.png"
+    "discord": "Discord#5678",
+    "icon": "../assets/loga/vip.png"
   }
 ]
