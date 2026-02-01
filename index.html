@@ -23,7 +23,7 @@
             flex-direction: column;
         }
 
-        /* HEADER / MENU */
+        /* --- HEADER / MENU (Sjednoceno se stránkou stream) --- */
         header {
             height: 80px;
             background: #161616;
@@ -32,6 +32,7 @@
             align-items: center;
             padding: 0 5%;
             border-bottom: 2px solid #222;
+            width: 100%;
         }
 
         .logo-box {
@@ -46,20 +47,21 @@
         }
 
         .logo-text {
-            font-size: 1.6rem;
-            font-weight: 700;
+            font-size: 1.7rem; /* Zvětšeno pro shodu */
+            font-weight: 800; /* Výraznější */
         }
 
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 30px; /* Mezery mezi odkazy */
         }
 
         .nav-links a {
             text-decoration: none;
             color: #aaaaaa;
             font-weight: 600;
+            font-size: 1.1rem; /* Zvětšeno na velikost ze streamu */
             transition: 0.3s;
             padding-bottom: 5px;
             border-bottom: 2px solid transparent;
@@ -69,16 +71,16 @@
             color: white;
         }
 
-        /* --- GRADIENT V MENU --- */
+        /* Gradient v menu */
         .nav-links a.active {
             font-weight: 800;
             background: linear-gradient(to right, #ff0000, #ffffff);
-            -webkit-background-clip: text; /* Ořízne pozadí podle textu */
-            -webkit-text-fill-color: transparent; /* Zprůhlední text, aby vynikl gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             border-bottom: 2px solid #ff0000;
         }
 
-        /* HLAVNÍ OBSAH */
+        /* --- HLAVNÍ OBSAH --- */
         .main-content {
             flex: 1;
             display: flex;
@@ -90,18 +92,20 @@
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 4rem; /* Trochu větší pro hlavní stránku */
             margin-bottom: 15px;
             background: linear-gradient(to right, #ff0000, #ffffff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
 
         p {
             color: #ccc;
-            max-width: 600px;
+            max-width: 650px;
             font-size: 1.2rem;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            line-height: 1.6;
         }
 
         /* SOCIÁLNÍ SÍTĚ */
@@ -114,23 +118,24 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             background: #161616;
             color: white;
             text-decoration: none;
-            font-size: 1.8rem;
+            font-size: 2rem;
             border-radius: 50%;
             border: 1px solid #333;
-            transition: 0.4s;
+            transition: 0.4s ease;
         }
 
         .social-links a:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
             border-color: #ff0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
         }
 
+        /* Barvy ikon při najetí */
         .social-links .twitch:hover { color: #9146ff; }
         .social-links .instagram:hover { color: #e1306c; }
         .social-links .youtube:hover { color: #ff0000; }
