@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
 }
 
-/* --- HEADER / MENU (Sjednoceno) --- */
+/* --- HEADER / MENU (Sjednoceno se všemi stránkami) --- */
 header {
     height: 80px;
     background: #161616;
@@ -22,21 +22,43 @@ header {
     align-items: center;
     padding: 0 5%;
     border-bottom: 2px solid #222;
+    width: 100%;
 }
 
-.logo-box { display: flex; align-items: center; gap: 12px; }
-.logo-img { height: 45px; width: auto; }
-.logo-text { font-size: 1.7rem; font-weight: 800; }
+.logo-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
-.nav-links { display: flex; list-style: none; gap: 30px; }
+.logo-img {
+    height: 45px;
+    width: auto;
+}
+
+.logo-text {
+    font-size: 1.7rem;
+    font-weight: 800;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px; /* Stejné jako na streamu a a-teamu */
+}
+
 .nav-links a {
     text-decoration: none;
     color: #aaaaaa;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1.1rem; /* Sjednocená velikost */
     transition: 0.3s;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
+}
+
+.nav-links a:hover {
+    color: white;
 }
 
 .nav-links a.active {
@@ -47,7 +69,7 @@ header {
     border-bottom: 2px solid #ff0000;
 }
 
-/* --- SETUP SEKCE --- */
+/* --- SETUP OBSAH --- */
 .setup-section {
     padding: 60px 5%;
     display: flex;
@@ -95,7 +117,7 @@ h1 {
 .img-box img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Obrázek vyplní box */
+    object-fit: cover;
 }
 
 .setup-item:hover .img-box {
@@ -106,13 +128,16 @@ h1 {
 
 .description {
     font-size: 1rem;
-    font-weight: 400; /* Tohle zajistí, že písmo není Bold */
+    font-weight: 400; /* Menu font, ale ne bold */
     color: #ccc;
     text-align: center;
+    line-height: 1.4;
 }
 
-/* Mobilní verze */
+/* Mobilní optimalizace */
 @media (max-width: 768px) {
+    header { padding: 0 3%; }
+    .nav-links { gap: 15px; }
+    .nav-links a { font-size: 0.9rem; }
     h1 { font-size: 2.5rem; }
-    .setup-grid { gap: 25px; }
 }
