@@ -4,7 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Only_Sim0n | Setup</title>
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* --- VEŠKERÉ CSS JE TEĎ TADY --- */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0f0f0f; /* Tmavé pozadí */
+            color: white;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* --- HEADER --- */
+        header {
+            height: 80px;
+            background: #161616;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5%;
+            border-bottom: 2px solid #222;
+        }
+
+        .logo-box { display: flex; align-items: center; gap: 12px; }
+        .logo-img { height: 45px; width: auto; }
+        .logo-text { font-size: 1.7rem; font-weight: 800; }
+
+        .nav-links { display: flex; list-style: none; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: #aaaaaa;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: 0.3s ease;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+
+        /* ZESVĚTLENÍ MENU */
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .nav-links a.active {
+            font-weight: 800;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            border-bottom: 2px solid #ff0000;
+        }
+
+        /* --- OBSAH SETUPU --- */
+        .setup-section {
+            padding: 60px 5%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 50px;
+            background: linear-gradient(to right, #ff0000, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .setup-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .setup-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .img-box {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #161616;
+            border-radius: 15px;
+            border: 1px solid #222;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: 0.4s ease;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .setup-item:hover .img-box {
+            border-color: #ff0000;
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(255, 0, 0, 0.15);
+        }
+
+        /* POPISEK - Font menu, není bold */
+        .description {
+            font-size: 1rem;
+            font-weight: 400; 
+            color: #cccccc;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.9rem; }
+        }
+    </style>
 </head>
 <body>
 
@@ -53,3 +181,10 @@
                 <div class="img-box">
                     <img src="../assets/setup/klavesnice.png" alt="Klávesnice">
                 </div>
+                <p class="description">Klávesnice: Custom Mechanical Keyboard</p>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
