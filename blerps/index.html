@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Only_Sim0n | My Blerps</title>
+    <title>Only_Sim0n | Live Blerp</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 </head>
 <body>
 
@@ -26,40 +27,50 @@
     </header>
 
     <main class="blerp-section">
-        <h1>MY SOUNDBOARD</h1>
+        <h1>LIVE SOUNDBOARD</h1>
+        <div id="status" style="color: #555; margin-bottom: 20px; font-size: 0.8rem;">Připojování k Twitchi...</div>
         
         <div class="sound-grid">
             <button class="sound-btn" onclick="playSound('kekw.mp3')">
                 <span class="btn-icon">😂</span>
                 <span class="btn-text">KEKW</span>
             </button>
-
             <button class="sound-btn" onclick="playSound('bruh.mp3')">
                 <span class="btn-icon">💀</span>
                 <span class="btn-text">BRUH</span>
-            </button>
-
-            <button class="sound-btn" onclick="playSound('wow.mp3')">
-                <span class="btn-icon">⭐</span>
-                <span class="btn-text">WOW</span>
-            </button>
-
-            <button class="sound-btn" onclick="playSound('fail.mp3')">
-                <span class="btn-icon">👎</span>
-                <span class="btn-text">FAIL</span>
             </button>
         </div>
     </main>
 
     <script>
-        function playSound(fileName) {
-            // Cesta směřuje do složky sounds uvnitř tvé složky blerps
-            let audio = new Audio('sounds/' + fileName);
-            audio.play().catch(error => {
-                console.error("Chyba při přehrávání: Zkontroluj, zda soubor existuje v blerps/sounds/", error);
-            });
-        }
-    </script>
+        // Nastavení tvého kanálu
+        const twitchChannel = "TVŮJ_NICK_NA_TWITCHI"; 
 
+        // Funkce pro přehrání zvuku ze složky sounds/
+        function playSound(fileName) {
+            let audio = new Audio('sounds/' + fileName);
+            audio.play().catch(e => console.error("Chyba přehrávání:", e));
+        }
+
+        // Posluchač na Twitch odměny za body
+        ComfyJS.onReward = (user, reward, cost, message, extra) => {
+            console.log(`Odměna: ${reward}`);
+
+            // Podmínky: Název musí přesně odpovídat názvu odměny na Twitchi
+            if (reward === "KEKW") {
+                playSound('kekw.mp3');
+            } 
+            else if (reward === "BRUH") {
+                playSound('bruh.mp3');
+            }
+        };
+
+        // Inicializace připojení
+        ComfyJS.Init(twitchChannel);
+        
+        ComfyJS.onConnected = () => {
+            document.getElementById("status").innerText = "Propojeno s kanálem: " + twitchChannel;
+        };
+    </script>
 </body>
 </html>
