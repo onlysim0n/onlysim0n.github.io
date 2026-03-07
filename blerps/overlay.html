@@ -33,3 +33,102 @@
 
     <script>
         // ==========================================
+        // 1. KONFIGURACE (Zkontroluj tyto údaje!)
+        // ==========================================
+        const CHANNEL_ID = '142761052'; 
+        const CHANNEL_NAME = 'only_sim0n'; 
+        const ALLOWED_USER = 'predni_k0l0'; 
+        const TOKEN = 'TVUJ_OAUTH_TOKEN_ZDE'; // Vlož sem ten svůj 'oauth:xxxxxx'
+
+        // Mapování zvuků (Změnil jsem testovací link na stabilnější)
+        const soundConfig = {
+            "SOUND: Curak": "https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Funny+Sound&filename=24/244637-299f06e0-3532-475a-939e-27063f1f77d3.mp3",
+            "!curak": "https://www.soundboard.com/handler/DownLoadTrack.ashx?cliptitle=Funny+Sound&filename=24/244637-299f06e0-3532-475a-939e-27063f1f77d3.mp3"
+        };
+
+        const debug = document.getElementById('debug-info');
+
+        // ==========================================
+        // 2. LOGIKA PŘEHRÁVÁNÍ
+        // ==========================================
+        function triggerAlert(user, key) {
+            const soundUrl = soundConfig[key];
+            if (!soundUrl) {
+                console.log("Zvuk pro '" + key + "' nenalezen v soundConfig.");
+                return;
+            }
+
+            console.log("Spouštím alert pro: " + user + " s klíčem: " + key);
+            
+            const alertBox = document.getElementById('alert-box');
+            document.getElementById('user-name').innerText = user;
+            document.getElementById('reward-name').innerText = key;
+
+            const audio = new Audio(soundUrl);
+            audio.crossOrigin = "anonymous"; // Důležité pro některé prohlížeče
+            
+            audio.play()
+                .then(() => {
+                    debug.innerText = "Hraju zvuk: " + key;
+                    alertBox.style.display = 'block';
+                    setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
+                })
+                .catch(e => {
+                    console.error("Chyba přehrávání:", e);
+                    debug.innerText = "CHYBA: Klikni na 'Interagovat' v OBS!";
+                });
+        }
+
+        // ==========================================
+        // 3. PŘIPOJENÍ (CHAT + BODY)
+        // ==========================================
+        function connectChat() {
+            const ws = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+            ws.onopen = () => {
+                ws.send('PASS SCHMOOPIE');
+                ws.send(`NICK justinfan${Math.floor(Math.random() * 9999)}`);
+                ws.send(`JOIN #${CHANNEL_NAME}`);
+                debug.innerText += " | Chat: OK";
+            };
+            ws.onmessage = (e) => {
+                if (e.data.includes('PRIVMSG')) {
+                    const user = e.data.split('!')[0].substring(1);
+                    const msg = e.data.split('PRIVMSG')[1].split(' :')[1].trim();
+                    if (user.toLowerCase() === ALLOWED_USER.toLowerCase() && soundConfig[msg]) {
+                        triggerAlert("KICK REWARD", msg);
+                    }
+                }
+            };
+            ws.onclose = () => setTimeout(connectChat, 3000);
+        }
+
+        function connectPubSub() {
+            const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    type: 'LISTEN',
+                    data: { 
+                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`], 
+                        auth_token: TOKEN.replace('oauth:', '') 
+                    }
+                }));
+                setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
+                debug.innerText += " | Body: OK";
+            };
+            socket.onmessage = (e) => {
+                const res = JSON.parse(e.data);
+                if (res.type === 'MESSAGE') {
+                    const msg = JSON.parse(res.data.message);
+                    if (msg.type === 'reward-redeemed') {
+                        triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
+                    }
+                }
+            };
+            socket.onclose = () => setTimeout(connectPubSub, 3000);
+        }
+
+        connectChat();
+        connectPubSub();
+    </script>
+</body>
+</html>
