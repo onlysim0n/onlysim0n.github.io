@@ -2,34 +2,26 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <title>Stream Overlay</title>
     <style>
-        body { background: #111; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
+        body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
         #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
-        
-        /* TLAČÍTKO PRO TEST (V OBS ho uvidíš přes Interagovat) */
-        #debug-btn { 
-            position: absolute; top: 20px; left: 20px; padding: 15px; 
-            background: #9146FF; color: white; border: none; cursor: pointer; z-index: 10001;
-        }
-
         .alert-box {
             background: rgba(20, 20, 20, 0.95);
             border: 5px solid #9146FF;
-            border-radius: 25px;
-            padding: 50px;
+            border-radius: 20px;
+            padding: 40px;
             text-align: center;
             color: white;
-            display: none; 
-            z-index: 9999;
-            box-shadow: 0 0 40px rgba(145, 70, 255, 0.7);
+            display: none;
+            box-shadow: 0 0 30px rgba(145, 70, 255, 0.6);
         }
-        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; }
-        .reward-name { font-size: 28px; color: #00ffcc; margin-top: 10px; }
+        .user-name { font-size: 48px; color: #9146FF; text-transform: uppercase; }
+        .reward-name { font-size: 24px; color: #00ffcc; margin-top: 10px; }
+        #debug-info { position: absolute; bottom: 10px; left: 10px; color: white; font-size: 12px; opacity: 0.5; }
     </style>
 </head>
 <body>
-
-    <button id="debug-btn" onclick="testSound()">KLIKNI PRO TEST ZVUKU</button>
 
     <div id="alert-container">
         <div id="alert-box" class="alert-box">
@@ -37,54 +29,93 @@
             <div id="reward-name" class="reward-name"></div>
         </div>
     </div>
+    <div id="debug-info">Status: Připojování...</div>
 
     <script>
-        // --- NASTAVENÍ ---
+        // ==========================================
+        // KONFIGURACE
+        // ==========================================
         const CHANNEL_ID = '142761052'; 
         const CHANNEL_NAME = 'only_sim0n'; 
         const ALLOWED_USER = 'predni_k0l0'; 
+        const TOKEN = 'oauth:i827almx04owk8hl2vqxwac3km4wuo'; // Např. 'oauth:asdfgh123...'
 
         const soundConfig = {
             "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
             "!curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3"
         };
 
-        // --- FUNKCE PRO TEST ---
-        function testSound() {
-            console.log("Testuji zvuk...");
-            triggerAlert("TESTER", "!curak");
-        }
+        const debug = document.getElementById('debug-info');
 
         function triggerAlert(user, key) {
             const soundUrl = soundConfig[key];
-            if (!soundUrl) {
-                console.error("Zvuk pro klíč '" + key + "' nebyl nalezen!");
-                return;
-            }
+            if (!soundUrl) return;
 
             const alertBox = document.getElementById('alert-box');
             document.getElementById('user-name').innerText = user;
             document.getElementById('reward-name').innerText = key;
 
             const audio = new Audio(soundUrl);
-            audio.volume = 1.0;
-            
-            // Důležité: play() vrací promise, odchytíme chybu
-            audio.play()
-                .then(() => {
-                    console.log("Zvuk se přehrává");
-                    alertBox.style.display = 'block';
-                    setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
-                })
-                .catch(e => {
-                    alert("CHYBA: Prohlížeč zablokoval zvuk. Musíš na stránku nejdřív kliknout!");
-                    console.error(e);
-                });
+            audio.play().catch(e => {
+                debug.innerText = "Chyba: Prohlížeč blokuje zvuk. Klikni na 'Interagovat'!";
+            });
+
+            alertBox.style.display = 'block';
+            setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
         }
 
-        // --- ZBYTEK KÓDU (CHAT + PUBSUB) ---
-        // (Zde nechte ty funkce connectChat() a connectPubSub() z minulého kódu)
-        // ... (zkráceno pro přehlednost, ale v souboru je nechte)
+        // ==========================================
+        // TWITCH CHAT (Pro bota z Kicku)
+        // ==========================================
+        function connectChat() {
+            const ws = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+            ws.onopen = () => {
+                ws.send('PASS SCHMOOPIE');
+                ws.send(`NICK justinfan${Math.floor(Math.random() * 8888)}`);
+                ws.send(`JOIN #${CHANNEL_NAME}`);
+                debug.innerText += " | Chat: OK";
+            };
+            ws.onmessage = (e) => {
+                if (e.data.includes('PRIVMSG')) {
+                    const user = e.data.split('!')[0].substring(1);
+                    const msg = e.data.split('PRIVMSG')[1].split(' :')[1].trim();
+                    if (user.toLowerCase() === ALLOWED_USER.toLowerCase() && soundConfig[msg]) {
+                        triggerAlert("KICK REWARD", msg);
+                    }
+                }
+            };
+        }
+
+        // ==========================================
+        // TWITCH BODY (PubSub)
+        // ==========================================
+        function connectPubSub() {
+            const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    type: 'LISTEN',
+                    data: { 
+                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`], 
+                        auth_token: TOKEN.replace('oauth:', '') 
+                    }
+                }));
+                setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
+                debug.innerText += " | Body: OK";
+            };
+            socket.onmessage = (e) => {
+                const res = JSON.parse(e.data);
+                if (res.type === 'MESSAGE') {
+                    const msg = JSON.parse(res.data.message);
+                    if (msg.type === 'reward-redeemed') {
+                        triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
+                    }
+                }
+                if (res.error === "ERR_BADAUTH") debug.innerText = "CHYBA: Špatný Token!";
+            };
+        }
+
+        connectChat();
+        connectPubSub();
     </script>
 </body>
 </html>
