@@ -1,39 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="cs">
 <head>
-    <title>GitHub Overlay</title>
+    <meta charset="UTF-8">
+    <title>Twitch Sound Overlay</title>
+    <style>
+        body { 
+            background: transparent; 
+            margin: 0; 
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Arial Black', sans-serif;
+        }
+        #alert-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .alert-box {
+            background: rgba(20, 20, 20, 0.9);
+            border: 4px solid #9146FF;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+            box-shadow: 0 0 30px rgba(145, 70, 255, 0.6);
+            display: none; /* Schované, dokud nepřijde odměna */
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.5); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .user-name {
+            font-size: 48px;
+            color: #9146FF;
+            text-transform: uppercase;
+            text-shadow: 2px 2px 0px #000;
+        }
+        .reward-name {
+            font-size: 24px;
+            color: #00ffcc;
+            margin-top: 10px;
+        }
+        /* Testovací tlačítko - vidíš jen v OBS přes "Interagovat" */
+        #test-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            opacity: 0.2;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <div id="status">Načítám...</div>
+
+    <button id="test-btn" onclick="triggerAlert('TEST_USER', 'SOUND: Curak')">TEST</button>
+
+    <div id="alert-container">
+        <div id="alert-box" class="alert-box">
+            <div id="user-name" class="user-name"></div>
+            <div id="reward-name" class="reward-name"></div>
+        </div>
+    </div>
 
     <script>
-        // 1. Zkusíme načíst token z paměti prohlížeče
-        let ghToken = localStorage.getItem('gh_token');
+        // ==========================================
+        // 1. KONFIGURACE - SEM VLOŽ SVOJE ÚDAJE
+        // ==========================================
+        const CHANNEL_ID = '000000000'; // SEM DEJ SVOJE ČÍSELNÉ ID (získané z webu)
+        const AUTH_TOKEN = localStorage.getItem('gh_token'); 
 
-        if (!ghToken) {
-            // 2. Pokud token nemáme, vyžádáme ho (v reálu bys tu mohl mít input pole)
-            ghToken = prompt("Zadej svůj GitHub Personal Access Token (uloží se navždy):");
-            if (ghToken) {
-                localStorage.setItem('gh_token', ghToken);
-            }
+        // Mapa odměn a zvuků
+        const soundConfig = {
+            "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
+            "Default": "https://www.myinstants.com/media/sounds/ding.mp3"
+        };
+
+        // ==========================================
+        // 2. FUNKCE PRO ZOBRAZENÍ A ZVUK
+        // ==========================================
+        const alertBox = document.getElementById('alert-box');
+
+        function triggerAlert(user, reward) {
+            document.getElementById('user-name').innerText = user;
+            document.getElementById('reward-name').innerText = reward;
+
+            // Výběr zvuku (pokud název nesedí, pustí Default)
+            const soundUrl = soundConfig[reward] || soundConfig["Default"];
+            const audio = new Audio(soundUrl);
+            audio.volume = 1.0; 
+            
+            // Přehrání
+            audio.play().catch(e => {
+                console.log("Problém se zvukem. Klikni v OBS na Interagovat!");
+            });
+
+            // Animace zobrazení
+            alertBox.style.display = 'block';
+            
+            // Schování po 6 sekundách
+            setTimeout(() => {
+                alertBox.style.display = 'none';
+            }, 6000);
         }
 
-        // 3. Funkce pro volání GitHub API s uloženým tokenem
-        async function fetchData() {
-            try {
-                const response = await fetch('https://api.github.com/user', {
-                    headers: {
-                        'Authorization': `token ${ghToken}`
+        // ==========================================
+        // 3. PŘIPOJENÍ K TWITCHI (PUBSUB)
+        // ==========================================
+        function connect() {
+            if (!AUTH_TOKEN) {
+                const tokenInput = prompt("Vlož svůj GitHub Personal Access Token (uloží se navždy):");
+                if (tokenInput) {
+                    localStorage.setItem('gh_token', tokenInput);
+                    location.reload();
+                }
+                return;
+            }
+
+            const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
+
+            socket.onopen = () => {
+                socket.send(JSON.stringify({
+                    type: 'LISTEN',
+                    data: {
+                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`],
+                        auth_token: AUTH_TOKEN
                     }
-                });
-                const data = await response.json();
-                document.getElementById('status').innerText = `Přihlášen jako: ${data.login}`;
-            } catch (error) {
-                document.getElementById('status').innerText = "Chyba přihlášení. Zkontroluj token.";
-            }
+                }));
+                // Ping-pong pro udržení spojení
+                setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
+            };
+
+            socket.onmessage = (event) => {
+                const response = JSON.parse(event.data);
+                if (response.type === 'MESSAGE') {
+                    const msg = JSON.parse(response.data.message);
+                    const user = msg.data.redemption.user.display_name;
+                    const reward = msg.data.redemption.reward.title;
+                    
+                    triggerAlert(user, reward);
+                }
+            };
+
+            socket.onclose = () => {
+                console.log("Spojení ztraceno, zkouším znovu...");
+                setTimeout(connect, 5000);
+            };
         }
 
-        if (ghToken) fetchData();
+        // Spuštění
+        if (CHANNEL_ID !== '000000000') {
+            connect();
+        } else {
+            alert("Nezapomeň v kódu vyplnit CHANNEL_ID!");
+        }
     </script>
 </body>
 </html>
