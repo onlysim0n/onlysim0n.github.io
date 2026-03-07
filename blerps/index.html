@@ -3,70 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Blerp Overlay</title>
+    <title>Only_Sim0n | Setup</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 </head>
 <body>
 
-    <div id="setup-panel">
-        <div class="panel-header">
-            <span>⚙️ Nastavení Overlaye</span>
-            <button onclick="document.getElementById('setup-panel').style.display='none'">[X]</button>
+    <header>
+        <div class="logo-box">
+            <img src="../assets/loga/logo.png" alt="Logo" class="logo-img">
+            <span class="logo-text">Only_Sim0n</span>
         </div>
-        <p>Pro trvalou změnu zvuku nahraj <strong>blerp.mp3</strong> na GitHub.</p>
-        <a href="https://github.com/TVUJ_NICK/TVUJ_REPO/upload/main" target="_blank" class="upload-link">
-            Nahrát nový zvuk
-        </a>
-    </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">About</a></li>
+                <li><a href="../ateam/index.html">A-TEAM</a></li>
+                <li><a href="../stream/index.html">Stream</a></li>
+                <li><a href="../contact/index.html">Contact</a></li>
+                <li><a href="index.html" class="active">Setup</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <div id="alert-wrapper">
-        <div id="alert-card" class="alert-card animate__animated">
-            <div class="glow-border"></div>
-            <div class="content">
-                <div class="badge">Nová Odměna</div>
-                <h1 id="user-name">Streamer</h1>
-                <div class="reward-container">
-                    <span id="reward-name">Aktivoval Blerp!</span>
+    <main class="setup-section">
+        <h1>MY SETUP</h1>
+
+        <div class="setup-grid">
+            <div class="setup-item">
+                <div class="img-box">
+                    <img src="../assets/setup/pc.png" alt="Můj PC">
                 </div>
+                <p class="description">Herní PC: RTX 4080, Ryzen 7 7800X3D</p>
+            </div>
+
+            <div class="setup-item">
+                <div class="img-box">
+                    <img src="../assets/setup/monitor.png" alt="Monitor">
+                </div>
+                <p class="description">Monitor: 27" ASUS ROG 240Hz</p>
+            </div>
+
+            <div class="setup-item">
+                <div class="img-box">
+                    <img src="../assets/setup/mys.png" alt="Myš">
+                </div>
+                <p class="description">Myš: Logitech G Pro X Superlight</p>
+            </div>
+
+            <div class="setup-item">
+                <div class="img-box">
+                    <img src="../assets/setup/klavesnice.png" alt="Klávesnice">
+                </div>
+                <p class="description">Klávesnice: Custom Mechanical Keyboard</p>
             </div>
         </div>
-    </div>
+    </main>
 
-    <script>
-        const alertCard = document.getElementById('alert-card');
-        const userNameEl = document.getElementById('user-name');
-        const rewardNameEl = document.getElementById('reward-name');
-        const blerpAudio = new Audio('blerp.mp3');
-
-        // Funkce pro spuštění alertu
-        function triggerBlerp(user, reward) {
-            userNameEl.innerText = user;
-            rewardNameEl.innerText = reward;
-            
-            alertCard.style.display = 'block';
-            alertCard.classList.remove('animate__fadeOutDown');
-            alertCard.classList.add('animate__zoomInUp');
-            
-            // Přehrání zvuku
-            blerpAudio.play().catch(err => console.log("Audio čeká na interakci v OBS"));
-
-            // Automatické skrytí po 6 sekundách
-            setTimeout(() => {
-                alertCard.classList.remove('animate__zoomInUp');
-                alertCard.classList.add('animate__fadeOutDown');
-                setTimeout(() => { alertCard.style.display = 'none'; }, 800);
-            }, 6000);
-        }
-
-        // Napojení na Twitch přes ComfyJS
-        ComfyJS.onReward = (user, reward, cost, message, extra) => {
-            triggerBlerp(user, reward);
-        };
-
-        // ZDE DOPLŇ SVŮJ TWITCH NICK
-        ComfyJS.Init("TVUJ_NICK_ZDE");
-    </script>
 </body>
 </html>
