@@ -2,10 +2,21 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Twitch & Kick Sound Overlay</title>
+    <title>Twitch & Kick Overlay</title>
     <style>
-        body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
-        #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        body { 
+            background: transparent; 
+            margin: 0; 
+            padding: 0; 
+            overflow: hidden; 
+            font-family: 'Arial Black', sans-serif; 
+        }
+        #alert-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+        }
         .alert-box {
             background: rgba(20, 20, 20, 0.95);
             border: 5px solid #9146FF;
@@ -15,49 +26,59 @@
             color: white;
             display: none; 
             z-index: 9999;
-            box-shadow: 0 0 30px rgba(145, 70, 255, 0.6);
+            box-shadow: 0 0 40px rgba(145, 70, 255, 0.7);
         }
-        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; text-shadow: 2px 2px #000; }
-        .reward-name { font-size: 28px; color: #00ffcc; margin-top: 10px; }
+        .user-name { 
+            font-size: 54px; 
+            color: #9146FF; 
+            text-transform: uppercase; 
+            text-shadow: 3px 3px #000; 
+        }
+        .reward-name { 
+            font-size: 28px; 
+            color: #00ffcc; 
+            margin-top: 10px; 
+            text-shadow: 2px 2px #000;
+        }
     </style>
 </head>
 <body>
 
     <div id="alert-container">
         <div id="alert-box" class="alert-box">
-            <div id="user-name"></div>
-            <div id="reward-name"></div>
+            <div id="user-name" class="user-name"></div>
+            <div id="reward-name" class="reward-name"></div>
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // 1. NASTAVENÍ (VYPLŇ SVOJE ÚDAJE)
-        // ==========================================
-        const CHANNEL_ID = 'TVOJE_ID_CISLO';     // Číselné ID tvého kanálu
-        const CHANNEL_NAME = 'TVUJ_NICK';        // Tvůj nick na Twitchi (malými písmeny)
-        const ALLOWED_USER = 'NICK_BOTA';       // Nick uživatele/bota, který smí psát !příkazy
+        // =================================================
+        // 1. KONFIGURACE - TADY VYPLŇ SVOJE ÚDAJE
+        // =================================================
+        const CHANNEL_ID = '142761052';     // Tvoje Twitch ID (číselné)
+        const CHANNEL_NAME = 'only_sim0n';        // Tvůj nick na Twitchi (malými písmeny)
+        const ALLOWED_USER = 'predni_k0l0';       // Nick uživatele, který smí spouštět !příkazy
 
-        // MAPA ZVUKŮ (Zde přidávej neomezeně další)
+        // SEZNAM ZVUKŮ (Přidávej další řádky podle potřeby)
         const soundConfig = {
-            // Reaguje na odměnu za body (přesný název z Twitche)
+            // Pro Twitch body (přesný název odměny)
             "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
             
-            // Reaguje na příkaz v chatu (pro Kick bota)
+            // Pro příkaz v chatu (např. co napíše tvůj bot)
             "!curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
             
-            // Příklad dalšího zvuku
-            "!ahoj": "https://www.myinstants.com/media/sounds/ding.mp3"
+            // Záložní zvuk
+            "default": "https://www.myinstants.com/media/sounds/ding.mp3"
         };
 
         const AUTH_TOKEN = localStorage.getItem('twitch_token');
 
-        // ==========================================
-        // 2. FUNKCE PRO SPOUŠTĚNÍ
-        // ==========================================
+        // =================================================
+        // 2. FUNKCE PRO ZOBRAZENÍ ALERTU
+        // =================================================
         function triggerAlert(user, key) {
-            const soundUrl = soundConfig[key];
-            if (!soundUrl) return; // Pokud zvuk neexistuje, nic nedělej
+            const soundUrl = soundConfig[key] || soundConfig["default"];
+            if (!soundConfig[key] && !key.startsWith('!')) return;
 
             const alertBox = document.getElementById('alert-box');
             document.getElementById('user-name').innerText = user;
@@ -65,35 +86,35 @@
 
             const audio = new Audio(soundUrl);
             audio.volume = 1.0;
-            audio.play().catch(e => console.log("Je nutné v OBS kliknout na 'Interagovat'!"));
+            audio.play().catch(e => console.log("Klikni v OBS na 'Interagovat'!"));
 
             alertBox.style.display = 'block';
             setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
         }
 
-        // ==========================================
-        // 3. MONITOROVÁNÍ CHATU (PRO KICK / PŘÍKAZY)
-        // ==========================================
+        // =================================================
+        // 3. ČTENÍ CHATU (PRO PŘÍKAZY / KICK BOT)
+        // =================================================
         function connectChat() {
             const socket = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
 
             socket.onopen = () => {
-                socket.send('PASS SCHMOOPIE');
+                socket.send('PASS SCHMOOPIE'); // Anonymní login
                 socket.send(`NICK justinfan${Math.floor(Math.random() * 10000)}`);
                 socket.send(`JOIN #${CHANNEL_NAME.toLowerCase()}`);
             };
 
             socket.onmessage = (event) => {
-                const data = event.data;
-                if (data.includes('PRIVMSG')) {
-                    // Získání nicku odesílatele a zprávy
-                    const user = data.split('!')[0].substring(1);
-                    const message = data.split('PRIVMSG')[1].split(' :')[1].trim();
+                if (event.data.includes('PRIVMSG')) {
+                    const parts = event.data.split('!');
+                    const user = parts[0].substring(1);
+                    const msgPart = event.data.split('PRIVMSG')[1];
+                    const message = msgPart.split(' :')[1].trim();
 
-                    // KONTROLA: Smí tento uživatel spouštět zvuky?
+                    // Kontrola: Je to povolený uživatel a máme pro ten příkaz zvuk?
                     if (user.toLowerCase() === ALLOWED_USER.toLowerCase()) {
                         if (soundConfig[message]) {
-                            triggerAlert("KICK / BOT", message);
+                            triggerAlert("KICK REWARD", message);
                         }
                     }
                 }
@@ -101,9 +122,9 @@
             socket.onclose = () => setTimeout(connectChat, 5000);
         }
 
-        // ==========================================
-        // 4. MONITOROVÁNÍ BODŮ (PRO TWITCH)
-        // ==========================================
+        // =================================================
+        // 4. TWITCH BODY (PUBSUB)
+        // =================================================
         function connectPubSub() {
             if (!AUTH_TOKEN) {
                 const t = prompt("Vlož Twitch OAuth Token (získej na twitchapps.com/tmi/):");
@@ -128,16 +149,14 @@
                 if (res.type === 'MESSAGE') {
                     const msg = JSON.parse(res.data.message);
                     if (msg.type === 'reward-redeemed') {
-                        const user = msg.data.redemption.user.display_name;
-                        const reward = msg.data.redemption.reward.title;
-                        triggerAlert(user, reward);
+                        triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
                     }
                 }
             };
             socket.onclose = () => setTimeout(connectPubSub, 5000);
         }
 
-        // Spuštění
+        // Start
         if (CHANNEL_ID !== 'TVOJE_ID_CISLO') {
             connectChat();
             connectPubSub();
