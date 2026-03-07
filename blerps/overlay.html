@@ -2,21 +2,10 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Twitch Sound Overlay</title>
     <style>
-        body { 
-            background: transparent; 
-            margin: 0; 
-            padding: 0;
-            overflow: hidden;
-            font-family: 'Arial Black', sans-serif;
-        }
-        #alert-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+        body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
+        #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        
         .alert-box {
             background: rgba(20, 20, 20, 0.95);
             border: 5px solid #9146FF;
@@ -25,43 +14,20 @@
             text-align: center;
             color: white;
             box-shadow: 0 0 40px rgba(145, 70, 255, 0.8);
-            
-            /* Animace a viditelnost */
-            opacity: 0;
-            transform: scale(0.7);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            pointer-events: none;
+            /* Změna: Box je viditelný jen když má třídu .show */
+            display: none; 
+            z-index: 9999;
         }
-        /* Třída, kterou přidáme pomocí JS pro zobrazení */
-        .alert-box.show {
-            opacity: 1;
-            transform: scale(1);
-        }
-        .user-name {
-            font-size: 54px;
-            color: #9146FF;
-            text-transform: uppercase;
-            text-shadow: 3px 3px 0px #000;
-            margin-bottom: 10px;
-        }
-        .reward-name {
-            font-size: 28px;
-            color: #00ffcc;
-            text-shadow: 2px 2px 0px #000;
-        }
-        #test-btn {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            opacity: 0.2;
-            cursor: pointer;
-            z-index: 100;
-        }
+
+        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; margin-bottom: 10px; }
+        .reward-name { font-size: 28px; color: #00ffcc; }
+
+        #test-btn { position: absolute; top: 10px; left: 10px; z-index: 10000; padding: 10px; }
     </style>
 </head>
 <body>
 
-    <button id="test-btn" onclick="triggerAlert('TEST_USER', 'SOUND: Curak')">TEST</button>
+    <button id="test-btn" onclick="triggerAlert('TESTER', 'SOUND: Curak')">MANUÁLNÍ TEST</button>
 
     <div id="alert-container">
         <div id="alert-box" class="alert-box">
@@ -71,10 +37,8 @@
     </div>
 
     <script>
-        // ==========================================
-        // 1. KONFIGURACE - DOPLŇ SVOJE ID
-        // ==========================================
-        const CHANNEL_ID = '142761052'; // <--- TADY VLOŽ TO ČÍSLO
+        // --- 1. NASTAVENÍ (ZDE VLOŽ SVÉ ID) ---
+        const CHANNEL_ID = 'TVOJE_ID_TADY'; 
         const AUTH_TOKEN = localStorage.getItem('gh_token'); 
 
         const soundConfig = {
@@ -82,77 +46,57 @@
             "Default": "https://www.myinstants.com/media/sounds/ding.mp3"
         };
 
-        // ==========================================
-        // 2. LOGIKA ZOBRAZENÍ
-        // ==========================================
+        // --- 2. FUNKCE PRO ZOBRAZENÍ ---
         function triggerAlert(user, reward) {
+            console.log("Spouštím alert pro:", user);
             const alertBox = document.getElementById('alert-box');
-            const userText = document.getElementById('user-name');
-            const rewardText = document.getElementById('reward-name');
+            
+            document.getElementById('user-name').innerText = user;
+            document.getElementById('reward-name').innerText = reward;
 
-            // Vyplnění textu
-            userText.innerText = user;
-            rewardText.innerText = reward;
-
-            // Zvuk
+            // Přehrání zvuku
             const soundUrl = soundConfig[reward] || soundConfig["Default"];
             const audio = new Audio(soundUrl);
             audio.volume = 1.0;
-            audio.play().catch(e => console.log("Interakce nutná!"));
+            audio.play().catch(e => console.log("Nutná interakce v OBS!"));
 
-            // Zobrazení (přidáním CSS třídy)
-            alertBox.classList.add('show');
+            // Zobrazení (natvrdo přes display)
+            alertBox.style.display = 'block';
             
             // Schování po 6 sekundách
             setTimeout(() => {
-                alertBox.classList.remove('show');
+                alertBox.style.display = 'none';
             }, 6000);
         }
 
-        // ==========================================
-        // 3. TWITCH PŘIPOJENÍ
-        // ==========================================
+        // --- 3. PŘIPOJENÍ ---
         function connect() {
             if (!AUTH_TOKEN) {
-                const tokenInput = prompt("Vlož svůj GitHub Personal Access Token:");
-                if (tokenInput) {
-                    localStorage.setItem('gh_token', tokenInput.trim());
-                    location.reload();
-                }
+                const t = prompt("Vlož GitHub Token:");
+                if (t) { localStorage.setItem('gh_token', t.trim()); location.reload(); }
                 return;
             }
 
             const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
-
             socket.onopen = () => {
                 socket.send(JSON.stringify({
                     type: 'LISTEN',
-                    data: {
-                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`],
-                        auth_token: AUTH_TOKEN
-                    }
+                    data: { topics: [`channel-points-channel-v1.${CHANNEL_ID}`], auth_token: AUTH_TOKEN }
                 }));
                 setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
             };
 
-            socket.onmessage = (event) => {
-                const response = JSON.parse(event.data);
-                if (response.type === 'PONG') return;
-
-                if (response.type === 'MESSAGE') {
-                    const msgData = JSON.parse(response.data.message);
-                    
-                    // Získání jména a názvu odměny z dat od Twitche
-                    const twitchUser = msgData.data.redemption.user.display_name;
-                    const twitchReward = msgData.data.redemption.reward.title;
-                    
-                    triggerAlert(twitchUser, twitchReward);
+            socket.onmessage = (e) => {
+                const res = JSON.parse(e.data);
+                if (res.type === 'MESSAGE') {
+                    const msg = JSON.parse(res.data.message);
+                    triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
                 }
             };
-
             socket.onclose = () => setTimeout(connect, 5000);
         }
 
-        if (CHANNEL_ID !== 'TVOJE_ID_TADY') {
-            connect();
-        }
+        if (CHANNEL_ID !== 'TVOJE_ID_TADY') connect();
+    </script>
+</body>
+</html>
