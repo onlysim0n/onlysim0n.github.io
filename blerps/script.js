@@ -15,7 +15,7 @@ ComfyJS.onReward = (user, reward, cost, message, extra) => {
 
     // Logika pro konkrétní odměny (Název musí přesně sedět s Twitchem)
     if (reward === "SOUND: Curak") {
-        playSound("kekw.mp3");
+        playSound("Agraelus_curak.mp3");
     } 
     else if (reward === "BRUH") {
         playSound("bruh.mp3");
