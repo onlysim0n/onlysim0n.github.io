@@ -1,0 +1,63 @@
+/* Import moderního písma z Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: transparent; /* Extrémně důležité pro průhlednost v OBS */
+    overflow: hidden;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#alert-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+.alert-card {
+    display: none; /* Skryté, dokud JavaScript nespustí alert */
+    background: linear-gradient(135deg, #9146FF 0%, #6441a5 100%); /* Twitch fialová */
+    border-radius: 25px;
+    padding: 35px;
+    min-width: 450px;
+    text-align: center;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.6);
+    border: 5px solid white;
+    color: white;
+    position: relative;
+}
+
+/* Design pro jméno uživatele */
+.user-name {
+    font-size: 2.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 3px 3px 0px #000;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* Design pro název odměny */
+.reward-name {
+    font-size: 1.4rem;
+    background: rgba(0, 0, 0, 0.4);
+    padding: 12px 25px;
+    border-radius: 50px;
+    display: inline-block;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Efekt záře (Glow Pulse) */
+.glow {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(145, 70, 255, 0.7); }
+    70% { box-shadow: 0 0 0 25px rgba(145, 70, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(145, 70, 255, 0); }
+}
