@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Twitch Sound Overlay - Queue System</title>
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
+</head>
+<body style="background: transparent; color: white; font-family: sans-serif;">
+
+    <div id="status" style="font-size: 12px; opacity: 0.5;">Čekám na autorizaci...</div>
+
+    <script>
+        const CLIENT_ID = '03f7yjg63ezj42dtqr3i4oiqz550bm'; 
+        const CHANNEL = 'only_sim0n';
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+        // --- SYSTÉM FRONTY ---
+        let soundQueue = [];
+        let isPlaying = false;
+
+        function addToQueue(file) {
+            soundQueue.push(file);
+            if (!isPlaying) {
+                playNext();
+            }
+        }
+
+        function playNext() {
+            if (soundQueue.length === 0) {
+                isPlaying = false;
+                return;
+            }
+
+            isPlaying = true;
+            const nextSound = soundQueue.shift(); // Vezme první zvuk v pořadí
+            const audio = new Audio('sounds/' + nextSound);
+
+            audio.onended = () => {
+                // Jakmile zvuk skončí, počká 0.5 sekundy a pustí další
+                setTimeout(playNext, 500);
+            };
+
+            audio.play().catch(err => {
+                console.error("Chyba přehrávání:", err);
+                playNext(); // Při chybě skočí na další, aby se fronta nezasekla
+            });
+        }
+        // -----------------------
+
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get('access_token');
+
+        if (!accessToken) {
+            document.body.innerHTML = `<a href="https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=channel:read:redemptions+chat:read" style="color: cyan; font-weight: bold; text-decoration: none; border: 2px solid cyan; padding: 10px;">👉 KLIKNI ZDE PRO PŘIHLÁŠENÍ OVERLAYE 👈</a>`;
+        } else {
+            initComfy(accessToken);
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        function initComfy(token) {
+            ComfyJS.onReward = (user, reward, cost, message, extra) => {
+                console.log("Odměna:", reward);
+                
+                if (reward === "SOUND: Curak") {
+                    addToQueue("Agraelus_curak.mp3");
+                }
+                // Tady můžeš přidávat další else if pro další zvuky
+            };
+
+            ComfyJS.Init(CHANNEL, "oauth:" + token);
+            ComfyJS.onConnected = () => {
+                document.getElementById('status').innerText = "OVERLAY AKTIVNÍ (FRONTA ZAPNUTA): " + CHANNEL;
+            };
+        }
+    </script>
+</body>
+</html>
