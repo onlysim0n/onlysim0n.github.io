@@ -49,7 +49,7 @@ header {
 
 .nav-links a {
     text-decoration: none;
-    color: #aaaaaa;
+    color: #aaaaaa; /* Základní šedá */
     font-weight: 600;
     font-size: 1.1rem;
     transition: 0.3s ease;
@@ -57,9 +57,9 @@ header {
     border-bottom: 2px solid transparent;
 }
 
-/* Zesvětlení menu při najetí */
+/* Zesvětlení textu v menu při najetí (hover) */
 .nav-links a:hover {
-    color: #ffffff;
+    color: #ffffff; /* Bílá barva */
 }
 
 .nav-links a.active {
@@ -70,7 +70,7 @@ header {
     border-bottom: 2px solid #ff0000;
 }
 
-/* --- SETUP OBSAH --- */
+/* --- SETUP SEKCE --- */
 .setup-section {
     padding: 60px 5%;
     display: flex;
@@ -128,18 +128,21 @@ h1 {
     box-shadow: 0 10px 20px rgba(255, 0, 0, 0.15);
 }
 
+/* Popisek - stejný font jako menu, ale NENÍ bold */
 .description {
     font-size: 1rem;
-    font-weight: 400; 
+    font-weight: 400; /* Klasické lehké písmo */
     color: #cccccc;
     text-align: center;
     line-height: 1.5;
+    max-width: 90%;
 }
 
-/* RESPONSIVITA */
+/* Responsivita */
 @media (max-width: 768px) {
     header { padding: 0 3%; }
     .nav-links { gap: 15px; }
     .nav-links a { font-size: 0.9rem; }
     h1 { font-size: 2.5rem; }
+    .setup-grid { gap: 20px; }
 }
