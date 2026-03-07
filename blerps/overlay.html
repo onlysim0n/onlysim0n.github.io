@@ -5,7 +5,6 @@
     <style>
         body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
         #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
-        
         .alert-box {
             background: rgba(20, 20, 20, 0.95);
             border: 5px solid #9146FF;
@@ -14,20 +13,17 @@
             text-align: center;
             color: white;
             box-shadow: 0 0 40px rgba(145, 70, 255, 0.8);
-            /* Změna: Box je viditelný jen když má třídu .show */
             display: none; 
             z-index: 9999;
         }
-
-        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; margin-bottom: 10px; }
+        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; }
         .reward-name { font-size: 28px; color: #00ffcc; }
-
-        #test-btn { position: absolute; top: 10px; left: 10px; z-index: 10000; padding: 10px; }
+        #status { position: absolute; bottom: 5px; right: 5px; color: rgba(255,255,255,0.2); font-size: 10px; }
     </style>
 </head>
 <body>
 
-    <button id="test-btn" onclick="triggerAlert('TESTER', 'SOUND: Curak')">MANUÁLNÍ TEST</button>
+    <div id="status">Odpojeno</div>
 
     <div id="alert-container">
         <div id="alert-box" class="alert-box">
@@ -37,51 +33,48 @@
     </div>
 
     <script>
-        // --- 1. NASTAVENÍ (ZDE VLOŽ SVÉ ID) ---
-        const CHANNEL_ID = 'TVOJE_ID_TADY'; 
-        const AUTH_TOKEN = localStorage.getItem('gh_token'); 
-
+        // 1. KONFIGURACE
+        const CHANNEL_ID = 'TVOJE_ID_CISLO'; // Sem dej to svoje číslo
+        
+        // Zvuky - na GitHub Pages používej raději HTTPS odkazy
         const soundConfig = {
             "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
             "Default": "https://www.myinstants.com/media/sounds/ding.mp3"
         };
 
-        // --- 2. FUNKCE PRO ZOBRAZENÍ ---
         function triggerAlert(user, reward) {
-            console.log("Spouštím alert pro:", user);
             const alertBox = document.getElementById('alert-box');
-            
             document.getElementById('user-name').innerText = user;
             document.getElementById('reward-name').innerText = reward;
 
-            // Přehrání zvuku
             const soundUrl = soundConfig[reward] || soundConfig["Default"];
             const audio = new Audio(soundUrl);
-            audio.volume = 1.0;
-            audio.play().catch(e => console.log("Nutná interakce v OBS!"));
+            audio.play().catch(e => console.log("Nutná interakce"));
 
-            // Zobrazení (natvrdo přes display)
             alertBox.style.display = 'block';
-            
-            // Schování po 6 sekundách
-            setTimeout(() => {
-                alertBox.style.display = 'none';
-            }, 6000);
+            setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
         }
 
-        // --- 3. PŘIPOJENÍ ---
         function connect() {
-            if (!AUTH_TOKEN) {
-                const t = prompt("Vlož GitHub Token:");
-                if (t) { localStorage.setItem('gh_token', t.trim()); location.reload(); }
-                return;
+            // Token se zeptá jen jednou a uloží se u tebe v prohlížeči (v OBS)
+            let token = localStorage.getItem('twitch_token');
+            if (!token) {
+                token = prompt("Vlož svůj Twitch OAuth Token (získáš na twitchapps.com/tmi/):");
+                if (token) {
+                    localStorage.setItem('twitch_token', token.trim());
+                } else return;
             }
 
             const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
+
             socket.onopen = () => {
+                document.getElementById('status').innerText = "Připojeno";
                 socket.send(JSON.stringify({
                     type: 'LISTEN',
-                    data: { topics: [`channel-points-channel-v1.${CHANNEL_ID}`], auth_token: AUTH_TOKEN }
+                    data: {
+                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`],
+                        auth_token: token.replace('oauth:', '') // PubSub chce čistý kód
+                    }
                 }));
                 setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
             };
@@ -90,13 +83,23 @@
                 const res = JSON.parse(e.data);
                 if (res.type === 'MESSAGE') {
                     const msg = JSON.parse(res.data.message);
-                    triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
+                    if (msg.type === 'reward-redeemed') {
+                        triggerAlert(
+                            msg.data.redemption.user.display_name, 
+                            msg.data.redemption.reward.title
+                        );
+                    }
+                }
+                if (res.error === "ERR_BADAUTH") {
+                    localStorage.removeItem('twitch_token');
+                    location.reload();
                 }
             };
+
             socket.onclose = () => setTimeout(connect, 5000);
         }
 
-        if (CHANNEL_ID !== 'TVOJE_ID_TADY') connect();
+        if (CHANNEL_ID !== 'TVOJE_ID_CISLO') connect();
     </script>
 </body>
 </html>
