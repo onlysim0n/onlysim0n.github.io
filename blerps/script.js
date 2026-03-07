@@ -1,5 +1,5 @@
 // --- KONFIGURACE ---
-const channel = "TVŮJ_NICK_NA_TWITCHI"; // Sem napiš své jméno na Twitchi
+const channel = "only_sim0n"; // Sem napiš své jméno na Twitchi
 
 // Funkce pro přehrávání zvuku
 function playSound(file) {
@@ -14,7 +14,7 @@ ComfyJS.onReward = (user, reward, cost, message, extra) => {
     console.log(`Uživatel ${user} koupil odměnu: ${reward}`);
 
     // Logika pro konkrétní odměny (Název musí přesně sedět s Twitchem)
-    if (reward === "KEKW") {
+    if (reward === "SOUND: Curak") {
         playSound("kekw.mp3");
     } 
     else if (reward === "BRUH") {
