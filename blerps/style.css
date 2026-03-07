@@ -11,8 +11,6 @@ body {
     color: white;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 
 /* --- HEADER / MENU --- */
@@ -26,42 +24,27 @@ header {
     border-bottom: 2px solid #222;
 }
 
-.logo-box {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
+.logo-box { display: flex; align-items: center; gap: 12px; }
+.logo-img { height: 45px; width: auto; }
+.logo-text { font-size: 1.7rem; font-weight: 800; }
 
-.logo-img {
-    height: 45px;
-    width: auto;
-}
-
-.logo-text {
-    font-size: 1.7rem;
-    font-weight: 800;
-}
-
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 30px;
+.nav-links { 
+    display: flex; 
+    list-style: none; 
+    gap: 20px; /* Sníženo z 30px, aby se tam vešlo víc položek */
 }
 
 .nav-links a {
     text-decoration: none;
     color: #aaaaaa;
     font-weight: 600;
-    font-size: 1.1rem;
+    font-size: 1rem; /* Mírně zmenšeno pro lepší fit */
     transition: 0.3s ease;
     padding-bottom: 5px;
     border-bottom: 2px solid transparent;
 }
 
-/* ZESVĚTLENÍ MENU PŘI NAJETÍ */
-.nav-links a:hover {
-    color: #ffffff;
-}
+.nav-links a:hover { color: #ffffff; }
 
 .nav-links a.active {
     font-weight: 800;
@@ -71,89 +54,55 @@ header {
     border-bottom: 2px solid #ff0000;
 }
 
-/* --- BLERP CONTENT --- */
-.blerp-container {
-    flex: 1;
+/* --- OBSAH --- */
+.setup-section {
+    padding: 60px 5%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding: 40px 5%;
-    text-align: center;
 }
 
 h1 {
     font-size: 3.5rem;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     background: linear-gradient(to right, #ff0000, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-weight: 800;
 }
 
-.blerp-card {
-    background: #161616;
-    padding: 50px 40px;
-    border-radius: 20px;
-    border: 2px solid #222;
-    max-width: 550px;
-    width: 100%;
-    transition: 0.4s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-}
-
-.blerp-card:hover {
-    border-color: #ff0000;
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(255, 0, 0, 0.2);
-}
-
-.blerp-icon {
-    width: 90px;
-    height: 90px;
-    background: linear-gradient(45deg, #ff0000, #ff00ff);
-    border-radius: 20px;
+.setup-grid {
     display: flex;
     justify-content: center;
-    align-items: center;
-    font-size: 3.5rem;
-    font-weight: 800;
-    color: white;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.img-box {
+    width: 100%;
+    background: #161616;
+    border-radius: 15px;
+    border: 1px solid #222;
+    overflow: hidden;
+    transition: 0.4s ease;
+}
+
+.setup-item:hover .img-box {
+    border-color: #ff0000;
+    box-shadow: 0 10px 20px rgba(255, 0, 0, 0.15);
 }
 
 .description {
-    font-size: 1.1rem;
-    font-weight: 400; /* Lehký font bez tučnosti */
+    font-size: 1rem;
+    font-weight: 400;
     color: #cccccc;
-    line-height: 1.6;
+    margin-top: 15px;
+    text-align: center;
 }
 
-.btn-blerp {
-    margin-top: 10px;
-    padding: 14px 40px;
-    background: #ff0000;
-    color: white;
-    text-decoration: none;
-    font-weight: 700;
-    border-radius: 10px;
-    transition: 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.btn-blerp:hover {
-    background: white;
-    color: black;
-    transform: scale(1.05);
-}
-
-/* RESPONSIVITA */
+/* RESPONSIVITA PRO MOBILY */
 @media (max-width: 768px) {
-    h1 { font-size: 2.5rem; }
-    .nav-links { gap: 15px; }
-    .nav-links a { font-size: 0.9rem; }
-    .blerp-card { padding: 30px 20px; }
+    header { height: auto; padding: 20px 5%; flex-direction: column; gap: 15px; }
+    .nav-links { flex-wrap: wrap; justify-content: center; gap: 10px; }
+    h1 { font-size: 2.2rem; }
 }
