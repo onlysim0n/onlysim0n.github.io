@@ -2,7 +2,7 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Stream Overlay</title>
+    <title>Stream Overlay - Final</title>
     <style>
         body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
         #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
@@ -18,7 +18,7 @@
         }
         .user-name { font-size: 48px; color: #9146FF; text-transform: uppercase; }
         .reward-name { font-size: 24px; color: #00ffcc; margin-top: 10px; }
-        #debug-info { position: absolute; bottom: 10px; left: 10px; color: white; font-size: 12px; opacity: 0.5; }
+        #debug-info { position: absolute; bottom: 10px; left: 10px; color: white; font-size: 12px; opacity: 0.5; background: rgba(0,0,0,0.5); }
     </style>
 </head>
 <body>
@@ -29,93 +29,7 @@
             <div id="reward-name" class="reward-name"></div>
         </div>
     </div>
-    <div id="debug-info">Status: Připojování...</div>
+    <div id="debug-info">Status: Inicializace...</div>
 
     <script>
         // ==========================================
-        // KONFIGURACE
-        // ==========================================
-        const CHANNEL_ID = '142761052'; 
-        const CHANNEL_NAME = 'only_sim0n'; 
-        const ALLOWED_USER = 'predni_k0l0'; 
-        const TOKEN = 'oauth:i827almx04owk8hl2vqxwac3km4wuo'; // Např. 'oauth:asdfgh123...'
-
-        const soundConfig = {
-            "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
-            "!curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3"
-        };
-
-        const debug = document.getElementById('debug-info');
-
-        function triggerAlert(user, key) {
-            const soundUrl = soundConfig[key];
-            if (!soundUrl) return;
-
-            const alertBox = document.getElementById('alert-box');
-            document.getElementById('user-name').innerText = user;
-            document.getElementById('reward-name').innerText = key;
-
-            const audio = new Audio(soundUrl);
-            audio.play().catch(e => {
-                debug.innerText = "Chyba: Prohlížeč blokuje zvuk. Klikni na 'Interagovat'!";
-            });
-
-            alertBox.style.display = 'block';
-            setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
-        }
-
-        // ==========================================
-        // TWITCH CHAT (Pro bota z Kicku)
-        // ==========================================
-        function connectChat() {
-            const ws = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
-            ws.onopen = () => {
-                ws.send('PASS SCHMOOPIE');
-                ws.send(`NICK justinfan${Math.floor(Math.random() * 8888)}`);
-                ws.send(`JOIN #${CHANNEL_NAME}`);
-                debug.innerText += " | Chat: OK";
-            };
-            ws.onmessage = (e) => {
-                if (e.data.includes('PRIVMSG')) {
-                    const user = e.data.split('!')[0].substring(1);
-                    const msg = e.data.split('PRIVMSG')[1].split(' :')[1].trim();
-                    if (user.toLowerCase() === ALLOWED_USER.toLowerCase() && soundConfig[msg]) {
-                        triggerAlert("KICK REWARD", msg);
-                    }
-                }
-            };
-        }
-
-        // ==========================================
-        // TWITCH BODY (PubSub)
-        // ==========================================
-        function connectPubSub() {
-            const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
-            socket.onopen = () => {
-                socket.send(JSON.stringify({
-                    type: 'LISTEN',
-                    data: { 
-                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`], 
-                        auth_token: TOKEN.replace('oauth:', '') 
-                    }
-                }));
-                setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
-                debug.innerText += " | Body: OK";
-            };
-            socket.onmessage = (e) => {
-                const res = JSON.parse(e.data);
-                if (res.type === 'MESSAGE') {
-                    const msg = JSON.parse(res.data.message);
-                    if (msg.type === 'reward-redeemed') {
-                        triggerAlert(msg.data.redemption.user.display_name, msg.data.redemption.reward.title);
-                    }
-                }
-                if (res.error === "ERR_BADAUTH") debug.innerText = "CHYBA: Špatný Token!";
-            };
-        }
-
-        connectChat();
-        connectPubSub();
-    </script>
-</body>
-</html>
