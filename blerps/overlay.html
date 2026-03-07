@@ -18,38 +18,44 @@
             height: 100vh;
         }
         .alert-box {
-            background: rgba(20, 20, 20, 0.9);
-            border: 4px solid #9146FF;
-            border-radius: 20px;
-            padding: 40px;
+            background: rgba(20, 20, 20, 0.95);
+            border: 5px solid #9146FF;
+            border-radius: 25px;
+            padding: 50px;
             text-align: center;
             color: white;
-            box-shadow: 0 0 30px rgba(145, 70, 255, 0.6);
-            display: none; /* Schované, dokud nepřijde odměna */
-            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 40px rgba(145, 70, 255, 0.8);
+            
+            /* Animace a viditelnost */
+            opacity: 0;
+            transform: scale(0.7);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
         }
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
+        /* Třída, kterou přidáme pomocí JS pro zobrazení */
+        .alert-box.show {
+            opacity: 1;
+            transform: scale(1);
         }
         .user-name {
-            font-size: 48px;
+            font-size: 54px;
             color: #9146FF;
             text-transform: uppercase;
-            text-shadow: 2px 2px 0px #000;
+            text-shadow: 3px 3px 0px #000;
+            margin-bottom: 10px;
         }
         .reward-name {
-            font-size: 24px;
+            font-size: 28px;
             color: #00ffcc;
-            margin-top: 10px;
+            text-shadow: 2px 2px 0px #000;
         }
-        /* Testovací tlačítko - vidíš jen v OBS přes "Interagovat" */
         #test-btn {
             position: absolute;
             top: 10px;
             left: 10px;
             opacity: 0.2;
             cursor: pointer;
+            z-index: 100;
         }
     </style>
 </head>
@@ -66,53 +72,51 @@
 
     <script>
         // ==========================================
-        // 1. KONFIGURACE - SEM VLOŽ SVOJE ÚDAJE
+        // 1. KONFIGURACE - DOPLŇ SVOJE ID
         // ==========================================
-        const CHANNEL_ID = '142761052'; // SEM DEJ SVOJE ČÍSELNÉ ID (získané z webu)
+        const CHANNEL_ID = '142761052'; // <--- TADY VLOŽ TO ČÍSLO
         const AUTH_TOKEN = localStorage.getItem('gh_token'); 
 
-        // Mapa odměn a zvuků
         const soundConfig = {
             "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
             "Default": "https://www.myinstants.com/media/sounds/ding.mp3"
         };
 
         // ==========================================
-        // 2. FUNKCE PRO ZOBRAZENÍ A ZVUK
+        // 2. LOGIKA ZOBRAZENÍ
         // ==========================================
-        const alertBox = document.getElementById('alert-box');
-
         function triggerAlert(user, reward) {
-            document.getElementById('user-name').innerText = user;
-            document.getElementById('reward-name').innerText = reward;
+            const alertBox = document.getElementById('alert-box');
+            const userText = document.getElementById('user-name');
+            const rewardText = document.getElementById('reward-name');
 
-            // Výběr zvuku (pokud název nesedí, pustí Default)
+            // Vyplnění textu
+            userText.innerText = user;
+            rewardText.innerText = reward;
+
+            // Zvuk
             const soundUrl = soundConfig[reward] || soundConfig["Default"];
             const audio = new Audio(soundUrl);
-            audio.volume = 1.0; 
-            
-            // Přehrání
-            audio.play().catch(e => {
-                console.log("Problém se zvukem. Klikni v OBS na Interagovat!");
-            });
+            audio.volume = 1.0;
+            audio.play().catch(e => console.log("Interakce nutná!"));
 
-            // Animace zobrazení
-            alertBox.style.display = 'block';
+            // Zobrazení (přidáním CSS třídy)
+            alertBox.classList.add('show');
             
             // Schování po 6 sekundách
             setTimeout(() => {
-                alertBox.style.display = 'none';
+                alertBox.classList.remove('show');
             }, 6000);
         }
 
         // ==========================================
-        // 3. PŘIPOJENÍ K TWITCHI (PUBSUB)
+        // 3. TWITCH PŘIPOJENÍ
         // ==========================================
         function connect() {
             if (!AUTH_TOKEN) {
-                const tokenInput = prompt("Vlož svůj GitHub Personal Access Token (uloží se navždy):");
+                const tokenInput = prompt("Vlož svůj GitHub Personal Access Token:");
                 if (tokenInput) {
-                    localStorage.setItem('gh_token', tokenInput);
+                    localStorage.setItem('gh_token', tokenInput.trim());
                     location.reload();
                 }
                 return;
@@ -128,33 +132,27 @@
                         auth_token: AUTH_TOKEN
                     }
                 }));
-                // Ping-pong pro udržení spojení
                 setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
             };
 
             socket.onmessage = (event) => {
                 const response = JSON.parse(event.data);
+                if (response.type === 'PONG') return;
+
                 if (response.type === 'MESSAGE') {
-                    const msg = JSON.parse(response.data.message);
-                    const user = msg.data.redemption.user.display_name;
-                    const reward = msg.data.redemption.reward.title;
+                    const msgData = JSON.parse(response.data.message);
                     
-                    triggerAlert(user, reward);
+                    // Získání jména a názvu odměny z dat od Twitche
+                    const twitchUser = msgData.data.redemption.user.display_name;
+                    const twitchReward = msgData.data.redemption.reward.title;
+                    
+                    triggerAlert(twitchUser, twitchReward);
                 }
             };
 
-            socket.onclose = () => {
-                console.log("Spojení ztraceno, zkouším znovu...");
-                setTimeout(connect, 5000);
-            };
+            socket.onclose = () => setTimeout(connect, 5000);
         }
 
-        // Spuštění
-        if (CHANNEL_ID !== '000000000') {
+        if (CHANNEL_ID !== 'TVOJE_ID_TADY') {
             connect();
-        } else {
-            alert("Nezapomeň v kódu vyplnit CHANNEL_ID!");
         }
-    </script>
-</body>
-</html>
