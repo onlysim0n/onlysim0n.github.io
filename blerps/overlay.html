@@ -2,6 +2,7 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
+    <title>Twitch & Kick Sound Overlay</title>
     <style>
         body { background: transparent; margin: 0; padding: 0; overflow: hidden; font-family: 'Arial Black', sans-serif; }
         #alert-container { display: flex; justify-content: center; align-items: center; height: 100vh; }
@@ -12,68 +13,111 @@
             padding: 50px;
             text-align: center;
             color: white;
-            box-shadow: 0 0 40px rgba(145, 70, 255, 0.8);
             display: none; 
             z-index: 9999;
+            box-shadow: 0 0 30px rgba(145, 70, 255, 0.6);
         }
-        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; }
-        .reward-name { font-size: 28px; color: #00ffcc; }
-        #status { position: absolute; bottom: 5px; right: 5px; color: rgba(255,255,255,0.2); font-size: 10px; }
+        .user-name { font-size: 54px; color: #9146FF; text-transform: uppercase; text-shadow: 2px 2px #000; }
+        .reward-name { font-size: 28px; color: #00ffcc; margin-top: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="status">Odpojeno</div>
-
     <div id="alert-container">
         <div id="alert-box" class="alert-box">
-            <div id="user-name" class="user-name"></div>
-            <div id="reward-name" class="reward-name"></div>
+            <div id="user-name"></div>
+            <div id="reward-name"></div>
         </div>
     </div>
 
     <script>
-        // 1. KONFIGURACE
-        const CHANNEL_ID = '142761052'; // Sem dej to svoje číslo
-        
-        // Zvuky - na GitHub Pages používej raději HTTPS odkazy
+        // ==========================================
+        // 1. NASTAVENÍ (VYPLŇ SVOJE ÚDAJE)
+        // ==========================================
+        const CHANNEL_ID = 'TVOJE_ID_CISLO';     // Číselné ID tvého kanálu
+        const CHANNEL_NAME = 'TVUJ_NICK';        // Tvůj nick na Twitchi (malými písmeny)
+        const ALLOWED_USER = 'NICK_BOTA';       // Nick uživatele/bota, který smí psát !příkazy
+
+        // MAPA ZVUKŮ (Zde přidávej neomezeně další)
         const soundConfig = {
+            // Reaguje na odměnu za body (přesný název z Twitche)
             "SOUND: Curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
-            "Default": "https://www.myinstants.com/media/sounds/ding.mp3"
+            
+            // Reaguje na příkaz v chatu (pro Kick bota)
+            "!curak": "https://www.myinstants.com/media/sounds/dpp-nastup-postizeneho.mp3",
+            
+            // Příklad dalšího zvuku
+            "!ahoj": "https://www.myinstants.com/media/sounds/ding.mp3"
         };
 
-        function triggerAlert(user, reward) {
+        const AUTH_TOKEN = localStorage.getItem('twitch_token');
+
+        // ==========================================
+        // 2. FUNKCE PRO SPOUŠTĚNÍ
+        // ==========================================
+        function triggerAlert(user, key) {
+            const soundUrl = soundConfig[key];
+            if (!soundUrl) return; // Pokud zvuk neexistuje, nic nedělej
+
             const alertBox = document.getElementById('alert-box');
             document.getElementById('user-name').innerText = user;
-            document.getElementById('reward-name').innerText = reward;
+            document.getElementById('reward-name').innerText = key;
 
-            const soundUrl = soundConfig[reward] || soundConfig["Default"];
             const audio = new Audio(soundUrl);
-            audio.play().catch(e => console.log("Nutná interakce"));
+            audio.volume = 1.0;
+            audio.play().catch(e => console.log("Je nutné v OBS kliknout na 'Interagovat'!"));
 
             alertBox.style.display = 'block';
             setTimeout(() => { alertBox.style.display = 'none'; }, 6000);
         }
 
-        function connect() {
-            // Token se zeptá jen jednou a uloží se u tebe v prohlížeči (v OBS)
-            let token = localStorage.getItem('twitch_token');
-            if (!token) {
-                token = prompt("Vlož svůj Twitch OAuth Token (získáš na twitchapps.com/tmi/):");
-                if (token) {
-                    localStorage.setItem('twitch_token', token.trim());
-                } else return;
+        // ==========================================
+        // 3. MONITOROVÁNÍ CHATU (PRO KICK / PŘÍKAZY)
+        // ==========================================
+        function connectChat() {
+            const socket = new WebSocket('wss://irc-ws.chat.twitch.tv:443');
+
+            socket.onopen = () => {
+                socket.send('PASS SCHMOOPIE');
+                socket.send(`NICK justinfan${Math.floor(Math.random() * 10000)}`);
+                socket.send(`JOIN #${CHANNEL_NAME.toLowerCase()}`);
+            };
+
+            socket.onmessage = (event) => {
+                const data = event.data;
+                if (data.includes('PRIVMSG')) {
+                    // Získání nicku odesílatele a zprávy
+                    const user = data.split('!')[0].substring(1);
+                    const message = data.split('PRIVMSG')[1].split(' :')[1].trim();
+
+                    // KONTROLA: Smí tento uživatel spouštět zvuky?
+                    if (user.toLowerCase() === ALLOWED_USER.toLowerCase()) {
+                        if (soundConfig[message]) {
+                            triggerAlert("KICK / BOT", message);
+                        }
+                    }
+                }
+            };
+            socket.onclose = () => setTimeout(connectChat, 5000);
+        }
+
+        // ==========================================
+        // 4. MONITOROVÁNÍ BODŮ (PRO TWITCH)
+        // ==========================================
+        function connectPubSub() {
+            if (!AUTH_TOKEN) {
+                const t = prompt("Vlož Twitch OAuth Token (získej na twitchapps.com/tmi/):");
+                if (t) { localStorage.setItem('twitch_token', t.trim()); location.reload(); }
+                return;
             }
 
             const socket = new WebSocket('wss://pubsub-edge.twitch.tv');
-
             socket.onopen = () => {
-                document.getElementById('status').innerText = "Připojeno";
                 socket.send(JSON.stringify({
                     type: 'LISTEN',
-                    data: {
-                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`],
-                        auth_token: token.replace('oauth:', '') // PubSub chce čistý kód
+                    data: { 
+                        topics: [`channel-points-channel-v1.${CHANNEL_ID}`], 
+                        auth_token: AUTH_TOKEN.replace('oauth:', '') 
                     }
                 }));
                 setInterval(() => socket.send(JSON.stringify({ type: 'PING' })), 60000);
@@ -84,22 +128,20 @@
                 if (res.type === 'MESSAGE') {
                     const msg = JSON.parse(res.data.message);
                     if (msg.type === 'reward-redeemed') {
-                        triggerAlert(
-                            msg.data.redemption.user.display_name, 
-                            msg.data.redemption.reward.title
-                        );
+                        const user = msg.data.redemption.user.display_name;
+                        const reward = msg.data.redemption.reward.title;
+                        triggerAlert(user, reward);
                     }
                 }
-                if (res.error === "ERR_BADAUTH") {
-                    localStorage.removeItem('twitch_token');
-                    location.reload();
-                }
             };
-
-            socket.onclose = () => setTimeout(connect, 5000);
+            socket.onclose = () => setTimeout(connectPubSub, 5000);
         }
 
-        if (CHANNEL_ID !== 'TVOJE_ID_CISLO') connect();
+        // Spuštění
+        if (CHANNEL_ID !== 'TVOJE_ID_CISLO') {
+            connectChat();
+            connectPubSub();
+        }
     </script>
 </body>
 </html>
