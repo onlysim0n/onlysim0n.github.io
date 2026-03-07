@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Stream Blerp Overlay</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body>
+
+    <div id="alert-wrapper">
+        <div id="alert-card" class="alert-card animate__animated">
+            <span class="user-name" id="user-name">Uživatel</span>
+            <div class="reward-name" id="reward-name">Odměna za body</div>
+        </div>
+    </div>
+
+    <script>
+        const alertCard = document.getElementById('alert-card');
+        const userNameEl = document.getElementById('user-name');
+        const rewardNameEl = document.getElementById('reward-name');
+        const audio = new Audio('blerp.mp3');
+
+        function triggerBlerp(user, reward) {
+            userNameEl.innerText = user;
+            rewardNameEl.innerText = reward;
+            
+            alertCard.style.display = 'block';
+            alertCard.classList.remove('animate__bounceOut');
+            alertCard.classList.add('animate__bounceIn', 'glow');
+            
+            audio.play().catch(e => console.log("Audio Error"));
+
+            setTimeout(() => {
+                alertCard.classList.remove('animate__bounceIn');
+                alertCard.classList.add('animate__bounceOut');
+                setTimeout(() => { alertCard.style.display = 'none'; }, 1000);
+            }, 5000);
+        }
+
+        // TEST: Můžeš smazat po vyzkoušení v prohlížeči
+        // triggerBlerp('Herní_Král', 'Mega Blerp Sound');
+    </script>
+</body>
+</html>
