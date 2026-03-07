@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Only_Sim0n | Custom Blerp</title>
+    <title>Only_Sim0n | Live Blerp</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 </head>
@@ -11,16 +11,10 @@
 
     <header>
         <div class="logo-box">
-            <img src="../assets/loga/logo.png" alt="Logo" class="logo-img">
             <span class="logo-text">Only_Sim0n</span>
         </div>
         <nav>
             <ul class="nav-links">
-                <li><a href="../index.html">About</a></li>
-                <li><a href="../ateam/index.html">A-TEAM</a></li>
-                <li><a href="../stream/index.html">Stream</a></li>
-                <li><a href="../contact/index.html">Contact</a></li>
-                <li><a href="../setup/index.html">Setup</a></li>
                 <li><a href="index.html" class="active">Blerp</a></li>
             </ul>
         </nav>
@@ -28,20 +22,75 @@
 
     <main class="blerp-section">
         <h1>LIVE SOUNDBOARD</h1>
-        <div id="status">Připojování k Twitchi...</div>
         
+        <div id="status">Status: Odpojeno</div>
+        <button id="login-btn" class="sound-btn" style="padding: 15px 30px; margin-bottom: 30px; cursor: pointer; background: #9146FF; border: none; color: white; font-weight: bold; border-radius: 5px;">
+            LOGIN TO TWITCH
+        </button>
+
         <div class="sound-grid">
             <button class="sound-btn" onclick="playSound('Agraelus_curak.mp3')">
-                <span class="btn-icon">😂</span>
-                <span class="btn-text">ČŮRÁK</span>
-            </button>
-            <button class="sound-btn" onclick="playSound('bruh.mp3')">
-                <span class="btn-icon">💀</span>
-                <span class="btn-text">BRUH</span>
+                <span class="btn-icon">🔊</span>
+                <span class="btn-text">SOUND: Curak</span>
             </button>
         </div>
     </main>
 
-    <script src="script.js"></script>
+    <script>
+        // --- KONFIGURACE ---
+        const CLIENT_ID = 'TVŮJ_CLIENT_ID'; // <--- SEM VLOŽ SVÉ CLIENT ID Z TWITCH DEV CONSOLE
+        const CHANNEL = 'only_sim0n';
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+        // 1. Kontrola, zda máme token v URL (vracíme se z přihlášení)
+        const hash = window.location.hash.substring(1);
+        const params = new URLSearchParams(hash);
+        const accessToken = params.get('access_token');
+
+        const statusEl = document.getElementById('status');
+        const loginBtn = document.getElementById('login-btn');
+
+        if (!accessToken) {
+            // Pokud nemáme token, nastavíme tlačítko pro přihlášení
+            loginBtn.addEventListener('click', () => {
+                const authUrl = `https://id.twitch.tv/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=token&scope=channel:read:redemptions+chat:read`;
+                window.location.href = authUrl;
+            });
+        } else {
+            // Máme token! Schováme tlačítko a připojíme se
+            loginBtn.style.display = 'none';
+            statusEl.innerText = "Status: Autorizuji...";
+            initComfy(accessToken);
+            
+            // Vyčistíme URL, aby tam ten token "nestrašil"
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+
+        function initComfy(token) {
+            ComfyJS.onReward = (user, reward, cost, message, extra) => {
+                console.log("Detekována odměna:", reward);
+                
+                // Přesná shoda s názvem odměny na Twitchi
+                if (reward === "SOUND: Curak") {
+                    playSound("Agraelus_curak.mp3");
+                }
+            };
+
+            // Připojení přes OAuth
+            ComfyJS.Init(CHANNEL, "oauth:" + token);
+
+            ComfyJS.onConnected = () => {
+                statusEl.innerText = "Status: PŘIHLÁŠEN (Kanál: " + CHANNEL + ")";
+                statusEl.style.color = "#00ff00";
+            };
+        }
+
+        function playSound(file) {
+            const audio = new Audio('sounds/' + file);
+            audio.play().catch(err => {
+                console.error("Chyba přehrávání: Ujisti se, že jsi na stránku aspoň jednou kliknul.", err);
+            });
+        }
+    </script>
 </body>
 </html>
