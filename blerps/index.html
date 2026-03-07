@@ -2,16 +2,32 @@
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
-    <title>Stream Blerp Overlay</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitch Blerp Overlay</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/comfy.js@latest/dist/comfy.min.js"></script>
 </head>
 <body>
 
+    <div id="setup-panel">
+        <div class="panel-header">
+            <span>Nastavení Overlaye</span>
+            <button onclick="document.getElementById('setup-panel').style.opacity='0.1'">X</button>
+        </div>
+        <p>Pro trvalou změnu zvuku nahraj soubor <strong>blerp.mp3</strong> do svého repozitáře:</p>
+        <a href="https://github.com/onlysim0n/blerps/sounds/main" target="_blank" class="upload-btn">
+            📁 Otevřít nahrávání na GitHubu
+        </a>
+    </div>
+
     <div id="alert-wrapper">
         <div id="alert-card" class="alert-card animate__animated">
-            <span class="user-name" id="user-name">Uživatel</span>
-            <div class="reward-name" id="reward-name">Odměna za body</div>
+            <div class="alert-content">
+                <div class="title-tag">Nová Odměna!</div>
+                <div id="user-name" class="user-name">Streamer</div>
+                <div id="reward-name" class="reward-name">Aktivoval Blerp</div>
+            </div>
         </div>
     </div>
 
@@ -19,27 +35,43 @@
         const alertCard = document.getElementById('alert-card');
         const userNameEl = document.getElementById('user-name');
         const rewardNameEl = document.getElementById('reward-name');
+        
+        // Načtení zvuku (musí být v repozitáři jako blerp.mp3)
         const audio = new Audio('blerp.mp3');
 
+        // Funkce, která spustí vizuál a zvuk
         function triggerBlerp(user, reward) {
             userNameEl.innerText = user;
             rewardNameEl.innerText = reward;
             
-            alertCard.style.display = 'block';
-            alertCard.classList.remove('animate__bounceOut');
-            alertCard.classList.add('animate__bounceIn', 'glow');
+            alertCard.style.display = 'flex';
+            alertCard.classList.remove('animate__fadeOutDown');
+            alertCard.classList.add('animate__backInUp', 'glow-effect');
             
-            audio.play().catch(e => console.log("Audio Error"));
+            // Přehrání zvuku
+            audio.play().catch(e => {
+                console.warn("Pro zvuk je nutné v OBS kliknout na 'Interagovat' a jednou na plochu kliknout.");
+            });
 
+            // Zmizení po 6 sekundách
             setTimeout(() => {
-                alertCard.classList.remove('animate__bounceIn');
-                alertCard.classList.add('animate__bounceOut');
-                setTimeout(() => { alertCard.style.display = 'none'; }, 1000);
-            }, 5000);
+                alertCard.classList.remove('animate__backInUp');
+                alertCard.classList.add('animate__fadeOutDown');
+                setTimeout(() => { 
+                    alertCard.style.display = 'none'; 
+                }, 1000);
+            }, 6000);
         }
 
-        // TEST: Můžeš smazat po vyzkoušení v prohlížeči
-        // triggerBlerp('Herní_Král', 'Mega Blerp Sound');
+        // Napojení na Twitch Channel Points
+        ComfyJS.onReward = (user, reward, cost, message, extra) => {
+            triggerBlerp(user, reward);
+        };
+
+        // INICIALIZACE - Přepiš na svůj nick
+        ComfyJS.Init("Only_Sim0n");
+
+        // TESTOVACÍ PŘÍKAZ (pro kontrolu v prohlížeči napiš do konzole triggerBlerp('Test', 'Test'))
     </script>
 </body>
 </html>
